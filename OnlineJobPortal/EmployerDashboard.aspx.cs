@@ -145,13 +145,31 @@ namespace OnlineJobPortal
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT
-                        jp.JobCategory AS Department,
-                        COUNT(ja.ApplicationID) AS CandidatesMatched
-                    FROM JobPosting jp
-                    LEFT JOIN JobApplication ja ON jp.JobID = ja.JobID
-                    WHERE jp.EmployerID = @EmployerID
-                    GROUP BY jp.JobCategory";
+            WITH DepartmentCandidates AS (
+                SELECT
+                    jp.JobCategory AS Department,
+                    COUNT(ja.ApplicationID) AS CandidatesMatched
+                FROM JobPosting jp
+                LEFT JOIN JobApplication ja ON jp.JobID = ja.JobID
+                WHERE jp.EmployerID = @EmployerID
+                GROUP BY jp.JobCategory
+            ),
+            CandidatesWithChange AS (
+                SELECT
+                    dc.Department,
+                    dc.CandidatesMatched,
+                    LAG(dc.CandidatesMatched) OVER (ORDER BY dc.Department) AS PreviousCandidatesMatched
+                FROM DepartmentCandidates dc
+            )
+            SELECT
+                Department,
+                CandidatesMatched,
+                CASE
+                    WHEN PreviousCandidatesMatched IS NULL THEN 0
+                    ELSE ((CAST(CandidatesMatched AS FLOAT) - PreviousCandidatesMatched) / PreviousCandidatesMatched) * 100
+                END AS ChangePercentage
+            FROM CandidatesWithChange
+            ORDER BY Department";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@EmployerID", employerID);
 
