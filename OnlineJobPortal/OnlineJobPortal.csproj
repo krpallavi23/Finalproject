@@ -118,10 +118,82 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="css\animate.min.css" />
+    <Content Include="css\bootstrap-select.min.css" />
+    <Content Include="css\custom-bs.css" />
+    <Content Include="css\jquery.fancybox.min.css" />
+    <Content Include="css\owl.carousel.min.css" />
+    <Content Include="css\quill.snow.css" />
+    <Content Include="css\style.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\icomoon\demo-files\demo.css" />
+    <Content Include="fonts\icomoon\demo-files\demo.js" />
+    <Content Include="fonts\icomoon\demo.html" />
+    <Content Include="fonts\icomoon\fonts\icomoon.svg" />
+    <Content Include="fonts\icomoon\Read Me.txt" />
+    <Content Include="fonts\icomoon\style.css" />
+    <Content Include="fonts\line-icons\demo-files\demo.css" />
+    <Content Include="fonts\line-icons\demo-files\demo.js" />
+    <Content Include="fonts\line-icons\demo.html" />
+    <Content Include="fonts\line-icons\fonts\icomoon.svg" />
+    <Content Include="fonts\line-icons\Read Me.txt" />
+    <Content Include="fonts\line-icons\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="EmployerDashboard.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="images\apps.png" />
+    <Content Include="images\hero_1.jpg" />
+    <Content Include="images\img_1.jpg" />
+    <Content Include="images\img_2.jpg" />
+    <Content Include="images\job_logo_1.jpg" />
+    <Content Include="images\job_logo_2.jpg" />
+    <Content Include="images\job_logo_3.jpg" />
+    <Content Include="images\job_logo_4.jpg" />
+    <Content Include="images\job_logo_5.jpg" />
+    <Content Include="images\job_single_img_1.jpg" />
+    <Content Include="images\logo_airbnb.svg" />
+    <Content Include="images\logo_apple.svg" />
+    <Content Include="images\logo_mailchimp.svg" />
+    <Content Include="images\logo_paypal.svg" />
+    <Content Include="images\logo_sony.svg" />
+    <Content Include="images\logo_stripe.svg" />
+    <Content Include="images\logo_tinder.svg" />
+    <Content Include="images\logo_visa.svg" />
+    <Content Include="images\person_1.jpg" />
+    <Content Include="images\person_2.jpg" />
+    <Content Include="images\person_3.jpg" />
+    <Content Include="images\person_4.jpg" />
+    <Content Include="images\person_5.jpg" />
+    <Content Include="images\person_6.jpg" />
+    <Content Include="images\person_transparent.png" />
+    <Content Include="images\person_transparent_2.png" />
+    <Content Include="images\quote.png" />
+    <Content Include="images\sq_img_1.jpg" />
+    <Content Include="images\sq_img_10.jpg" />
+    <Content Include="images\sq_img_11.jpg" />
+    <Content Include="images\sq_img_12.jpg" />
+    <Content Include="images\sq_img_13.jpg" />
+    <Content Include="images\sq_img_2.jpg" />
+    <Content Include="images\sq_img_3.jpg" />
+    <Content Include="images\sq_img_4.jpg" />
+    <Content Include="images\sq_img_5.jpg" />
+    <Content Include="images\sq_img_6.jpg" />
+    <Content Include="images\sq_img_7.jpg" />
+    <Content Include="images\sq_img_8.jpg" />
+    <Content Include="images\sq_img_9.jpg" />
+    <Content Include="js\bootstrap-select.min.js" />
+    <Content Include="js\bootstrap.bundle.min.js" />
+    <Content Include="js\custom.js" />
+    <Content Include="js\isotope.pkgd.min.js" />
+    <Content Include="js\jquery.animateNumber.min.js" />
+    <Content Include="js\jquery.easing.1.3.js" />
+    <Content Include="js\jquery.fancybox.min.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.waypoints.min.js" />
+    <Content Include="js\owl.carousel.min.js" />
+    <Content Include="js\quill.min.js" />
+    <Content Include="js\stickyfill.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -150,6 +222,107 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="bs4\.DS_Store" />
+    <Content Include="bs4\scss\bootstrap-grid.scss" />
+    <Content Include="bs4\scss\bootstrap-reboot.scss" />
+    <Content Include="bs4\scss\bootstrap.scss" />
+    <Content Include="bs4\scss\mixins\_alert.scss" />
+    <Content Include="bs4\scss\mixins\_background-variant.scss" />
+    <Content Include="bs4\scss\mixins\_badge.scss" />
+    <Content Include="bs4\scss\mixins\_border-radius.scss" />
+    <Content Include="bs4\scss\mixins\_box-shadow.scss" />
+    <Content Include="bs4\scss\mixins\_breakpoints.scss" />
+    <Content Include="bs4\scss\mixins\_buttons.scss" />
+    <Content Include="bs4\scss\mixins\_caret.scss" />
+    <Content Include="bs4\scss\mixins\_clearfix.scss" />
+    <Content Include="bs4\scss\mixins\_deprecate.scss" />
+    <Content Include="bs4\scss\mixins\_float.scss" />
+    <Content Include="bs4\scss\mixins\_forms.scss" />
+    <Content Include="bs4\scss\mixins\_gradients.scss" />
+    <Content Include="bs4\scss\mixins\_grid-framework.scss" />
+    <Content Include="bs4\scss\mixins\_grid.scss" />
+    <Content Include="bs4\scss\mixins\_hover.scss" />
+    <Content Include="bs4\scss\mixins\_image.scss" />
+    <Content Include="bs4\scss\mixins\_list-group.scss" />
+    <Content Include="bs4\scss\mixins\_lists.scss" />
+    <Content Include="bs4\scss\mixins\_nav-divider.scss" />
+    <Content Include="bs4\scss\mixins\_pagination.scss" />
+    <Content Include="bs4\scss\mixins\_reset-text.scss" />
+    <Content Include="bs4\scss\mixins\_resize.scss" />
+    <Content Include="bs4\scss\mixins\_screen-reader.scss" />
+    <Content Include="bs4\scss\mixins\_size.scss" />
+    <Content Include="bs4\scss\mixins\_table-row.scss" />
+    <Content Include="bs4\scss\mixins\_text-emphasis.scss" />
+    <Content Include="bs4\scss\mixins\_text-hide.scss" />
+    <Content Include="bs4\scss\mixins\_text-truncate.scss" />
+    <Content Include="bs4\scss\mixins\_transition.scss" />
+    <Content Include="bs4\scss\mixins\_visibility.scss" />
+    <Content Include="bs4\scss\utilities\_align.scss" />
+    <Content Include="bs4\scss\utilities\_background.scss" />
+    <Content Include="bs4\scss\utilities\_borders.scss" />
+    <Content Include="bs4\scss\utilities\_clearfix.scss" />
+    <Content Include="bs4\scss\utilities\_display.scss" />
+    <Content Include="bs4\scss\utilities\_embed.scss" />
+    <Content Include="bs4\scss\utilities\_flex.scss" />
+    <Content Include="bs4\scss\utilities\_float.scss" />
+    <Content Include="bs4\scss\utilities\_overflow.scss" />
+    <Content Include="bs4\scss\utilities\_position.scss" />
+    <Content Include="bs4\scss\utilities\_screenreaders.scss" />
+    <Content Include="bs4\scss\utilities\_shadows.scss" />
+    <Content Include="bs4\scss\utilities\_sizing.scss" />
+    <Content Include="bs4\scss\utilities\_spacing.scss" />
+    <Content Include="bs4\scss\utilities\_stretched-link.scss" />
+    <Content Include="bs4\scss\utilities\_text.scss" />
+    <Content Include="bs4\scss\utilities\_visibility.scss" />
+    <Content Include="bs4\scss\vendor\_rfs.scss" />
+    <Content Include="bs4\scss\_alert.scss" />
+    <Content Include="bs4\scss\_badge.scss" />
+    <Content Include="bs4\scss\_breadcrumb.scss" />
+    <Content Include="bs4\scss\_button-group.scss" />
+    <Content Include="bs4\scss\_buttons.scss" />
+    <Content Include="bs4\scss\_card.scss" />
+    <Content Include="bs4\scss\_carousel.scss" />
+    <Content Include="bs4\scss\_close.scss" />
+    <Content Include="bs4\scss\_code.scss" />
+    <Content Include="bs4\scss\_custom-forms.scss" />
+    <Content Include="bs4\scss\_dropdown.scss" />
+    <Content Include="bs4\scss\_forms.scss" />
+    <Content Include="bs4\scss\_functions.scss" />
+    <Content Include="bs4\scss\_grid.scss" />
+    <Content Include="bs4\scss\_images.scss" />
+    <Content Include="bs4\scss\_input-group.scss" />
+    <Content Include="bs4\scss\_jumbotron.scss" />
+    <Content Include="bs4\scss\_list-group.scss" />
+    <Content Include="bs4\scss\_media.scss" />
+    <Content Include="bs4\scss\_mixins.scss" />
+    <Content Include="bs4\scss\_modal.scss" />
+    <Content Include="bs4\scss\_nav.scss" />
+    <Content Include="bs4\scss\_navbar.scss" />
+    <Content Include="bs4\scss\_pagination.scss" />
+    <Content Include="bs4\scss\_popover.scss" />
+    <Content Include="bs4\scss\_print.scss" />
+    <Content Include="bs4\scss\_progress.scss" />
+    <Content Include="bs4\scss\_reboot.scss" />
+    <Content Include="bs4\scss\_root.scss" />
+    <Content Include="bs4\scss\_spinners.scss" />
+    <Content Include="bs4\scss\_tables.scss" />
+    <Content Include="bs4\scss\_toasts.scss" />
+    <Content Include="bs4\scss\_tooltip.scss" />
+    <Content Include="bs4\scss\_transitions.scss" />
+    <Content Include="bs4\scss\_type.scss" />
+    <Content Include="bs4\scss\_utilities.scss" />
+    <Content Include="bs4\scss\_variables.scss" />
+    <Content Include="css\custom-bs.css.map" />
+    <Content Include="fonts\.DS_Store" />
+    <Content Include="fonts\icomoon\fonts\icomoon.eot" />
+    <Content Include="fonts\icomoon\fonts\icomoon.ttf" />
+    <Content Include="fonts\icomoon\fonts\icomoon.woff" />
+    <Content Include="fonts\icomoon\selection.json" />
+    <Content Include="fonts\line-icons\.DS_Store" />
+    <Content Include="fonts\line-icons\fonts\icomoon.eot" />
+    <Content Include="fonts\line-icons\fonts\icomoon.ttf" />
+    <Content Include="fonts\line-icons\fonts\icomoon.woff" />
+    <Content Include="fonts\line-icons\selection.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -210,6 +383,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="EmployerDashboard.aspx.cs">
+      <DependentUpon>EmployerDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmployerDashboard.aspx.designer.cs">
+      <DependentUpon>EmployerDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -227,12 +407,14 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -245,6 +427,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
+    <Content Include="scss\.DS_Store" />
+    <Content Include="scss\custom-bs.scss" />
+    <Content Include="scss\style.scss" />
+    <Content Include="scss\_custom-variables.scss" />
+    <Content Include="scss\_site-navbar.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
