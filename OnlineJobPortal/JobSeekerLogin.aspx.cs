@@ -63,7 +63,7 @@ namespace OnlineJobPortal
                         Session["JobSeekerID"] =jobSeekerID;
 
                         // Redirect to the job seeker dashboard
-                        Response.Redirect("EmployerDashboard.aspx");
+                        Response.Redirect("JobSeekerDashboard.aspx");
                     }
                     else
                     {

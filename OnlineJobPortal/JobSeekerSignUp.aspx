@@ -1,11 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobSeekerSignUp.aspx.cs" Inherits="OnlineJobPortal.JobSeekerSignUp" %>
 
 <!DOCTYPE html>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>JobBoard &mdash; Sign Up as Employer</title>
+    <title>JobBoard &mdash; Sign Up as Job Seeker</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -30,14 +28,33 @@
 
 <div class="site-wrap">
     <header class="site-navbar mt-3">
-        <!-- Your navbar code here -->
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="site-logo col-6"><a href="index.html">JobBoard</a></div>
+
+      <nav class="mx-auto site-navigation">
+        <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+          <li><a href="Home.aspx" class="nav-link active">Home</a></li>
+          <li><a href="About.aspx">About</a></li>
+          <li><a href="Contact.aspx">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="right-cta-menu text-right d-flex align-items-center col-6">
+        
+        <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+      </div>
+
+    </div>
+  </div>
+</header>
     </header>
 
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Sign Up as Employer</h1>
+                    <h1 class="text-white font-weight-bold">Sign Up as Job Seeker</h1>
                     <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">/</span>
                         <span class="text-white"><strong>Sign Up</strong></span>
@@ -51,13 +68,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5">
-                    <h2 class="mb-4">Sign Up To JobBoard</h2>
+                    <h2 class="mb-4">Sign Up to JobBoard</h2>
                     <form runat="server" class="p-4 border rounded">
 
                         <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="CompanyName">Company Name</label>
-                                <asp:TextBox ID="CompanyName" runat="server" CssClass="form-control" placeholder="Company Name" required></asp:TextBox>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="text-black" for="FirstName">First Name</label>
+                                <asp:TextBox ID="FirstNameInput" runat="server" CssClass="form-control" placeholder="First Name" required></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="text-black" for="LastName">Last Name</label>
+                                <asp:TextBox ID="LastNameInput" runat="server" CssClass="form-control" placeholder="Last Name" required></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="text-black" for="DateOfBirth">Date of Birth</label>
+                                <asp:TextBox ID="DateOfBirthInput" runat="server" CssClass="form-control" TextMode="Date" required></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="text-black" for="Gender">Gender</label>
+                                <asp:DropDownList ID="GenderInput" runat="server" CssClass="form-control" required>
+                                    <asp:ListItem Text="Select Gender" Value="" />
+                                    <asp:ListItem Text="Male" Value="Male" />
+                                    <asp:ListItem Text="Female" Value="Female" />
+                                    <asp:ListItem Text="Other" Value="Other" />
+                                </asp:DropDownList>
                             </div>
                         </div>
 
@@ -120,15 +157,15 @@
 
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="ContactPerson">Contact Person</label>
-                                <asp:TextBox ID="ContactPersonInput" runat="server" CssClass="form-control" placeholder="Contact Person" required></asp:TextBox>
+                                <label class="text-black" for="YearsOfExperience">Years of Experience</label>
+                                <asp:TextBox ID="YearsOfExperienceInput" runat="server" CssClass="form-control" placeholder="Years of Experience" required></asp:TextBox>
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="ContactNumber">Contact Number</label>
-                                <asp:TextBox ID="ContactNumberInput" runat="server" CssClass="form-control" placeholder="Contact Number" required></asp:TextBox>
+                                <label class="text-black" for="Resume">Upload Resume</label>
+                                <asp:FileUpload ID="ResumeUpload" runat="server" CssClass="form-control" />
                             </div>
                         </div>
 

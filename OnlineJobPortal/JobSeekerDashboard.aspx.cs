@@ -9,277 +9,248 @@ namespace OnlineJobPortal
 {
     public partial class JobSeekerDashboard : Page
     {
+        // Retrieve the connection string from Web.config
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                // Authenticate Job Seeker
                 if (Session["JobSeekerID"] == null)
                 {
                     Response.Redirect("JobSeekerLogin.aspx");
                 }
                 else
                 {
-                    LoadJobSeekerName();
+                    LoadJobSeekerDetails();
                     LoadDashboardStatistics();
-                    LoadJobsPostedOverTime();
-                    LoadCandidatesMatched();
-                    LoadNotifications();
-                    LoadServerStats();
                 }
             }
         }
 
-        private void LoadJobSeekerName()
+        /// <summary>
+        /// Loads job seeker details such as name.
+        /// </summary>
+        private void LoadJobSeekerDetails()
         {
             int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "SELECT FirstName, LastName FROM JobSeeker WHERE JobSeekerID = @JobSeekerID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
 
-                conn.Open();
-                lblJobSeekerName.Text = cmd.ExecuteScalar()?.ToString() ?? "JobSeeker";
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            lblJobSeekerName.Text = $"{reader["FirstName"]} {reader["LastName"]}";
+                            // Optionally, load profile picture if stored in the database
+                        }
+                        reader.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the exception (implement logging as per your project standards)
+                        lblMessage.Text = "An error occurred while loading your details.";
+                    }
+                }
             }
         }
 
+        /// <summary>
+        /// Loads various statistics for the dashboard.
+        /// </summary>
         private void LoadDashboardStatistics()
         {
             int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
+                try
+                {
+                    conn.Open();
 
-                lblTotalJobs.Text = GetCount(conn, "JobPosting", jobSeekerID);
-                lblCandidatesShortlisted.Text = GetCandidatesCount(conn, jobSeekerID, "Shortlisted");
-                lblPendingReviews.Text = GetCandidatesCount(conn, jobSeekerID, "Pending");
-                lblInterviewsScheduled.Text = GetCandidatesCount(conn, jobSeekerID, "Interview Scheduled");
+                    // 1. Total Applications
+                    string totalApplicationsQuery = "SELECT COUNT(*) FROM JobApplication WHERE JobSeekerID = @JobSeekerID";
+                    using (SqlCommand cmd = new SqlCommand(totalApplicationsQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
+                        int totalApplications = (int)cmd.ExecuteScalar();
+                        lblTotalApplications.Text = totalApplications.ToString();
+                    }
+
+                    // 2. Active Jobs (Total Active Job Postings)
+                    string activeJobsQuery = "SELECT COUNT(*) FROM JobPosting WHERE Status = 'Active'";
+                    using (SqlCommand cmd = new SqlCommand(activeJobsQuery, conn))
+                    {
+                        int activeJobs = (int)cmd.ExecuteScalar();
+                        lblActiveJobs.Text = activeJobs.ToString();
+                    }
+
+                    // 3. Pending Applications (Applications with Status 'Applied' or 'Interviewed')
+                    string pendingApplicationsQuery = "SELECT COUNT(*) FROM JobApplication WHERE JobSeekerID = @JobSeekerID AND Status IN ('Applied', 'Interviewed')";
+                    using (SqlCommand cmd = new SqlCommand(pendingApplicationsQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
+                        int pendingApplications = (int)cmd.ExecuteScalar();
+                        lblPendingApplications.Text = pendingApplications.ToString();
+                    }
+
+                    // 4. Messages (Total Messages Received)
+                    string messagesQuery = "SELECT COUNT(*) FROM ChatMessages WHERE JobSeekerID = @JobSeekerID";
+                    using (SqlCommand cmd = new SqlCommand(messagesQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
+                        int totalMessages = (int)cmd.ExecuteScalar();
+                        lblMessages.Text = totalMessages.ToString();
+                    }
+
+                    // Add more statistics as needed
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception (implement logging as per your project standards)
+                    lblMessage.Text = "An error occurred while loading dashboard statistics.";
+                }
             }
         }
 
-        private string GetCount(SqlConnection conn, string tableName, int jobSeekerID)
+        /// <summary>
+        /// Handles the click event for viewing the job seeker's profile.
+        /// </summary>
+        protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            string query = $"SELECT COUNT(*) FROM {tableName} WHERE JobSeekerID = @JobSeekerID";
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-            return cmd.ExecuteScalar().ToString();
+            Response.Redirect("JobSeekerProfile.aspx");
         }
 
-        private string GetCandidatesCount(SqlConnection conn, int jobSeekerID, string status)
+        /// <summary>
+        /// Handles the click event for accessing the inbox.
+        /// </summary>
+        protected void lnkInbox_Click(object sender, EventArgs e)
         {
-            string query = @"
-                SELECT COUNT(*) FROM JobApplication
-                WHERE JobID IN (SELECT JobID FROM JobPosting WHERE JobSeekerID = @JobSeekerID)
-                AND Status = @Status";
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-            cmd.Parameters.AddWithValue("@Status", status);
-            return cmd.ExecuteScalar().ToString();
+            Response.Redirect("JobSeekerInbox.aspx");
         }
 
-        private void LoadJobsPostedOverTime()
-        {
-            int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"
-                    WITH MonthlyJobs AS (
-                        SELECT
-                            YEAR(ApplicationDeadline) AS Year,
-                            MONTH(ApplicationDeadline) AS MonthNumber,
-                            DATENAME(MONTH, ApplicationDeadline) AS [Month],
-                            COUNT(*) AS JobsPosted
-                        FROM JobPosting
-                        WHERE JobSeekerID = @JobSeekerID
-                        GROUP BY YEAR(ApplicationDeadline), MONTH(ApplicationDeadline), DATENAME(MONTH, ApplicationDeadline)
-                    )
-                    SELECT [Month], JobsPosted
-                    FROM MonthlyJobs
-                    ORDER BY Year, MonthNumber";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-
-                conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                gvJobsPosted.DataSource = dt;
-                gvJobsPosted.DataBind();
-            }
-        }
-
-        private void LoadCandidatesMatched()
-        {
-            int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"
-                    WITH DepartmentCandidates AS (
-                        SELECT
-                            jp.JobCategory AS Department,
-                            COUNT(ja.ApplicationID) AS CandidatesMatched
-                        FROM JobPosting jp
-                        LEFT JOIN JobApplication ja ON jp.JobID = ja.JobID
-                        WHERE jp.JobSeekerID = @JobSeekerID
-                        GROUP BY jp.JobCategory
-                    )
-                    SELECT Department, CandidatesMatched
-                    FROM DepartmentCandidates
-                    ORDER BY Department";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-
-                conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                gvCandidatesMatched.DataSource = dt;
-                gvCandidatesMatched.DataBind();
-            }
-        }
-
-        private void LoadNotifications()
-        {
-            int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"
-                    SELECT TOP 5
-                        'New application from ' + js.FirstName + ' ' + js.LastName AS NotificationText,
-                        ja.ApplicationDate AS [Date]
-                    FROM JobApplication ja
-                    INNER JOIN JobPosting jp ON ja.JobID = jp.JobID
-                    INNER JOIN JobSeeker js ON ja.JobSeekerID = js.JobSeekerID
-                    WHERE jp.JobSeekerID = @JobSeekerID
-                    ORDER BY ja.ApplicationDate DESC";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-
-                conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                rptNotifications.DataSource = dt;
-                rptNotifications.DataBind();
-            }
-        }
-
-        private void LoadServerStats()
-        {
-            lblServerLoad.Text = "45%";
-            divServerLoadProgress.Style["width"] = "45%";
-
-            lblDiskSpace.Text = "70%";
-            divDiskSpaceProgress.Style["width"] = "70%";
-
-            lblMemoryUsage.Text = "60%";
-            divMemoryUsageProgress.Style["width"] = "60%";
-        }
-
-        protected void imgProfile_Click(object sender, ImageClickEventArgs e)
-        {
-            pnlProfileMenu.Visible = !pnlProfileMenu.Visible;
-        }
-
-        protected void lnkEditProfile_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("EditJobSeekerProfile.aspx");
-        }
-
-        protected void lnkSettings_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Settings.aspx");
-        }
-
+        /// <summary>
+        /// Handles the click event for logging out the job seeker.
+        /// </summary>
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("JobSeekerLogin.aspx");
         }
 
-        protected void gvJobsPosted_Sorting(object sender, System.Web.UI.WebControls.GridViewSortEventArgs e)
-        {
-            SortGridView(gvJobsPosted, e.SortExpression);
-        }
+        /// <summary>
+        /// Handles the click event for sending chat messages.
+        /// </summary>
 
-        protected void gvCandidatesMatched_Sorting(object sender, System.Web.UI.WebControls.GridViewSortEventArgs e)
+        private void LoadEmployers()
         {
-            SortGridView(gvCandidatesMatched, e.SortExpression);
-        }
-
-        private void SortGridView(GridView gridView, string sortExpression)
-        {
-            DataTable dt = gridView.DataSource as DataTable;
-            if (dt != null)
+            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                dt.DefaultView.Sort = sortExpression;
-                gridView.DataSource = dt;
-                gridView.DataBind();
+                string query = "SELECT EmployerID, CompanyName FROM Employer";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    ddlEmployers.DataSource = reader;
+                    ddlEmployers.DataTextField = "CompanyName";
+                    ddlEmployers.DataValueField = "EmployerID";
+                    ddlEmployers.DataBind();
+
+                    ddlEmployers.Items.Insert(0, new ListItem("-- Select Employer --", ""));
+                }
             }
         }
 
-        protected void btnSend_Click(object sender, EventArgs e)
+        private int GetSelectedReceiverID()
         {
-            if (!string.IsNullOrEmpty(txtChat.Text.Trim()))
+            if (ddlEmployers.SelectedValue != null && ddlEmployers.SelectedValue != "")
             {
-                int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
-                int recipientID = 0; // Set this based on your chat implementation
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                        INSERT INTO ChatMessages (JobSeekerID, RecipientID, Message)
-                        VALUES (@JobSeekerID, @RecipientID, @Message)";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-                    cmd.Parameters.AddWithValue("@RecipientID", recipientID);
-                    cmd.Parameters.AddWithValue("@Message", txtChat.Text.Trim());
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-
-                txtChat.Text = string.Empty;
-                LoadChatMessages();
+                return Convert.ToInt32(ddlEmployers.SelectedValue);
+            }
+            else
+            {
+                return 0;
             }
         }
 
         private void LoadChatMessages()
         {
             int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
-            int recipientID = 0; // Set this based on your chat implementation
 
+            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT Message, MessageTime AS [Time]
-                    FROM ChatMessages
-                    WHERE JobSeekerID = @JobSeekerID AND RecipientID = @RecipientID
-                    ORDER BY MessageTime DESC";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-                cmd.Parameters.AddWithValue("@RecipientID", recipientID);
+                    SELECT CM.Message, CM.MessageTime, E.CompanyName, E.ProfilePicturePath
+                    FROM ChatMessages CM
+                    INNER JOIN Employer E ON CM.EmployerID = E.EmployerID
+                    WHERE CM.JobSeekerID = @JobSeekerID
+                    ORDER BY CM.MessageTime DESC";
 
-                conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
 
-                rptChatMessages.DataSource = dt;
-                rptChatMessages.DataBind();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable messagesTable = new DataTable();
+                    adapter.Fill(messagesTable);
+
+                    rptChatMessages.DataSource = messagesTable;
+                    rptChatMessages.DataBind();
+                }
             }
+        }
+
+        protected void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
+            int employerID = GetSelectedReceiverID();
+            string messageContent = txtChatMessage.Text.Trim();
+
+            if (employerID == 0)
+            {
+                lblMessage.Text = "Please select an employer.";
+                return;
+            }
+
+            if (string.IsNullOrEmpty(messageContent))
+            {
+                lblMessage.Text = "Please enter a message.";
+                return;
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    INSERT INTO ChatMessages (JobSeekerID, EmployerID, Message, MessageTime)
+                    VALUES (@JobSeekerID, @EmployerID, @Message, @MessageTime)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
+                    cmd.Parameters.AddWithValue("@EmployerID", employerID);
+                    cmd.Parameters.AddWithValue("@Message", messageContent);
+                    cmd.Parameters.AddWithValue("@MessageTime", DateTime.Now);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            txtChatMessage.Text = "";
+            lblMessage.Text = "Message sent successfully.";
+            LoadChatMessages();
         }
     }
 }

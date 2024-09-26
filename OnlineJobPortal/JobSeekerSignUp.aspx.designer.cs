@@ -15,13 +15,94 @@ namespace OnlineJobPortal
     {
 
         /// <summary>
-        /// FullNameInput control.
+        /// FirstNameInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FullNameInput;
+        protected global::System.Web.UI.WebControls.TextBox FirstNameInput;
+
+        /// <summary>
+        /// LastNameInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox LastNameInput;
+
+        /// <summary>
+        /// DateOfBirthInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DateOfBirthInput;
+
+        /// <summary>
+        /// GenderInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList GenderInput;
+
+        /// <summary>
+        /// AddressLine1Input control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AddressLine1Input;
+
+        /// <summary>
+        /// AddressLine2Input control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AddressLine2Input;
+
+        /// <summary>
+        /// CityInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CityInput;
+
+        /// <summary>
+        /// StateInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StateInput;
+
+        /// <summary>
+        /// CountryInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CountryInput;
+
+        /// <summary>
+        /// PostalCodeInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PostalCodeInput;
 
         /// <summary>
         /// EmailInput control.
@@ -51,13 +132,13 @@ namespace OnlineJobPortal
         protected global::System.Web.UI.WebControls.TextBox RetypePasswordInput;
 
         /// <summary>
-        /// PhoneNumberInput control.
+        /// YearsOfExperienceInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PhoneNumberInput;
+        protected global::System.Web.UI.WebControls.TextBox YearsOfExperienceInput;
 
         /// <summary>
         /// ResumeUpload control.

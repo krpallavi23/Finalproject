@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="Job Portal Application" />
     <meta name="keywords" content="Jobs, Employment, Career" />
     <meta name="author" content="YourName" />
@@ -56,8 +56,8 @@
                         <nav class="mx-auto site-navigation">
                             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                                 <li><a href="Home.aspx" class="nav-link active">Home</a></li>
-                                <li><a href="About.aspx">About</a></li>
-                                <li><a href="Contact.aspx">Contact</a></li>
+                                <li><a href="About.aspx" class="nav-link active">About</a></li>
+                                <li><a href="Contact.aspx" class="nav-link active">Contact</a></li>
                                 <!-- Removed other Sign Up links -->
                             </ul>
                         </nav>
@@ -82,7 +82,6 @@
                                         <span class="mr-2 icon-user_plus"></span>Sign Up
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="signupDropdown">
-                                        <a class="dropdown-item" href="AdminSignUp.aspx">Admin</a>
                                         <a class="dropdown-item" href="EmployerSignUp.aspx">Employer</a>
                                         <a class="dropdown-item" href="JobSeekerSignUp.aspx">Job Seeker</a>
                                     </div>
@@ -249,19 +248,6 @@
             </section>
 
             <!-- CALL TO ACTION SECTION -->
-            <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h2 class="text-white">Looking For A Job?</h2>
-                            <p class="mb-0 text-white lead">Create your profile and start applying to jobs that match your skills.</p>
-                        </div>
-                        <div class="col-md-3 ml-auto">
-                            <a href="SignUp.aspx" class="btn btn-warning btn-block btn-lg">Sign Up</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- COMPANY WE'VE HELPED SECTION -->
             <section class="site-section py-4">
