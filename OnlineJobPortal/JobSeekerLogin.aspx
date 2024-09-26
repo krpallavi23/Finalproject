@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobSeekerLogin.aspx.cs" Inherits="OnlineJobPortal.JobSeekerLogin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobSeeker.aspx.cs" Inherits="OnlineJobPortal.JobSeeker" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -75,7 +75,7 @@
                             <h2 class="mb-4">Log In To JobBoard</h2>
 
                             <!-- ASP.NET Form -->
-                            <asp:label runat="server" class="p-4 border rounded">
+                            <div class="p-4 border rounded">
                                 <!-- Error message display -->
                                 <asp:Label ID="lblMessage" runat="server" CssClass="text-danger" />
 
@@ -111,7 +111,7 @@
                                         <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary px-4 text-white" Text="Log In" OnClick="btnLogin_Click" />
                                     </div>
                                 </div>
-                            </asp:label>
+                            </div>
                         </div>
                     </div>
                 </div>

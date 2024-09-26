@@ -184,8 +184,8 @@
     <Content Include="images\sq_img_7.jpg" />
     <Content Include="images\sq_img_8.jpg" />
     <Content Include="images\sq_img_9.jpg" />
-    <Content Include="JobSeekerDashboard.aspx" />
     <Content Include="JobSeekerLogin.aspx" />
+    <Content Include="JobSeekerSignUp.aspx" />
     <Content Include="js\bootstrap-select.min.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\custom.js" />
@@ -415,19 +415,19 @@
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="JobSeekerDashboard.aspx.cs">
-      <DependentUpon>JobSeekerDashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JobSeekerDashboard.aspx.designer.cs">
-      <DependentUpon>JobSeekerDashboard.aspx</DependentUpon>
-    </Compile>
     <Compile Include="JobSeekerLogin.aspx.cs">
       <DependentUpon>JobSeekerLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="JobSeekerLogin.aspx.designer.cs">
       <DependentUpon>JobSeekerLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JobSeekerSignUp.aspx.cs">
+      <DependentUpon>JobSeekerSignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JobSeekerSignUp.aspx.designer.cs">
+      <DependentUpon>JobSeekerSignUp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
