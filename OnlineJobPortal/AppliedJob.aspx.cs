@@ -21,7 +21,6 @@ namespace OnlineJobPortal
         {
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString;
 
-            // Check if the JobSeekerID is in session
             if (Session["JobSeekerID"] == null)
             {
                 lblStatusMessage.Text = "You need to log in to view your applied jobs.";
@@ -32,7 +31,12 @@ namespace OnlineJobPortal
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT JobID, JobTitle, CompanyName, ApplicationDate, Status FROM JobApplications WHERE JobSeekerID = @JobSeekerID";
+                    string query = "SELECT ja.JobID, jp.Title AS JobTitle, e.CompanyName, ja.ApplicationDate, ja.Status " +
+                                   "FROM JobApplication ja " +
+                                   "JOIN JobPosting jp ON ja.JobID = jp.JobID " +
+                                   "JOIN Employer e ON jp.EmployerID = e.EmployerID " +
+                                   "WHERE ja.JobSeekerID = @JobSeekerID";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@JobSeekerID", Session["JobSeekerID"]);
@@ -41,8 +45,16 @@ namespace OnlineJobPortal
                         {
                             DataTable dt = new DataTable();
                             sda.Fill(dt);
-                            gvAppliedJobs.DataSource = dt;
-                            gvAppliedJobs.DataBind();
+
+                            if (dt.Rows.Count > 0)
+                            {
+                                gvAppliedJobs.DataSource = dt;
+                                gvAppliedJobs.DataBind();
+                            }
+                            else
+                            {
+                                lblStatusMessage.Text = "No applied jobs found.";
+                            }
                         }
                     }
                 }
@@ -50,9 +62,10 @@ namespace OnlineJobPortal
             catch (Exception ex)
             {
                 lblStatusMessage.Text = "An error occurred while fetching the applied jobs.";
-                // Optionally log the error
+                // Optionally log the error (e.g., using a logging framework)
             }
         }
+
 
         protected void gvAppliedJobs_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -62,12 +75,11 @@ namespace OnlineJobPortal
 
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            // Handle profile view logic
+            Response.Redirect("Profile.aspx"); // Redirect to profile page
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
-            // Handle logout logic
             Session.Clear();
             Response.Redirect("Login.aspx");
         }

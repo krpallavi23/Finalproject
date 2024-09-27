@@ -83,9 +83,9 @@
                             </a>
                             <ul aria-expanded="false">
                                 <li><a href="JobApplication.aspx?status=All">All</a></li>
-                                <li><a href="Applied.aspx?status=Applied">Applied</a></li>
-                                <li><a href="Shortlisted.aspx?status=Shortlisted">Shortlisted</a></li>
-                                <li><a href="Selected.aspx?status=Selected">Selected</a></li>
+                                <li><a href="AppliedJob.aspx?status=Applied">Applied</a></li>
+                                <li><a href="ShortlistedJob.aspx?status=Shortlisted">Shortlisted</a></li>
+                                <li><a href="SelectedJob.aspx?status=Selected">Selected</a></li>
                                 <li><a href="Rejected.aspx?status=Rejected">Rejected</a></li>
                             </ul>
                         </li>
@@ -175,8 +175,8 @@
                                                 <asp:BoundField DataField="JobCategory" HeaderText="Job Category" />
                                                 <asp:TemplateField HeaderText="Actions">
                                                     <ItemTemplate>
-                                                        <a href='JobDetails.aspx?JobID=<%# Eval("JobID") %>' class="btn btn-primary btn-sm">View Details</a>
-                                                        <asp:Button ID="btnApply" runat="server" Text="Apply" CommandArgument='<%# Eval("JobID") %>' OnClick="btnApply_Click" CssClass="btn btn-success btn-sm ms-2" />
+                                                        <a href='ViewDetails.aspx?JobID=<%# Eval("JobID") %>' class="btn btn-primary btn-sm">View Details</a>
+                                                       
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>

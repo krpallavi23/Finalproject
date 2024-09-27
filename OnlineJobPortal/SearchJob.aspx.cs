@@ -13,11 +13,17 @@ namespace OnlineJobPortal
         {
             if (!IsPostBack)
             {
-                // Load all job listings initially
                 LoadJobListings(string.Empty, string.Empty, string.Empty);
-                 // Load job categories into dropdown
+
+                if (Session["ApplySuccess"] != null)
+                {
+                    string message = Session["ApplySuccess"].ToString();
+                    Session.Remove("ApplySuccess");
+                    ClientScript.RegisterStartupScript(this.GetType(), "applySuccess", $"showApplySuccess('{message}');", true);
+                }
             }
         }
+
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -79,7 +85,7 @@ namespace OnlineJobPortal
                     {
                         cmd.Parameters.AddWithValue("@jobType", jobType);
                     }
-                  
+
 
                     conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -96,7 +102,7 @@ namespace OnlineJobPortal
             lblStatus.Text = $"Found {gvJobListings.Rows.Count} job(s) matching your criteria.";
         }
 
-     
+
 
         protected void gvJobListings_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -126,12 +132,38 @@ namespace OnlineJobPortal
         // Apply for the job
         protected void btnApply_Click(object sender, EventArgs e)
         {
-            // Get the JobID from the CommandArgument
             Button btnApply = (Button)sender;
             string jobId = btnApply.CommandArgument;
 
-            // Redirect to the job application page (update this with your actual page)
-            Response.Redirect($"JobApplication.aspx?JobID={jobId}");
+            if (Session["JobSeekerID"] != null)
+            {
+                int jobSeekerId = (int)Session["JobSeekerID"];
+
+                string connectionString = ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = "INSERT INTO JobApplications (JobID, JobSeekerID, ApplicationDate, Status) VALUES (@JobID, @JobSeekerID, @ApplicationDate, @Status)";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@JobID", jobId);
+                        cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerId);
+                        cmd.Parameters.AddWithValue("@ApplicationDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@Status", "Applied");
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                Session["ApplySuccess"] = "You have successfully applied for the job!";
+            }
+            else
+            {
+                Session["ApplySuccess"] = "You need to log in to apply for jobs.";
+            }
         }
     }
 }
+
+
+
