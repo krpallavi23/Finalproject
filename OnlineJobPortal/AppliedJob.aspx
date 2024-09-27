@@ -75,7 +75,8 @@
                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
                                         <div class="header-info">
-                                            <span class="text-black"><strong><asp:Label ID="lblJobSeekerName" runat="server" Text="John Doe"></asp:Label></strong></span>
+                                            <span class="text-black"><strong>
+                                                <asp:Label ID="lblJobSeekerName" runat="server" Text="John Doe"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Job Seeker</p>
                                         </div>
                                         <img src="xhtml/images/profile/17.jpg" width="20" alt="Profile" />
@@ -136,7 +137,7 @@
                                 <div class="card-body">
                                     <asp:GridView ID="gvAppliedJobs" runat="server" CssClass="table table-responsive-lg" AutoGenerateColumns="False" AllowPaging="True" PageSize="10" OnPageIndexChanging="gvAppliedJobs_PageIndexChanging">
                                         <Columns>
-                                            <asp:BoundField DataField="JobTitle" HeaderText="Job Title" />
+                                            <asp:BoundField DataField="Title" HeaderText="Job Title" />
                                             <asp:BoundField DataField="CompanyName" HeaderText="Company" />
                                             <asp:BoundField DataField="ApplicationDate" HeaderText="Applied On" DataFormatString="{0:MM/dd/yyyy}" />
                                             <asp:TemplateField HeaderText="Status">
