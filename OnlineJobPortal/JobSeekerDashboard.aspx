@@ -65,32 +65,35 @@
             <!-- Chat box start -->
             <div class="chatbox">
                 <div class="chatbox-content">
-                    <!-- Send a Message Section -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Send a Message</h5>
-                        </div>
-                        <div class="card-body">
-                            <!-- Employer Selection Dropdown -->
-                            <div class="mb-3">
-                                <label for="ddlEmployers" class="form-label">Select Employer</label>
-                                <asp:DropDownList ID="ddlEmployers" runat="server" CssClass="form-select">
-                                </asp:DropDownList>
-                            </div>
+    <!-- Send a Message Section -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Send a Message</h5>
+        </div>
+        <div class="card-body">
+            <!-- Job Posting Selection Dropdown -->
+            <div class="mb-3">
+                <label for="ddlJobPostings" class="form-label">Select Job Posting</label>
+                <asp:DropDownList ID="ddlJobPostings" runat="server" CssClass="form-select">
+                </asp:DropDownList>
+            </div>
 
-                            <!-- Chat Message TextBox -->
-                            <div class="mb-3">
-                                <label for="txtChatMessage" class="form-label">Your Message</label>
-                                <asp:TextBox ID="txtChatMessage" runat="server" TextMode="MultiLine" Rows="4"
-                                             CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <!-- Send Button -->
-                            <asp:Button ID="btnSendMessage" runat="server" Text="Send" CssClass="btn btn-primary"
-                                        OnClick="btnSendMessage_Click" />
-                            <!-- Message Label -->
-                            <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
-                        </div>
-                    </div>
+
+            <!-- Chat Message TextBox -->
+            <div class="mb-3">
+                <label for="txtChatMessage" class="form-label">Your Message</label>
+                <asp:TextBox ID="txtChatMessage" runat="server" TextMode="MultiLine" Rows="4"
+                    CssClass="form-control"></asp:TextBox>
+            </div>
+            <!-- Send Button -->
+            <asp:Button ID="btnSendMessage" runat="server" Text="Send" CssClass="btn btn-primary"
+                OnClick="btnSendMessage_Click" />
+            <!-- Message Label -->
+            <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
+        </div>
+    </div>
+
+
                     <!-- End of Send a Message Section -->
 
                     <!-- Chat Messages Section -->
@@ -100,20 +103,16 @@
                         </div>
                         <div class="card-body">
                             <!-- Repeater for Chat Messages -->
-                            <asp:Repeater ID="rptChatMessages" runat="server">
-                                <ItemTemplate>
-                                    <div class="d-flex justify-content-start mb-4">
-                                        <div class="img_cont_msg">
-                                            <img src='<%# ResolveUrl(Eval("ProfilePicturePath", "~/xhtml/images/profile/{0}")) %>'
-                                                 class="rounded-circle user_img_msg" alt='<%# Eval("CompanyName") %>' />
-                                        </div>
-                                        <div class="msg_cotainer">
-                                            <%# Eval("Message") %>
-                                            <span class="msg_time"><%# Eval("MessageTime", "{0:MM/dd/yyyy HH:mm}") %></span>
-                                        </div>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+    <asp:Repeater ID="rptChatMessages" runat="server">
+        <ItemTemplate>
+            <div>
+                <strong><%# Eval("CompanyName") %>:</strong>
+                <span><%# Eval("Message") %></span>
+                <small><%# Eval("MessageTime", "{0:MM/dd/yyyy hh:mm tt}") %></small>
+            </div>
+        </ItemTemplate>
+    </asp:Repeater>
+
                         </div>
                     </div>
                     <!-- End of Chat Messages Section -->

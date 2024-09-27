@@ -16,7 +16,7 @@ namespace OnlineJobPortal
         {
             if (!IsPostBack)
             {
-                // Authenticate Job Seeker
+                // Existing checks for authentication
                 if (Session["JobSeekerID"] == null)
                 {
                     Response.Redirect("JobSeekerLogin.aspx");
@@ -25,9 +25,12 @@ namespace OnlineJobPortal
                 {
                     LoadJobSeekerDetails();
                     LoadDashboardStatistics();
+                    LoadJobPostings(); // Load job postings here
                 }
             }
         }
+
+
 
         /// <summary>
         /// Loads job seeker details such as name.
@@ -150,52 +153,62 @@ namespace OnlineJobPortal
         /// Handles the click event for sending chat messages.
         /// </summary>
 
-        private void LoadEmployers()
+        private void LoadJobPostings()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT EmployerID, CompanyName FROM Employer";
+                string query = "SELECT JobID, Title FROM JobPosting WHERE Status = 'Active'";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    ddlEmployers.DataSource = reader;
-                    ddlEmployers.DataTextField = "CompanyName";
-                    ddlEmployers.DataValueField = "EmployerID";
-                    ddlEmployers.DataBind();
+                    ddlJobPostings.DataSource = reader; // Change this to your dropdown ID
+                    ddlJobPostings.DataTextField = "Title"; // Display job titles
+                    ddlJobPostings.DataValueField = "JobID"; // Store job IDs
+                    ddlJobPostings.DataBind();
 
-                    ddlEmployers.Items.Insert(0, new ListItem("-- Select Employer --", ""));
+                    ddlJobPostings.Items.Insert(0, new ListItem("-- Select Job Posting --", ""));
                 }
             }
         }
 
-        private int GetSelectedReceiverID()
+        private int GetEmployerIDFromJobPosting(int jobPostingID)
         {
-            if (ddlEmployers.SelectedValue != null && ddlEmployers.SelectedValue != "")
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                return Convert.ToInt32(ddlEmployers.SelectedValue);
+                string query = "SELECT EmployerID FROM JobPosting WHERE JobID = @JobID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@JobID", jobPostingID);
+                    conn.Open();
+                    return (int)cmd.ExecuteScalar();
+                }
             }
-            else
+        }
+
+
+        private int GetSelectedJobPostingID()
+        {
+            if (!string.IsNullOrEmpty(ddlJobPostings.SelectedValue))
             {
-                return 0;
+                return Convert.ToInt32(ddlJobPostings.SelectedValue);
             }
+            return 0;
         }
 
         private void LoadChatMessages()
         {
             int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT CM.Message, CM.MessageTime, E.CompanyName, E.ProfilePicturePath
-                    FROM ChatMessages CM
-                    INNER JOIN Employer E ON CM.EmployerID = E.EmployerID
-                    WHERE CM.JobSeekerID = @JobSeekerID
-                    ORDER BY CM.MessageTime DESC";
+            SELECT CM.Message, CM.MessageTime, E.CompanyName
+            FROM ChatMessages CM
+            INNER JOIN Employer E ON CM.EmployerID = E.EmployerID
+            WHERE CM.JobSeekerID = @JobSeekerID
+            ORDER BY CM.MessageTime DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -214,12 +227,12 @@ namespace OnlineJobPortal
         protected void btnSendMessage_Click(object sender, EventArgs e)
         {
             int jobSeekerID = Convert.ToInt32(Session["JobSeekerID"]);
-            int employerID = GetSelectedReceiverID();
+            int jobPostingID = GetSelectedJobPostingID(); // Update this method to fetch the JobID
             string messageContent = txtChatMessage.Text.Trim();
 
-            if (employerID == 0)
+            if (jobPostingID == 0)
             {
-                lblMessage.Text = "Please select an employer.";
+                lblMessage.Text = "Please select a job posting.";
                 return;
             }
 
@@ -229,17 +242,16 @@ namespace OnlineJobPortal
                 return;
             }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    INSERT INTO ChatMessages (JobSeekerID, EmployerID, Message, MessageTime)
-                    VALUES (@JobSeekerID, @EmployerID, @Message, @MessageTime)";
+            INSERT INTO ChatMessages (JobSeekerID, EmployerID, Message, MessageTime)
+            VALUES (@JobSeekerID, @EmployerID, @Message, @MessageTime)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-                    cmd.Parameters.AddWithValue("@EmployerID", employerID);
+                    cmd.Parameters.AddWithValue("@EmployerID", GetEmployerIDFromJobPosting(jobPostingID)); // Implement this method
                     cmd.Parameters.AddWithValue("@Message", messageContent);
                     cmd.Parameters.AddWithValue("@MessageTime", DateTime.Now);
 
@@ -251,6 +263,8 @@ namespace OnlineJobPortal
             txtChatMessage.Text = "";
             lblMessage.Text = "Message sent successfully.";
             LoadChatMessages();
+
+
         }
     }
 }

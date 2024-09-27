@@ -24,7 +24,7 @@ namespace OnlineJobPortal
             if (Session["JobSeekerID"] == null)
             {
                 lblStatusMessage.Text = "You need to log in to view your applied jobs.";
-                return; // Exit the method if the session variable is not set
+                return;
             }
 
             try
@@ -61,8 +61,7 @@ namespace OnlineJobPortal
             }
             catch (Exception ex)
             {
-                lblStatusMessage.Text = "An error occurred while fetching the applied jobs.";
-                // Optionally log the error (e.g., using a logging framework)
+                lblStatusMessage.Text = "An error occurred while fetching the applied jobs: " + ex.Message;
             }
         }
 

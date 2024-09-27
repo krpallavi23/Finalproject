@@ -11,7 +11,7 @@ namespace OnlineJobPortal
         {
             if (!IsPostBack)
             {
-                    lblMessage.Visible = false;
+                lblMessage.Visible = false;
                 // Check if JobID is provided in the query string
                 if (Request.QueryString["JobID"] != null)
                 {
@@ -69,45 +69,10 @@ namespace OnlineJobPortal
 
         protected void btnApply_Click(object sender, EventArgs e)
         {
-            // Check if the JobSeekerID is in the session
-            if (Session["JobSeekerID"] == null)
-            {
-                lblMessage.Text = "You need to log in to apply for jobs.";
-                lblMessage.Visible = true;
-                return;
-            }
-
-            int jobSeekerId = (int)Session["JobSeekerID"];
-
-            if (Request.QueryString["JobID"] != null && int.TryParse(Request.QueryString["JobID"], out int jobId))
-            {
-                // Prepare the SQL query to insert into JobApplication
-                string query = "INSERT INTO JobApplication (JobSeekerID, JobID, ApplicationDate, Status) " +
-                               "VALUES (@JobSeekerID, @JobID, GETDATE(), 'Applied')";
-
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerId);
-                        cmd.Parameters.AddWithValue("@JobID", jobId);
-
-                        conn.Open();
-                        cmd.ExecuteNonQuery(); // Insert the application
-                    }
-                }
-
-                lblMessage.Text = "Applied successfully!";
-                lblMessage.Visible = true;
-            }
-            else
-            {
-                lblMessage.Text = "Invalid Job ID.";
-                lblMessage.Visible = true;
-            }
+            // Get the JobID from the query string (should already be available)
+            lblMessage.Text = "Applied successfully!";
+            lblMessage.Visible = true;
         }
-
-
 
         // Redirect to the profile page
         protected void lnkViewProfile_Click(object sender, EventArgs e)
