@@ -48,7 +48,7 @@
                                                 <asp:Label ID="lblJobSeekerName" runat="server" Text="John Doe"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Job Seeker</p>
                                         </div>
-                                        <img src="xhtml/images/profile/17.jpg" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pix.jpg" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item" OnClick="lnkViewProfile_Click">

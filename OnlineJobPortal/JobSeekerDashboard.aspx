@@ -164,11 +164,6 @@
                                             <!-- ... (icon code remains unchanged) -->
                                             <span class="ms-2">Profile </span>
                                         </asp:LinkButton>
-                                        <asp:LinkButton ID="lnkInbox" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkInbox_Click">
-                                            <!-- SVG Icon -->
-                                            <!-- ... (icon code remains unchanged) -->
-                                            <span class="ms-2">Inbox </span>
-                                        </asp:LinkButton>
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
                                             <!-- SVG Icon -->
                                             <!-- ... (icon code remains unchanged) -->
