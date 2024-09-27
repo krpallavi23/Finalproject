@@ -101,6 +101,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="AdminLogin.aspx" />
+    <Content Include="AppliedJob.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -200,6 +201,7 @@
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\quill.min.js" />
     <Content Include="js\stickyfill.min.js" />
+    <Content Include="RejectedJobs.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -329,6 +331,9 @@
     <Content Include="fonts\line-icons\fonts\icomoon.ttf" />
     <Content Include="fonts\line-icons\fonts\icomoon.woff" />
     <Content Include="fonts\line-icons\selection.json" />
+    <Content Include="SearchJob.aspx" />
+    <Content Include="SelectedJob.aspx" />
+    <Content Include="ShortlistedJob.aspx" />
     <Content Include="xhtml\app-calender.html" />
     <Content Include="xhtml\app-profile.html" />
     <Content Include="xhtml\application.html" />
@@ -681,6 +686,13 @@
     <Compile Include="AdminLogin.aspx.designer.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppliedJob.aspx.cs">
+      <DependentUpon>AppliedJob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppliedJob.aspx.designer.cs">
+      <DependentUpon>AppliedJob.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -757,6 +769,34 @@
       <DependentUpon>JobSeekerSignUp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RejectedJobs.aspx.cs">
+      <DependentUpon>RejectedJobs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RejectedJobs.aspx.designer.cs">
+      <DependentUpon>RejectedJobs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchJob.aspx.cs">
+      <DependentUpon>SearchJob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchJob.aspx.designer.cs">
+      <DependentUpon>SearchJob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SelectedJob.aspx.cs">
+      <DependentUpon>SelectedJob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SelectedJob.aspx.designer.cs">
+      <DependentUpon>SelectedJob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShortlistedJob.aspx.cs">
+      <DependentUpon>ShortlistedJob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShortlistedJob.aspx.designer.cs">
+      <DependentUpon>ShortlistedJob.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
