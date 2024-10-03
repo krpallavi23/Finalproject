@@ -1,33 +1,22 @@
 ﻿using System;
 using System.Web.UI;
 
-namespace OnlineJobPortal
+public partial class About : Page
 {
-    public partial class About : Page
+    protected void Page_Load(object sender, EventArgs e)
     {
-        protected void Page_Load(object sender, EventArgs e)
+        // This method runs every time the page is loaded
+        if (!IsPostBack)
         {
-            if (!IsPostBack)
-            {
-                // This is where you can load any dynamic content if needed.
-                LoadTeamMembers();
-                LoadJobBoardStats();
-            }
+            // You can put your initialization logic here
+            InitializePage();
         }
+    }
 
-        private void LoadTeamMembers()
-        {
-            // This method can be used to load team members from a database or other source
-            // For demonstration, we're just going to use static data
-
-            // Example: Retrieve and bind team member data to the UI elements
-            // You can replace this with actual data retrieval logic
-        }
-
-        private void LoadJobBoardStats()
-        {
-            // This method can be used to load job board statistics from a database
-            // Example: Retrieve stats and update the UI elements accordingly
-        }
+    private void InitializePage()
+    {
+        // You can add any logic to initialize the page,
+        // such as fetching data from a database or setting properties.
+        // For example, you could set a title or load team member information here.
     }
 }
