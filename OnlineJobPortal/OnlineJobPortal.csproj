@@ -100,7 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AdminDashboard.aspx" />
     <Content Include="AdminLogin.aspx" />
+    <Content Include="AdminProfile.aspx" />
     <Content Include="AppliedJob.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -188,6 +190,7 @@
     <Content Include="images\sq_img_9.jpg" />
     <Content Include="JobSeekerDashboard.aspx" />
     <Content Include="JobSeekerLogin.aspx" />
+    <Content Include="JobSeekerProfile.aspx" />
     <Content Include="JobSeekerSignUp.aspx" />
     <Content Include="js\bootstrap-select.min.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
@@ -680,12 +683,26 @@
     <Content Include="xhtml\vendor\lightgallery\fonts\lgd641.woff" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminLogin.aspx.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminLogin.aspx.designer.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminProfile.aspx.cs">
+      <DependentUpon>AdminProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminProfile.aspx.designer.cs">
+      <DependentUpon>AdminProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppliedJob.aspx.cs">
       <DependentUpon>AppliedJob.aspx</DependentUpon>
@@ -761,6 +778,13 @@
     </Compile>
     <Compile Include="JobSeekerLogin.aspx.designer.cs">
       <DependentUpon>JobSeekerLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JobSeekerProfile.aspx.cs">
+      <DependentUpon>JobSeekerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JobSeekerProfile.aspx.designer.cs">
+      <DependentUpon>JobSeekerProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="JobSeekerSignUp.aspx.cs">
       <DependentUpon>JobSeekerSignUp.aspx</DependentUpon>

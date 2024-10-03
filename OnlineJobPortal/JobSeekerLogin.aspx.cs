@@ -12,12 +12,14 @@ namespace OnlineJobPortal
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            // Check if the user is already logged in
+            if (Session["JobSeekerID"] != null)
             {
-                // Clear any previous login session
-                Session["JobSeekerID"] = null;
+                Response.Redirect("JobSeekerDashboard.aspx");
             }
         }
+
+
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {

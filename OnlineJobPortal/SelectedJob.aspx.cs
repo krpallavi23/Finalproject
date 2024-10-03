@@ -74,7 +74,7 @@ namespace OnlineJobPortal
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
             // Redirect to the profile page
-            Response.Redirect("Profile.aspx");
+            Response.Redirect("JobSeekerProfile.aspx");
         }
 
         // Add this method for logout functionality
@@ -82,7 +82,7 @@ namespace OnlineJobPortal
         {
             // Implement your logout logic here (e.g., clearing session)
             Session.Abandon();
-            Response.Redirect("Login.aspx"); // Redirect to the login page
+            Response.Redirect("JobSeekerLogin.aspx"); // Redirect to the login page
         }
     }
 }

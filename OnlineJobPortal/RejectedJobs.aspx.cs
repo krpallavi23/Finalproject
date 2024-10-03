@@ -19,7 +19,7 @@ namespace OnlineJobPortal
         }
 
         private void BindRejectedJobListings()
-        {
+        {https://localhost:44353/RejectedJobs.aspx.cs
             string connectionString = ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -64,13 +64,13 @@ namespace OnlineJobPortal
 
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Profile.aspx");
+            Response.Redirect("JobSeekerProfile.aspx");
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("JobSeekerLogin.aspx");
         }
 
         private int GetJobSeekerID()

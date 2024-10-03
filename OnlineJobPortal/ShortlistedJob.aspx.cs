@@ -91,7 +91,7 @@ namespace OnlineJobPortal
 
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ViewProfile.aspx"); // Redirect to the profile page
+            Response.Redirect("JobSeekerProfile.aspx"); // Redirect to the profile page
         }
 
         protected void lnkInbox_Click(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace OnlineJobPortal
         {
             // Implement logout logic
             Session.Clear();
-            Response.Redirect("Login.aspx"); // Redirect to login page
+            Response.Redirect("JobSeekerLogin.aspx"); // Redirect to login page
         }
     }
 }

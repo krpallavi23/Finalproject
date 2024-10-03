@@ -77,7 +77,7 @@ namespace OnlineJobPortal
         // Redirect to the profile page
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Profile.aspx"); // Update with your profile page URL
+            Response.Redirect("JobSeekerProfile.aspx"); // Update with your profile page URL
         }
 
         // Redirect to the inbox page
@@ -90,7 +90,7 @@ namespace OnlineJobPortal
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            Response.Redirect("Login.aspx"); // Update with your login page URL
+            Response.Redirect("JobSeekerLogin.aspx"); // Update with your login page URL
         }
     }
 }

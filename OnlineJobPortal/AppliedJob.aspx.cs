@@ -74,13 +74,13 @@ namespace OnlineJobPortal
 
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Profile.aspx"); // Redirect to profile page
+            Response.Redirect("JobSeekerProfile.aspx"); // Redirect to profile page
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("JobseekerLogin.aspx");
         }
     }
 }
