@@ -20,7 +20,7 @@
         <div id="Div1" class="show">
             <div class="nav-header">
                 <a href="AdminDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" class="nav_logo"/>
+                    <img src="xhtml/images/Logo_purp.png" alt="Logo" class="nav_logo"/>
                 </a>
             </div>
 
@@ -38,7 +38,7 @@
                                             <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Administrator</p>
                                         </div>
-                                        <img src="xhtml/images/profile/pix.jpg" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu ">
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="OnlineJobPortal.AdminDashboard" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="OnlineJobPortal.AdminDashboard" %>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -49,7 +49,7 @@
                                             <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Administrator</p>
                                         </div>
-                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/user1.png." width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewProfile_Click">
@@ -152,3 +152,99 @@
     <script src="xhtml/js/deznav-init.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+using System;
+using System.Web.UI;
+
+namespace OnlineJobPortal
+{
+    public partial class AdminDashboard : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                // Load admin name and statistics on first load
+                LoadAdminName();
+                LoadDashboardStats();
+            }
+        }
+
+        private void LoadAdminName()
+        {
+            // Assume you get the admin's name from session or database
+            lblAdminName.Text = "Admin"; // Replace with actual admin name retrieval
+        }
+
+        private void LoadDashboardStats()
+        {
+            // Replace these methods with actual data retrieval logic
+            lblTotalUsers.Text = GetTotalUsers().ToString();
+            lblTotalJobPostings.Text = GetTotalJobPostings().ToString();
+            lblTotalApplications.Text = GetTotalApplications().ToString();
+            lblPendingApplications.Text = GetPendingApplications().ToString();
+        }
+
+        private int GetTotalUsers()
+        {
+            // Your logic to get total users
+            return 100; // Example static value
+        }
+
+        private int GetTotalJobPostings()
+        {
+            // Your logic to get total job postings
+            return 50; // Example static value
+        }
+
+        private int GetTotalApplications()
+        {
+            // Your logic to get total applications
+            return 75; // Example static value
+        }
+
+        private int GetPendingApplications()
+        {
+            // Your logic to get pending applications
+            return 20; // Example static value
+        }
+
+        protected void lnkViewProfile_Click(object sender, EventArgs e)
+        {
+            // Redirect to profile page
+            Response.Redirect("AdminProfile.aspx");
+        }
+
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            // Clear session and redirect to login page
+            Session.Clear();
+            Response.Redirect("AdminLogin.aspx");
+        }
+
+        protected void btnManageJobseeker_Click(object sender, EventArgs e)
+        {
+            // Redirect to Manage Jobseeker page
+            Response.Redirect("ManageJobseeker.aspx");
+        }
+
+    }
+}
