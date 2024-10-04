@@ -130,6 +130,7 @@
     <Content Include="css\quill.snow.css" />
     <Content Include="css\style.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EmployerDashboard.aspx" />
     <Content Include="EmployerSignUp.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\icomoon\demo-files\demo.css" />
@@ -204,7 +205,12 @@
     <Content Include="js\quill.min.js" />
     <Content Include="js\stickyfill.min.js" />
     <Content Include="ManageEmployer.aspx" />
+    <Content Include="ManageJobsActive.aspx" />
+    <Content Include="ManageJobsAll.aspx" />
     <Content Include="ManageJobSeeker.aspx" />
+    <Content Include="ManageJobsInactive.aspx" />
+    <Content Include="MatchingCandidates.aspx" />
+    <Content Include="PostJob.aspx" />
     <Content Include="RejectedJobs.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -336,6 +342,7 @@
     <Content Include="fonts\line-icons\fonts\icomoon.woff" />
     <Content Include="fonts\line-icons\selection.json" />
     <Content Include="SearchJob.aspx" />
+    <Content Include="SearchJobSeekers.aspx" />
     <Content Include="SelectedJob.aspx" />
     <Content Include="ShortlistedJob.aspx" />
     <Content Include="ViewDetails.aspx" />
@@ -742,6 +749,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EmployerDashboard.aspx.cs">
+      <DependentUpon>EmployerDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmployerDashboard.aspx.designer.cs">
+      <DependentUpon>EmployerDashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EmployerSignUp.aspx.cs">
       <DependentUpon>EmployerSignUp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -801,12 +814,42 @@
     <Compile Include="ManageEmployer.aspx.designer.cs">
       <DependentUpon>ManageEmployer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageJobsActive.aspx.cs">
+      <DependentUpon>ManageJobsActive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageJobsActive.aspx.designer.cs">
+      <DependentUpon>ManageJobsActive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageJobsAll.aspx.cs">
+      <DependentUpon>ManageJobsAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageJobsAll.aspx.designer.cs">
+      <DependentUpon>ManageJobsAll.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManageJobSeeker.aspx.cs">
       <DependentUpon>ManageJobSeeker.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageJobSeeker.aspx.designer.cs">
       <DependentUpon>ManageJobSeeker.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageJobsInactive.aspx.cs">
+      <DependentUpon>ManageJobsInactive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageJobsInactive.aspx.designer.cs">
+      <DependentUpon>ManageJobsInactive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingCandidates.aspx.cs">
+      <DependentUpon>MatchingCandidates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingCandidates.aspx.designer.cs">
+      <DependentUpon>MatchingCandidates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostJob.aspx.cs">
+      <DependentUpon>PostJob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PostJob.aspx.designer.cs">
+      <DependentUpon>PostJob.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RejectedJobs.aspx.cs">
@@ -822,6 +865,12 @@
     </Compile>
     <Compile Include="SearchJob.aspx.designer.cs">
       <DependentUpon>SearchJob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchJobSeekers.aspx.cs">
+      <DependentUpon>SearchJobSeekers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SearchJobSeekers.aspx.designer.cs">
+      <DependentUpon>SearchJobSeekers.aspx</DependentUpon>
     </Compile>
     <Compile Include="SelectedJob.aspx.cs">
       <DependentUpon>SelectedJob.aspx</DependentUpon>
