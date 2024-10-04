@@ -17,7 +17,7 @@
         <div id="main-wrapper">
             <div class="nav-header">
                 <a href="JobSeekerDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/Logo_purp.png" alt="Logo" />
                 </a>
             </div>
 

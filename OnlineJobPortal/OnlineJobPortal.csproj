@@ -409,6 +409,7 @@
     <Content Include="xhtml\images\logo-full.png" />
     <Content Include="xhtml\images\logo-text.png" />
     <Content Include="xhtml\images\logo.png" />
+    <Content Include="xhtml\images\logo_nav.png" />
     <Content Include="xhtml\images\pattern\pattern5.png" />
     <Content Include="xhtml\images\product\1.jpg" />
     <Content Include="xhtml\images\product\2.jpg" />
@@ -441,10 +442,14 @@
     <Content Include="xhtml\images\profile\small\pic8.jpg" />
     <Content Include="xhtml\images\profile\small\pic9.jpg" />
     <Content Include="xhtml\images\qr.png" />
+    <Content Include="xhtml\images\jb_logo2.png" />
+    <Content Include="xhtml\images\Logo_purp.png" />
     <Content Include="xhtml\images\tab\1.jpg" />
     <Content Include="xhtml\images\tab\2.jpg" />
     <Content Include="xhtml\images\tab\3.jpg" />
     <Content Include="xhtml\images\tab\4.jpg" />
+    <Content Include="xhtml\images\jb_logo.png" />
+    <Content Include="xhtml\images\profile\user1.png" />
     <Content Include="xhtml\index.html" />
     <Content Include="xhtml\index2.html" />
     <Content Include="xhtml\js\custom.min.js" />
