@@ -145,7 +145,6 @@
     <Content Include="fonts\line-icons\Read Me.txt" />
     <Content Include="fonts\line-icons\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="EmployerDashboard.aspx" />
     <Content Include="EmployerLogin.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="images\apps.png" />
@@ -752,13 +751,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="EmployerDashboard.aspx.cs">
-      <DependentUpon>EmployerDashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EmployerDashboard.aspx.designer.cs">
-      <DependentUpon>EmployerDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="EmployerLogin.aspx.cs">
       <DependentUpon>EmployerLogin.aspx</DependentUpon>
