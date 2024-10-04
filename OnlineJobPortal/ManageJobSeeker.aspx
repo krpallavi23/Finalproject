@@ -1,0 +1,134 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageJobSeeker.aspx.cs" Inherits="OnlineJobPortal.ManageJobSeeker" %>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head runat="server">
+    <title>Manage Job Seekers</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
+    <link href="xhtml/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="xhtml/css/style.css" rel="stylesheet" />
+</head>
+<body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1"
+      data-headerbg="color_1" data-sidebarbg="color_1" data-sidebar-position="fixed"
+      data-header-position="fixed" data-container="wide" direction="ltr" data-primary="color_1">
+    
+    <form id="form1" runat="server">
+        <div id="Div1" class="show">
+            <!-- Nav header start -->
+            <div class="nav-header">
+                <a href="AdminDashboard.aspx" class="brand-logo">
+                    <img src="xhtml/images/logo.png" alt="Logo" />
+                </a>
+            </div>
+
+            <!-- Header start -->
+            <div class="header">
+                <div class="header-content">
+                    <nav class="navbar navbar-expand">
+                        <div class="collapse navbar-collapse justify-content-between">
+                            <div class="header-left">
+                                <div class="dashboard_bar">Manage Job Seekers</div>
+                            </div>
+                            <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown header-profile">
+                                    <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
+                                        <div class="header-info">
+                                            <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
+                                            <p class="fs-12 mb-0">Administrator</p>
+                                        </div>
+                                        <img src="xhtml/images/profile/pix.jpg" width="20" alt="Profile" />
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <asp:LinkButton ID="lnkViewDashboard" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewDashboard_Click">
+                                         <span class="ms-2">Dashboard</span> 
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
+                                            <span class="ms-2">Logout</span>
+                                        </asp:LinkButton>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- Header end -->
+
+            <!-- Sidebar start -->
+            <div class="deznav">
+                <div class="deznav-scroll">
+                    <ul class="metismenu" id="menu">
+                        <li>
+                            <a href="ManageJobseeker.aspx">
+                                <span class="nav-text">Manage Jobseeker</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ManageEmployer.aspx">
+                                <span class="nav-text">Manage Employer</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Sidebar end -->
+
+            <!-- Content Body start -->
+            <div class="content-body">
+                <div class="container-fluid">
+                    <h2 class="mt-5">Manage Job Seekers</h2>
+                    <asp:GridView ID="GridViewJobSeekers" runat="server" AutoGenerateColumns="False" 
+                        OnRowEditing="GridViewJobSeekers_RowEditing" 
+                        OnRowCancelingEdit="GridViewJobSeekers_RowCancelingEdit" 
+                        OnRowUpdating="GridViewJobSeekers_RowUpdating" 
+                        CssClass="table table-bordered mt-4" DataKeyNames="JobSeekerID">
+                        <Columns>
+                            <asp:BoundField DataField="JobSeekerID" HeaderText="Job Seeker ID" ReadOnly="True" />
+                            <asp:TemplateField HeaderText="First Name">
+                                <ItemTemplate>
+                                    <%# Eval("FirstName") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBoxFirstName" runat="server" Text='<%# Bind("FirstName") %>' />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Last Name">
+                                <ItemTemplate>
+                                    <%# Eval("LastName") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBoxLastName" runat="server" Text='<%# Bind("LastName") %>' />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Email">
+                                <ItemTemplate>
+                                    <%# Eval("Email") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBoxEmail" runat="server" Text='<%# Bind("Email") %>' />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Years of Experience">
+                                <ItemTemplate>
+                                    <%# Eval("YearsOfExperience") %>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBoxExperience" runat="server" Text='<%# Bind("YearsOfExperience") %>' />
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                            <asp:CommandField ShowEditButton="True" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+            <!-- Content Body end -->
+        </div>
+    </form>
+
+    <script src="xhtml/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="xhtml/js/custom.min.js"></script>
+</body>
+</html>
