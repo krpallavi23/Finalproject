@@ -7,9 +7,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
-    <link href="xhtml/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="xhtml/css/style.css" rel="stylesheet" />
+      <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
+  <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+  <link href="xhtml/css/style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1"
       data-headerbg="color_1" data-sidebarbg="color_1" data-sidebar-position="fixed"
@@ -20,41 +21,41 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="AdminDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/logo_nav.png" alt="Logo" class="nav_logo"/>
                 </a>
             </div>
 
-            <!-- Header start -->
-            <div class="header">
-                <div class="header-content">
-                    <nav class="navbar navbar-expand">
-                        <div class="collapse navbar-collapse justify-content-between">
-                            <div class="header-left">
-                                <div class="dashboard_bar">Admin Profile Management</div>
-                            </div>
-                            <ul class="navbar-nav header-right">
-                                <li class="nav-item dropdown header-profile">
-                                    <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
-                                        <div class="header-info">
-                                            <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
-                                            <p class="fs-12 mb-0">Administrator</p>
-                                        </div>
-                                        <img src="xhtml/images/profile/pix.jpg" width="20" alt="Profile" />
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <asp:LinkButton ID="lnkViewDashboard" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewDashboard_Click">
-                                         <span class="ms-2">Dashboard</span> 
-                                           </asp:LinkButton>
-                                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
-                                            <span class="ms-2">Logout</span>
-                                        </asp:LinkButton>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+         <!-- Header start -->
+<div class="header">
+    <div class="header-content">
+        <nav class="navbar navbar-expand">
+            <div class="collapse navbar-collapse justify-content-between">
+                <div class="header-left">
+                    <div class="dashboard_bar">Admin Dashboard</div>
                 </div>
+                <ul class="navbar-nav header-right">
+                    <li class="nav-item dropdown header-profile">
+                        <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
+                            <div class="header-info">
+                                <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
+                                <p class="fs-12 mb-0">Administrator</p>
+                            </div>
+                            <img src="xhtml/images/profile/pix.jpg" width="20" alt="Profile" />
+                        </a>
+                        <div class="dropdown-menu ">
+
+
+                            <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
+                                <span class="ms-2">Logout</span>
+                            </asp:LinkButton>
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </nav>
+    </div>
+</div>
+<!-- Header end -->
             <!-- Header end -->
 
             <!-- Sidebar start -->

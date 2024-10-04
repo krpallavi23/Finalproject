@@ -51,7 +51,7 @@
             <div class="nav-header">
                 <a href="JobSeekerDashboard.aspx" class="brand-logo">
                     <!-- Add your logo here -->
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/Logo_purp.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">

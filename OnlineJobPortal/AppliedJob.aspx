@@ -6,53 +6,15 @@
     <title>Your Applied Jobs | Online Job Portal</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link href="xhtml/css/style.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="xhtml/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet" />
+ <link rel="stylesheet" href="xhtml/vendor/chartist/css/chartist.min.css" />
+ <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+ <link href="xhtml/css/style.css" rel="stylesheet" />
+  <!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&amp;display=swap" rel="stylesheet" />
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
 
-    <style>
-        /* Custom styles for better font visibility */
-        body {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px; /* Increase font size */
-            color: #000000; /* Darker text for better readability */
-        }
-        .header-info span, .fs-12 {
-            font-weight: 600; /* Bold font for important elements */
-        }
-        .nav-text {
-            font-size: 18px; /* Larger text for navigation items */
-            color: #000000; /* Make nav text more prominent */
-        }
-        .card-title, .card-header h4 {
-            font-size: 22px; /* Increase title font size */
-            font-weight: 700;
-        }
-        .grid-view .table {
-            font-size: 14px; /* Adjust table font size */
-        }
-        .dropdown-menu .dropdown-item {
-            font-size: 16px; /* Larger dropdown font size */
-        }
-        /* Sidebar font visibility adjustments */
-        .deznav-scroll ul.metismenu li a {
-            font-size: 18px; /* Increase sidebar font size */
-            font-weight: 600; /* Make sidebar text bold */
-            color: #333333; /* Darker font color */
-        }
-        .deznav-scroll ul.metismenu li a .nav-text {
-            font-size: 18px; /* Font size for sidebar items */
-            font-weight: 600; /* Bold sidebar text */
-            color: #000000; /* Darker text for better visibility */
-        }
-        .deznav-scroll ul.metismenu li a:hover {
-            color: #007bff; /* Highlight on hover for better interaction */
-        }
-        .deznav-scroll ul.metismenu li a i {
-            color: #333333; /* Darker color for icons as well */
-        }
-    </style>
+   
 </head>
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical">
 
@@ -60,7 +22,7 @@
         <div id="main-wrapper">
             <div class="nav-header">
                 <a href="JobSeekerDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/Logo_purp.png" alt="Logo" />
                 </a>
             </div>
 
