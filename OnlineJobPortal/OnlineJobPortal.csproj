@@ -204,6 +204,7 @@
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\quill.min.js" />
     <Content Include="js\stickyfill.min.js" />
+    <Content Include="ManageEmployer.aspx" />
     <Content Include="ManageJobSeeker.aspx" />
     <Content Include="RejectedJobs.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -798,6 +799,13 @@
     </Compile>
     <Compile Include="JobSeekerSignUp.aspx.designer.cs">
       <DependentUpon>JobSeekerSignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEmployer.aspx.cs">
+      <DependentUpon>ManageEmployer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEmployer.aspx.designer.cs">
+      <DependentUpon>ManageEmployer.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManageJobSeeker.aspx.cs">
       <DependentUpon>ManageJobSeeker.aspx</DependentUpon>
