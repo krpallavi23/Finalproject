@@ -20,7 +20,7 @@
         <div id="Div1" class="show">
             <div class="nav-header">
                 <a href="AdminDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" class="nav_logo"/>
+                    <img src="xhtml/images/Logo_purp.png" alt="Logo" class="nav_logo"/>
                 </a>
             </div>
 

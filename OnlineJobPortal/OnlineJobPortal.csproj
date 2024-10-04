@@ -432,6 +432,8 @@
     <Content Include="xhtml\images\profile\cover.jpg" />
     <Content Include="xhtml\images\profile\pix.jpg" />
     <Content Include="xhtml\images\profile\profile.png" />
+    <Content Include="xhtml\images\profile\profile_img.png" />
+    <Content Include="xhtml\images\profile\pro_1.png" />
     <Content Include="xhtml\images\profile\small\pic1.jpg" />
     <Content Include="xhtml\images\profile\small\pic10.jpg" />
     <Content Include="xhtml\images\profile\small\pic2.jpg" />

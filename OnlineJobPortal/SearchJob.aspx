@@ -32,7 +32,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="header">
                 <div class="header-content">
                     <nav class="navbar navbar-expand">

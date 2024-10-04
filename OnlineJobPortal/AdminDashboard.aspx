@@ -49,7 +49,7 @@
                                             <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Administrator</p>
                                         </div>
-                                        <img src="xhtml/images/profile/user1.png." width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewProfile_Click">
