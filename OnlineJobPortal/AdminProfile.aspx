@@ -63,7 +63,7 @@
                 <div class="deznav-scroll">
                     <ul class="metismenu" id="menu">
                         <li>
-                            <a href="ManageJobseeker.aspx">
+                            <a href="ManageJobSeeker.aspx">
                                 <span class="nav-text">Manage Jobseeker</span>
                             </a>
                         </li>
