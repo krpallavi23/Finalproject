@@ -137,7 +137,7 @@ namespace OnlineJobPortal
         /// </summary>
         protected void lnkInbox_Click(object sender, EventArgs e)
         {
-            Response.Redirect("JobSeekerInbox.aspx");
+            Response.Redirect("ChangeJobSeekerPassword.aspx");
         }
 
         /// <summary>

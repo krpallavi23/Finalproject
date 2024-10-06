@@ -4,7 +4,7 @@
 <html lang="en" dir="ltr">
 <head runat="server">
     <!-- Title -->
-    <title>Qerza - Job Portal Job Seeker Dashboard | Bootstrap HTML Template</title>
+    <title>Job-Seeker Dashboard</title>
 
     <!-- Meta -->
     <meta charset="utf-8" />
@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
+    <link rel="icon" type="image/png" href="xhtml/images/logo.svg" />
 
     <!-- CSS Files -->
     <link href="xhtml/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet" />
@@ -50,8 +50,9 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="JobSeekerDashboard.aspx" class="brand-logo">
+                    
                     <!-- Add your logo here -->
-                    <img src="xhtml/images/Logo_purp.png" alt="Logo" />
+                    <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -159,15 +160,14 @@
                                         <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewProfile_Click">
-                                            <!-- SVG Icon -->
-                                            <!-- ... (icon code remains unchanged) -->
-                                            <span class="ms-2">Profile </span>
+                                        <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item" OnClick="lnkViewProfile_Click">
+    <i class="fas fa-user"></i><span class="ms-2">Profile</span>
                                         </asp:LinkButton>
-                                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
-                                            <!-- SVG Icon -->
-                                            <!-- ... (icon code remains unchanged) -->
-                                            <span class="ms-2">Logout </span>
+                                        <asp:LinkButton ID="lnkInbox" runat="server" CssClass="dropdown-item" OnClick="lnkInbox_Click">
+    <i class="fas fa-envelope"></i><span class="ms-2">Change Password</span>
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">
+    <i class="fas fa-sign-out-alt"></i><span class="ms-2">Logout</span>
                                         </asp:LinkButton>
                                     </div>
                                 </li>
@@ -194,20 +194,15 @@
                                 <span class="nav-text">Job Application</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="JobApplication.aspx?status=All">All</a></li>
+                                <li><a href="AllJobApplications.aspx?status=All">All</a></li>
                                 <li><a href="AppliedJob.aspx?status=Applied">Applied</a></li>
                                 <li><a href="ShortlistedJob.aspx?status=Shortlisted">Shortlisted</a></li>
                                 <li><a href="SelectedJob.aspx?status=Selected">Selected</a></li>
                                 <li><a href="RejectedJobs.aspx?status=Rejected">Rejected</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="LikeJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-heart"></i>
-                                <span class="nav-text">Like Job</span>
-                            </a>
-                        </li>
-                        +
+                       
+                        
                     </ul>
                 </div>
             </div>

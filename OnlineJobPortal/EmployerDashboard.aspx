@@ -4,7 +4,7 @@
 <html lang="en" dir="ltr">
 <head runat="server">
     <!-- Title -->
-    <title>Qerza - Employer Dashboard | Bootstrap HTML Template</title>
+    <title> Employer Dashboard | Bootstrap HTML Template</title>
 
     <!-- Meta Tags -->
     <meta charset="utf-8" />
@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
+    <link rel="icon" type="image/png" href="xhtml/images/logo.png" />
 
     <!-- CSS Files -->
     <link href="xhtml/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet" />
@@ -132,7 +132,7 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="EmployerDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -180,7 +180,7 @@
                                             <span class="text-black"><strong><asp:Label ID="lblEmployerName" runat="server" Text="Company Name"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Employer</p>
                                         </div>
-                                        <img src="xhtml/images/profile/17.jpg" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <!-- View Profile -->
@@ -197,7 +197,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path d="M21 8V7l-3 2-2-1-3 2-2-1-3 2v1l3-2 2 1 3-2 2 1 3-2zM3 8V7l3 2 2-1 3 2 2-1 3 2v1l-3-2-2 1-3-2-2 1-3-2z" fill="#000"/>
                                             </svg>
-                                            <span class="ms-2">Inbox</span>
+                                            <span class="ms-2">Change Password</span>
                                         </asp:LinkButton>
                                         <!-- Logout -->
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
@@ -209,6 +209,7 @@
                                         </asp:LinkButton>
                                     </div>
                                 </li>
+                                
                             </ul>
                         </div>
                     </nav>
@@ -291,7 +292,7 @@
                         <div class="col-xl-3 col-xxl-3 col-sm-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Messages</h5>
+                                    <h5 class="card-title">Selected Candidates</h5>
                                     <h2 class="text-info">
                                         <asp:Label ID="lblMessages" runat="server" Text="0"></asp:Label>
                                     </h2>
@@ -306,13 +307,7 @@
             </div>
             <!-- Content Body end -->
 
-            <!-- Footer start -->
-            <div class="footer">
-                <div class="copyright">
-                    <p>© 2024 Qerza. All Rights Reserved.</p>
-                </div>
-            </div>
-            <!-- Footer end -->
+          
 
             <!-- Chat Box Start -->
             <asp:UpdatePanel ID="UpdatePanelChat" runat="server">

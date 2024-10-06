@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -44,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
@@ -94,12 +96,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AllJobApplications.aspx" />
+    <Content Include="bin\OnlineJobPortal.dll" />
+    <Content Include="bin\OnlineJobPortal.pdb" />
+    <Content Include="ChangeAdminPassword.aspx" />
+    <Content Include="ChangeEmployerPassword.aspx" />
+    <Content Include="ChangeJobSeekerPassword.aspx" />
+    <Content Include="EmployerProfile.aspx" />
+    <Content Include="RejectedCandidates.aspx" />
     <Content Include="AdminDashboard.aspx" />
     <Content Include="AdminLogin.aspx" />
     <Content Include="AdminProfile.aspx" />
@@ -188,6 +193,7 @@
     <Content Include="images\sq_img_7.jpg" />
     <Content Include="images\sq_img_8.jpg" />
     <Content Include="images\sq_img_9.jpg" />
+    <Content Include="AcceptedCandidates.aspx" />
     <Content Include="JobSeekerDashboard.aspx" />
     <Content Include="JobSeekerLogin.aspx" />
     <Content Include="JobSeekerProfile.aspx" />
@@ -209,6 +215,8 @@
     <Content Include="ManageJobsAll.aspx" />
     <Content Include="ManageJobSeeker.aspx" />
     <Content Include="ManageJobsInactive.aspx" />
+    <Content Include="InterviewedCandidates.aspx" />
+    <Content Include="ShortlistedCandidates.aspx" />
     <Content Include="MatchingCandidates.aspx" />
     <Content Include="PostJob.aspx" />
     <Content Include="RejectedJobs.aspx" />
@@ -412,12 +420,13 @@
     <Content Include="xhtml\images\card\3.png" />
     <Content Include="xhtml\images\circle.png" />
     <Content Include="xhtml\images\dots.svg" />
-    <Content Include="xhtml\images\favicon.png" />
     <Content Include="xhtml\images\like.png" />
+    <Content Include="xhtml\images\favicon.png" />
     <Content Include="xhtml\images\logo-full.png" />
     <Content Include="xhtml\images\logo-text.png" />
     <Content Include="xhtml\images\logo.png" />
     <Content Include="xhtml\images\logo_nav.png" />
+    <Content Include="xhtml\images\newme3.png" />
     <Content Include="xhtml\images\pattern\pattern5.png" />
     <Content Include="xhtml\images\product\1.jpg" />
     <Content Include="xhtml\images\product\2.jpg" />
@@ -489,6 +498,7 @@
     <Content Include="xhtml\js\plugins-init\toastr-init.js" />
     <Content Include="xhtml\js\plugins-init\widgets-script-init.js" />
     <Content Include="xhtml\js\styleSwitcher.js" />
+    <Content Include="xhtml\logo-full.png" />
     <Content Include="xhtml\map-jqvmap.html" />
     <Content Include="xhtml\page-error-400.html" />
     <Content Include="xhtml\page-error-403.html" />
@@ -615,6 +625,17 @@
     <Content Include="xhtml\vendor\toastr\js\toastr.min.js" />
     <Content Include="xhtml\vendor\wnumb\wNumb.js" />
     <Content Include="xhtml\widget-basic.html" />
+    <Content Include="Resumes\AyushiDixitIETMCA4.pdf" />
+    <Content Include="Resumes\AyushiDixitIETResume.pdf" />
+    <Content Include="Resumes\AYUSHIDIXITRESUMEMCA.pdf" />
+    <Content Include=".vs\OnlineJobPortal.csproj.dtbcache.json" />
+    <Content Include=".vs\OnlineJobPortal\config\applicationhost.config" />
+    <Content Include=".vs\OnlineJobPortal\FileContentIndex\119d162a-6c50-47db-b2e0-e8981b4a4343.vsidx" />
+    <Content Include=".vs\OnlineJobPortal\v17\DocumentLayout.backup.json" />
+    <Content Include=".vs\OnlineJobPortal\v17\DocumentLayout.json" />
+    <Content Include=".vs\OnlineJobPortal\v17\workspaceFileList.bin" />
+    <Content Include=".vs\slnx.sqlite" />
+    <Content Include=".vs\VSWorkspaceState.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -705,6 +726,49 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AllJobApplications.aspx.cs">
+      <DependentUpon>AllJobApplications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AllJobApplications.aspx.designer.cs">
+      <DependentUpon>AllJobApplications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeAdminPassword.aspx.cs">
+      <DependentUpon>ChangeAdminPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangeAdminPassword.aspx.designer.cs">
+      <DependentUpon>ChangeAdminPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeEmployerPassword.aspx.cs">
+      <DependentUpon>ChangeEmployerPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangeEmployerPassword.aspx.designer.cs">
+      <DependentUpon>ChangeEmployerPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeJobSeekerPassword.aspx.cs">
+      <DependentUpon>ChangeJobSeekerPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangeJobSeekerPassword.aspx.designer.cs">
+      <DependentUpon>ChangeJobSeekerPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmployerProfile.aspx.cs">
+      <DependentUpon>EmployerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmployerProfile.aspx.designer.cs">
+      <DependentUpon>EmployerProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="RejectedCandidates.aspx.cs">
+      <DependentUpon>RejectedCandidates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RejectedCandidates.aspx.designer.cs">
+      <DependentUpon>RejectedCandidates.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminDashboard.aspx.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -751,6 +815,7 @@
     </Compile>
     <Compile Include="EmployerDashboard.aspx.cs">
       <DependentUpon>EmployerDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EmployerDashboard.aspx.designer.cs">
       <DependentUpon>EmployerDashboard.aspx</DependentUpon>
@@ -778,6 +843,13 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptedCandidates.aspx.cs">
+      <DependentUpon>AcceptedCandidates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AcceptedCandidates.aspx.designer.cs">
+      <DependentUpon>AcceptedCandidates.aspx</DependentUpon>
     </Compile>
     <Compile Include="JobSeekerDashboard.aspx.cs">
       <DependentUpon>JobSeekerDashboard.aspx</DependentUpon>
@@ -816,12 +888,14 @@
     </Compile>
     <Compile Include="ManageJobsActive.aspx.cs">
       <DependentUpon>ManageJobsActive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageJobsActive.aspx.designer.cs">
       <DependentUpon>ManageJobsActive.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManageJobsAll.aspx.cs">
       <DependentUpon>ManageJobsAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageJobsAll.aspx.designer.cs">
       <DependentUpon>ManageJobsAll.aspx</DependentUpon>
@@ -835,18 +909,35 @@
     </Compile>
     <Compile Include="ManageJobsInactive.aspx.cs">
       <DependentUpon>ManageJobsInactive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageJobsInactive.aspx.designer.cs">
       <DependentUpon>ManageJobsInactive.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InterviewedCandidates.aspx.cs">
+      <DependentUpon>InterviewedCandidates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InterviewedCandidates.aspx.designer.cs">
+      <DependentUpon>InterviewedCandidates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShortlistedCandidates.aspx.cs">
+      <DependentUpon>ShortlistedCandidates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShortlistedCandidates.aspx.designer.cs">
+      <DependentUpon>ShortlistedCandidates.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MatchingCandidates.aspx.cs">
       <DependentUpon>MatchingCandidates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MatchingCandidates.aspx.designer.cs">
       <DependentUpon>MatchingCandidates.aspx</DependentUpon>
     </Compile>
     <Compile Include="PostJob.aspx.cs">
       <DependentUpon>PostJob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PostJob.aspx.designer.cs">
       <DependentUpon>PostJob.aspx</DependentUpon>
@@ -868,6 +959,7 @@
     </Compile>
     <Compile Include="SearchJobSeekers.aspx.cs">
       <DependentUpon>SearchJobSeekers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SearchJobSeekers.aspx.designer.cs">
       <DependentUpon>SearchJobSeekers.aspx</DependentUpon>
@@ -934,6 +1026,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -959,11 +1054,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -7,55 +7,60 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
-  <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-  <link href="xhtml/css/style.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="xhtml/images/favicon.png" />
+    <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="xhtml/css/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1"
-      data-headerbg="color_1" data-sidebarbg="color_1" data-sidebar-position="fixed"
-      data-header-position="fixed" data-container="wide" direction="ltr" data-primary="color_1">
-    
+    data-headerbg="color_1" data-sidebarbg="color_1" data-sidebar-position="fixed"
+    data-header-position="fixed" data-container="wide" direction="ltr" data-primary="color_1">
+
     <form id="form1" runat="server">
         <div id="Div1" class="show">
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="AdminDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/Logo_purp.png" alt="Logo" class="nav_logo"/>
+                    <img src="xhtml/images/logo.png" alt="Logo" class="nav_logo" />
                 </a>
             </div>
 
-         <!-- Header start -->
-<div class="header">
-    <div class="header-content">
-        <nav class="navbar navbar-expand">
-            <div class="collapse navbar-collapse justify-content-between">
-                <div class="header-left">
-                    <div class="dashboard_bar">Admin Dashboard</div>
-                </div>
-                <ul class="navbar-nav header-right">
-                    <li class="nav-item dropdown header-profile">
-                        <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
-                            <div class="header-info">
-                                <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
-                                <p class="fs-12 mb-0">Administrator</p>
+            <!-- Header start -->
+            <div class="header">
+                <div class="header-content">
+                    <nav class="navbar navbar-expand">
+                        <div class="collapse navbar-collapse justify-content-between">
+                            <div class="header-left">
+                                <div class="dashboard_bar">Admin Dashboard</div>
                             </div>
-                            <img src="xhtml/images/profile/pix.jpg" width="20" alt="Profile" />
-                        </a>
-                        <div class="dropdown-menu ">
-
-
-                            <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
-                                <span class="ms-2">Logout</span>
-                            </asp:LinkButton>
+                            <ul class="navbar-nav header-right">
+                                <li class="nav-item dropdown header-profile">
+                                    <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
+                                        <div class="header-info">
+                                            <span class="text-black"><strong>
+                                                <asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
+                                            <p class="fs-12 mb-0">Administrator</p>
+                                        </div>
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewProfile_Click">
+                                            <span class="ms-2">Profile</span>
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkInbox_Click">
+                                        <span class="ms-2">Change Password</span>
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
+                                            <span class="ms-2">Logout</span>
+                                        </asp:LinkButton>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </li>
-                </ul>
+                    </nav>
+                </div>
             </div>
-        </nav>
-    </div>
-</div>
-<!-- Header end -->
+            <!-- Header end -->
             <!-- Header end -->
 
             <!-- Sidebar start -->
@@ -72,7 +77,7 @@
                                 <span class="nav-text">Manage Employer</span>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -82,10 +87,10 @@
             <div class="content-body">
                 <div class="container-fluid">
                     <h2 class="mt-5">Admin Profile Management</h2>
-                    <asp:GridView ID="GridViewAdmins" runat="server" AutoGenerateColumns="False" 
-                        OnRowEditing="GridViewAdmins_RowEditing" 
-                        OnRowCancelingEdit="GridViewAdmins_RowCancelingEdit" 
-                        OnRowUpdating="GridViewAdmins_RowUpdating" 
+                    <asp:GridView ID="GridViewAdmins" runat="server" AutoGenerateColumns="False"
+                        OnRowEditing="GridViewAdmins_RowEditing"
+                        OnRowCancelingEdit="GridViewAdmins_RowCancelingEdit"
+                        OnRowUpdating="GridViewAdmins_RowUpdating"
                         CssClass="table table-bordered mt-4" DataKeyNames="UserID">
                         <Columns>
                             <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" />

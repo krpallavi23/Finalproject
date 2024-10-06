@@ -122,7 +122,7 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="EmployerDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -165,13 +165,13 @@
                                 </li>
 
                                 <!-- User Profile Dropdown -->
-                                <li class="nav-item dropdown header-profile">
+                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
                                         <div class="header-info">
                                             <span class="text-black"><strong><asp:Label ID="lblEmployerName" runat="server" Text="Company Name"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Employer</p>
                                         </div>
-                                        <img src="xhtml/images/profile/17.jpg" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <!-- View Profile -->
@@ -188,7 +188,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                 <path d="M21 8V7l-3 2-2-1-3 2-2-1-3 2v1l3-2 2 1 3-2 2 1 3-2zM3 8V7l3 2 2-1 3 2 2-1 3 2v1l-3-2-2 1-3-2-2 1-3-2z" fill="#000"/>
                                             </svg>
-                                            <span class="ms-2">Inbox</span>
+                                            <span class="ms-2">Change Password</span>
                                         </asp:LinkButton>
                                         <!-- Logout -->
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
@@ -244,68 +244,97 @@
                 <div class="container-fluid">
                     <!-- Matching Candidates Content -->
                     <asp:UpdatePanel ID="UpdatePanelMatchingProfiles" runat="server">
-                        <ContentTemplate>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="card">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <h4 class="card-title">Matching Candidates</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <!-- Candidates Listing Table -->
-                                            <div class="table-responsive">
-                                                <asp:GridView
-                                                    ID="gvMatchingCandidates"
-                                                    runat="server"
-                                                    CssClass="table table-striped table-bordered"
-                                                    AutoGenerateColumns="False"
-                                                    OnRowCommand="gvMatchingCandidates_RowCommand">
-                                                    <Columns>
-                                                        <asp:BoundField DataField="Candidate.JobSeekerID" HeaderText="Job Seeker ID" />
-                                                        <asp:BoundField DataField="Candidate.FirstName" HeaderText="First Name" />
-                                                        <asp:BoundField DataField="Candidate.LastName" HeaderText="Last Name" />
-                                                        <asp:BoundField DataField="MatchingPercentage" HeaderText="Matching Percentage" DataFormatString="{0:F2}%" />
+                   <ContentTemplate>
+                    <!-- Job Details Section -->
+                    <div class="row job-details">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Job Details</h3>
+                                </div>
+                                <div class="card-body">
+                                    <asp:Label ID="lblJobTitle" runat="server" Font-Bold="True" Font-Size="Large"></asp:Label>
+                                    <p><strong>Description:</strong> <asp:Label ID="lblJobDescription" runat="server"></asp:Label></p>
+                                    <p><strong>Location:</strong> <asp:Label ID="lblJobLocation" runat="server"></asp:Label></p>
+                                    <p><strong>Salary:</strong> $<asp:Label ID="lblJobSalary" runat="server"></asp:Label></p>
+                                    <p><strong>Job Type:</strong> <asp:Label ID="lblJobType" runat="server"></asp:Label></p>
+                                    <p><strong>Category:</strong> <asp:Label ID="lblJobCategory" runat="server"></asp:Label></p>
+                                    <p><strong>Required Experience:</strong> <asp:Label ID="lblJobExperience" runat="server"></asp:Label> years</p>
+                                    <p><strong>Application Deadline:</strong> <asp:Label ID="lblJobDeadline" runat="server"></asp:Label></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                                        <asp:TemplateField HeaderText="Actions">
-                                                            <ItemTemplate>
-                                                                <asp:Button
-                                                                    ID="btnDownloadResume"
-                                                                    runat="server"
-                                                                    Text="Download Resume"
-                                                                    CommandName="DownloadResume"
-                                                                    CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
-                                                                    CssClass="btn btn-secondary btn-sm" />
-                                                                <asp:Button
-                                                                    ID="btnViewProfile"
-                                                                    runat="server"
-                                                                    Text="Full Profile"
-                                                                    CommandName="ViewProfile"
-                                                                    CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
-                                                                    CssClass="btn btn-info btn-sm" />
-                                                                <asp:Button
-                                                                    ID="btnSelectCandidate"
-                                                                    runat="server"
-                                                                    Text="Select"
-                                                                    CommandName="SelectCandidate"
-                                                                    CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
-                                                                    CssClass="btn btn-success btn-sm" />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    </Columns>
-                                                </asp:GridView>
-                                                 <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
-                                                <asp:Label ID="lblSuccessMessage" runat="server" ForeColor="Green" CssClass="mt-2"></asp:Label> 
-                                            </div>
-                                        </div>
+                       <!-- Back Button -->
+                       <div class="row back-button">
+                           <div class="col-xl-12">
+                               <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary"
+                                   OnClick="btnBack_Click" />
+                           </div>
+                       </div>
+
+
+                       <!-- Candidates Listing Table -->
+                       <div class="table-responsive">
+                           <asp:GridView
+                               ID="gvMatchingCandidates"
+                               runat="server"
+                               CssClass="table table-striped table-bordered"
+                               AutoGenerateColumns="False"
+                               OnRowCommand="gvMatchingCandidates_RowCommand"
+                               OnRowDataBound="gvMatchingCandidates_RowDataBound">
+                               <Columns>
+                                   <asp:BoundField DataField="Candidate.JobSeekerID" HeaderText="Job Seeker ID" />
+                                   <asp:BoundField DataField="Candidate.FirstName" HeaderText="First Name" />
+                                   <asp:BoundField DataField="Candidate.LastName" HeaderText="Last Name" />
+                                   <asp:BoundField DataField="MatchingPercentage" HeaderText="Matching Percentage" DataFormatString="{0:F2}%" />
+
+                                   <asp:TemplateField HeaderText="Actions">
+                                       <ItemTemplate>
+                                           <asp:Button
+                                               ID="btnDownloadResume"
+                                               runat="server"
+                                               Text="Download Resume"
+                                               CommandName="DownloadResume"
+                                               CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
+                                               CssClass="btn btn-secondary btn-sm" />
+                                           <asp:Button
+                                               ID="btnViewProfile"
+                                               runat="server"
+                                               Text="Full Profile"
+                                               CommandName="ViewProfile"
+                                               CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
+                                               CssClass="btn btn-info btn-sm" />
+                                           <asp:PlaceHolder ID="phSelect" runat="server">
+                                               <asp:Button
+                                                   ID="btnSelectCandidate"
+                                                   runat="server"
+                                                   Text="Select"
+                                                   CommandName="SelectCandidate"
+                                                   CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
+                                                   CssClass="btn btn-success btn-sm" />
+                                           </asp:PlaceHolder>
+                                           <asp:PlaceHolder ID="phSelected" runat="server" Visible='<%# Eval("ApplicationStatus").ToString() == "Shortlisted" %>'>
+                                               <span class="badge bg-success">Selected</span>
+                                           </asp:PlaceHolder>
+                                       </ItemTemplate>
+                                   </asp:TemplateField>
+                               </Columns>
+                           </asp:GridView>
+                           <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
+                           <asp:Label ID="lblSuccessMessage" runat="server" ForeColor="Green" CssClass="mt-2"></asp:Label>
+                       </div>
+                       </div>
                                     </div>
                                 </div>
                             </div>
-                        </ContentTemplate>
+                   </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
             </div>
             <!-- Main Content End -->
-             <!-- Chat Box Start -->
+            <!-- Chat Box Start -->
             <asp:UpdatePanel ID="UpdatePanelChat" runat="server">
                 <ContentTemplate>
                     <div class="chatbox hidden">

@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebGrease.Activities;
 
 namespace OnlineJobPortal
 {
@@ -16,6 +17,7 @@ namespace OnlineJobPortal
             if (!IsPostBack)
             {
                 LoadEmployerData();
+                LoadAdminName();
             }
         }
 
@@ -41,7 +43,31 @@ namespace OnlineJobPortal
             }
             catch (Exception ex)
             {
-                // Log the error and show a friendly message
+                // Log the error
+            }
+        }
+
+        private void LoadAdminName()
+        {
+            if (Session["AdminID"] != null)
+            {
+                int adminId = Convert.ToInt32(Session["AdminID"]);
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT Username FROM [User] WHERE UserID = @UserID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", adminId);
+                        conn.Open();
+
+                        object result = cmd.ExecuteScalar();
+                        lblAdminName.Text = result?.ToString() ?? "Admin"; // Fallback if user not found
+                    }
+                }
+            }
+            else
+            {
+                lblAdminName.Text = "Admin"; // Default display if no admin ID in session
             }
         }
 
@@ -50,21 +76,63 @@ namespace OnlineJobPortal
             try
             {
                 int employerId = Convert.ToInt32(GridViewEmployers.DataKeys[e.RowIndex].Value);
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string deleteEmployerQuery = "DELETE FROM Employer WHERE EmployerID = @EmployerID; DELETE FROM [User] WHERE UserID = (SELECT UserID FROM Employer WHERE EmployerID = @EmployerID)";
-                    using (SqlCommand cmd = new SqlCommand(deleteEmployerQuery, conn))
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        cmd.Parameters.AddWithValue("@EmployerID", employerId);
-                        cmd.ExecuteNonQuery();
+                        try
+                        {
+                            // Check for references in other tables
+                            string checkReferencesQuery = @"
+                                SELECT COUNT(*) 
+                                FROM JobPosting 
+                                WHERE EmployerID = @EmployerID";
+
+                            using (SqlCommand checkCmd = new SqlCommand(checkReferencesQuery, conn, transaction))
+                            {
+                                checkCmd.Parameters.AddWithValue("@EmployerID", employerId);
+                                int count = (int)checkCmd.ExecuteScalar();
+
+                                if (count > 0)
+                                {
+                                    // Inform the user that the employer cannot be deleted
+                                    // This could be a label on the page to show a message
+                                    lblError.Text = "Cannot delete this employer, as there are job postings associated with them.";
+                                    return;
+                                }
+                            }
+
+                            // Delete from User and Employer tables
+                            string deleteQuery = @"
+                                DELETE FROM [User] WHERE UserID = 
+                                (SELECT UserID FROM Employer WHERE EmployerID = @EmployerID);
+                                DELETE FROM Employer WHERE EmployerID = @EmployerID;";
+
+                            using (SqlCommand cmd = new SqlCommand(deleteQuery, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@EmployerID", employerId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            // Commit transaction
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            throw; // Rethrow the exception to be caught by the outer catch
+                        }
                     }
                 }
+
                 LoadEmployerData(); // Reload data after deletion
             }
             catch (Exception ex)
             {
                 // Log the error and show a friendly message
+                lblError.Text = "An error occurred while deleting the employer.";
             }
         }
 
@@ -72,6 +140,11 @@ namespace OnlineJobPortal
         {
             Session.Clear();
             Response.Redirect("AdminLogin.aspx");
+        }
+
+        protected void lnkViewProfile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminProfile.aspx");
         }
     }
 }

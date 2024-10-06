@@ -17,6 +17,7 @@ namespace OnlineJobPortal
             if (!IsPostBack)
             {
                 BindJobs();
+                LoadJobSeekers(); // Load job seekers for the chatbox
             }
         }
 
@@ -33,7 +34,7 @@ namespace OnlineJobPortal
                     FROM 
                         JobPosting 
                     WHERE 
-                        EmployerID = @EmployerID";
+                        EmployerID = @EmployerID AND Status = 'Inactive'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -228,8 +229,16 @@ namespace OnlineJobPortal
             Session.Clear();
             Response.Redirect("Login.aspx");
         }
+
         protected void btnSendMessage_Click(object sender, EventArgs e)
         {
+            if (Session["EmployerID"] == null)
+            {
+                lblMessage.Text = "User session expired. Please log in again.";
+                Response.Redirect("EmployerLogin.aspx");
+                return;
+            }
+
             if (!int.TryParse(Session["EmployerID"].ToString(), out int employerID))
             {
                 lblMessage.Text = "Invalid session data. Please log in again.";
@@ -286,8 +295,16 @@ namespace OnlineJobPortal
                 }
             }
         }
+
         private void LoadChatMessages()
         {
+            if (Session["EmployerID"] == null)
+            {
+                lblMessage.Text = "User session expired. Please log in again.";
+                Response.Redirect("EmployerLogin.aspx");
+                return;
+            }
+
             if (!int.TryParse(Session["EmployerID"].ToString(), out int employerID))
             {
                 lblMessage.Text = "Invalid session data. Please log in again.";
@@ -298,7 +315,7 @@ namespace OnlineJobPortal
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT CM.Message, CM.MessageTime, JS.FirstName, JS.LastName, JS.ProfilePicturePath
+                    SELECT CM.Message, CM.MessageTime, JS.FirstName, JS.LastName, JS.ResumePath AS ProfilePicturePath
                     FROM ChatMessages CM
                     INNER JOIN JobSeeker JS ON CM.JobSeekerID = JS.JobSeekerID
                     WHERE CM.EmployerID = @EmployerID
@@ -331,6 +348,7 @@ namespace OnlineJobPortal
                 }
             }
         }
+
         private void LoadJobSeekers()
         {
             if (Session["EmployerID"] == null)

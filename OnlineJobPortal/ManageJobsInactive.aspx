@@ -4,17 +4,17 @@
 <html lang="en" dir="ltr">
 <head runat="server">
     <!-- Title -->
-    <title>Qerza - Employer Dashboard | Bootstrap HTML Template</title>
+    <title>Qerza - Employer Dashboard | Manage Inactive Jobs</title>
 
     <!-- Meta Tags -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="DexignZone" />
     <meta name="robots" content="" />
-    <meta name="keywords" content="job portal, employer dashboard, Bootstrap HTML template, job postings, manage jobs, post jobs, user-friendly interface, powerful functionalities" />
-    <meta name="description" content="Qerza is a versatile job portal dashboard for employers powered by Bootstrap HTML. Manage job postings, search job seekers, and enhance your recruitment process. User-friendly interface with powerful functionalities. Job portal, employer dashboard, Bootstrap HTML template." />
-    <meta property="og:title" content="Qerza - Employer Dashboard | Bootstrap HTML Template" />
-    <meta property="og:description" content="Qerza is a versatile job portal dashboard for employers powered by Bootstrap HTML. Manage job postings, search job seekers, and enhance your recruitment process. User-friendly interface with powerful functionalities. Job portal, employer dashboard, Bootstrap HTML template." />
+    <meta name="keywords" content="job portal, employer dashboard, Manage Inactive Jobs, Bootstrap HTML template, job postings, manage jobs, post jobs, user-friendly interface, powerful functionalities" />
+    <meta name="description" content="Qerza is a versatile job portal dashboard for employers powered by Bootstrap HTML. Manage inactive job postings, search job seekers, and enhance your recruitment process. User-friendly interface with powerful functionalities. Job portal, employer dashboard, Bootstrap HTML template." />
+    <meta property="og:title" content="Qerza - Employer Dashboard | Manage Inactive Jobs" />
+    <meta property="og:description" content="Qerza is a versatile job portal dashboard for employers powered by Bootstrap HTML. Manage inactive job postings, search job seekers, and enhance your recruitment process. User-friendly interface with powerful functionalities. Job portal, employer dashboard, Bootstrap HTML template." />
     <meta property="og:image" content="xhtml/social-image.png" />
     <meta name="format-detection" content="telephone=no" />
 
@@ -154,7 +154,7 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="EmployerDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -281,7 +281,7 @@
                                 <div class="col-xl-12">
                                     <div class="card">
                                         <div class="card-header d-flex justify-content-between align-items-center">
-                                            <h4 class="card-title">Manage Jobs</h4>
+                                            <h4 class="card-title">Manage Inactive Jobs</h4>
                                             <!-- Optionally, add a button to post a new job -->
                                             <a href="PostJob.aspx" class="btn btn-primary">Post New Job</a>
                                         </div>
@@ -368,6 +368,7 @@
                                                             <EditItemTemplate>
                                                                 <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-select">
                                                                     <asp:ListItem Value="Active">Active</asp:ListItem>
+                                                                    <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                                                                     <asp:ListItem Value="Closed">Closed</asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </EditItemTemplate>

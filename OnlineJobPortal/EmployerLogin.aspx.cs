@@ -73,5 +73,30 @@ namespace OnlineJobPortal
                 }
             }
         }
+        protected void lnkViewProfile_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EmployerProfile.aspx");
+        }
+
+        /// <summary>
+        /// Handles the click event for accessing the inbox.
+        /// </summary>
+        protected void lnkInbox_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ChangeEmployerPassword.aspx");
+        }
+
+        /// <summary>
+        /// Handles the click event for logging out the employer.
+        /// </summary>
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("EmployerLogin.aspx");
+        }
+
+        /// <summary>
+        /// Handles the Send Message button click event.
+        /// </summary>
     }
 }

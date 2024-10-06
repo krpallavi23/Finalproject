@@ -133,8 +133,8 @@ namespace OnlineJobPortal
                         lblInactiveJobs.Text = inactiveJobs.ToString();
                     }
 
-                    // 4. Messages (Total Messages Received)
-                    string messagesQuery = "SELECT COUNT(*) FROM ChatMessages WHERE EmployerID = @EmployerID";
+                    // 4.Total Candidates Selected
+                    string messagesQuery = "SELECT COUNT(*) AS TotalCandidatesSelected\r\nFROM JobPosting JP\r\nINNER JOIN Application A ON JP.JobPostingID = A.JobPostingID\r\nWHERE JP.EmployerID = @EmployerID\r\n  AND A.Status = 'Accepted';\r\n";
                     using (SqlCommand cmd = new SqlCommand(messagesQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@EmployerID", employerID);
@@ -274,7 +274,7 @@ namespace OnlineJobPortal
         /// </summary>
         protected void lnkInbox_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EmployerInbox.aspx");
+            Response.Redirect("ChangeEmployerPassword.aspx");
         }
 
         /// <summary>
@@ -349,39 +349,3 @@ namespace OnlineJobPortal
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

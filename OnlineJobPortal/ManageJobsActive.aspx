@@ -154,7 +154,7 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="EmployerDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/logo.png" alt="Logo" />
+                    <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -296,7 +296,7 @@
                                                     OnRowUpdating="gvJobs_RowUpdating" 
                                                     OnRowCancelingEdit="gvJobs_RowCancelingEdit" 
                                                     OnRowCommand="gvJobs_RowCommand" 
-                                                    OnRowDataBound="gvJobs_RowDataBound">
+                                                    OnRowDataBound="gvJobs_RowDataBound" OnSelectedIndexChanged="gvJobs_SelectedIndexChanged">
                                                     <Columns>
                                                         <asp:BoundField DataField="JobID" HeaderText="Job ID" ReadOnly="True" />
 
@@ -391,55 +391,55 @@
 
                                                         <asp:CommandField ShowEditButton="True" />
 
-                                                        <!-- Actions Column -->
-                                                        <asp:TemplateField HeaderText="Actions">
-                                                            <ItemTemplate>
-                                                                <asp:Button
-                                                                    ID="btnProfileMatch"
-                                                                    runat="server"
-                                                                    Text="Profile Match"
-                                                                    CommandName="ProfileMatch"
-                                                                    CommandArgument='<%# Eval("JobID") %>'
-                                                                    CssClass="btn btn-primary btn-sm" />
+                                                <asp:TemplateField HeaderText="Actions">
+                                                    <ItemTemplate>
+                                                        <asp:Button
+                                                            ID="btnProfileMatch"
+                                                            runat="server"
+                                                            Text="Profile Match"
+                                                            CommandName="ProfileMatch"
+                                                            CommandArgument='<%# Eval("JobID") %>'
+                                                            CssClass="btn btn-primary btn-sm mb-1" />
 
-                                                                <!-- New Buttons -->
-                                                                <asp:Button
-                                                                    ID="btnShortlisted"
-                                                                    runat="server"
-                                                                    Text="Shortlisted"
-                                                                    CommandName="Shortlisted"
-                                                                    CommandArgument='<%# Eval("JobID") %>'
-                                                                    CssClass="btn btn-warning btn-sm ms-1" />
+                                                        <asp:Button
+                                                            ID="btnShortlisted"
+                                                            runat="server"
+                                                            Text="Shortlisted"
+                                                            CommandName="Shortlisted"
+                                                            CommandArgument='<%# Eval("JobID") %>'
+                                                            CssClass="btn btn-primary btn-sm mb-1" />
 
-                                                                <asp:Button
-                                                                    ID="btnInterviewed"
-                                                                    runat="server"
-                                                                    Text="Interviewed"
-                                                                    CommandName="Interviewed"
-                                                                    CommandArgument='<%# Eval("JobID") %>'
-                                                                    CssClass="btn btn-info btn-sm ms-1" />
+                                                        <asp:Button
+                                                            ID="btnInterviewed"
+                                                            runat="server"
+                                                            Text="Interviewed"
+                                                            CommandName="Interviewed"
+                                                            CommandArgument='<%# Eval("JobID") %>'
+                                                            CssClass="btn btn-primary btn-sm mb-1" />
 
-                                                                <asp:Button
-                                                                    ID="btnAccepted"
-                                                                    runat="server"
-                                                                    Text="Accepted"
-                                                                    CommandName="Accepted"
-                                                                    CommandArgument='<%# Eval("JobID") %>'
-                                                                    CssClass="btn btn-success btn-sm ms-1" />
+                                                        <asp:Button
+                                                            ID="btnAccepted"
+                                                            runat="server"
+                                                            Text="Accepted"
+                                                            CommandName="Accepted"
+                                                            CommandArgument='<%# Eval("JobID") %>'
+                                                            CssClass="btn btn-primary btn-sm mb-1" />
 
-                                                                <asp:Button
-                                                                    ID="btnRejected"
-                                                                    runat="server"
-                                                                    Text="Rejected"
-                                                                    CommandName="Rejected"
-                                                                    CommandArgument='<%# Eval("JobID") %>'
-                                                                    CssClass="btn btn-danger btn-sm ms-1" />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
+                                                        <asp:Button
+                                                            ID="btnRejected"
+                                                            runat="server"
+                                                            Text="Rejected"
+                                                            CommandName="Rejected"
+                                                            CommandArgument='<%# Eval("JobID") %>'
+                                                            CssClass="btn btn-primary btn-sm mb-1" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                        
 
                                                     </Columns>
                                                 </asp:GridView>
                                                 <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
+                                                <asp:Label ID="lblSuccess" runat="server" ForeColor="Green" CssClass="mt-2"></asp:Label>
                                             </div>
                                         </div>
                                     </div>

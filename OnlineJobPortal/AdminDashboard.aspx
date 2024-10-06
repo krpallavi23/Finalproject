@@ -23,7 +23,7 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="AdminDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/Logo_purp.png" alt="Logo" />
+                    <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -43,7 +43,7 @@
                                 <div class="dashboard_bar">Admin Dashboard</div>
                             </div>
                             <ul class="navbar-nav header-right">
-                                <li class="nav-item dropdown header-profile">
+                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
                                         <div class="header-info">
                                             <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>
@@ -55,6 +55,9 @@
                                         <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewProfile_Click">
                                             <span class="ms-2">Profile</span>
                                         </asp:LinkButton>
+                                       <asp:LinkButton ID="LinkButton1" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkInbox_Click">
+    <span class="ms-2">Change Password</span>
+</asp:LinkButton>
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
                                             <span class="ms-2">Logout</span>
                                         </asp:LinkButton>

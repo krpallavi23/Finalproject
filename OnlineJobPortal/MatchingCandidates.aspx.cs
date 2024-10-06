@@ -14,11 +14,16 @@ namespace OnlineJobPortal
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int jobId;
             if (!IsPostBack)
             {
-                if (Request.QueryString["JobID"] != null && int.TryParse(Request.QueryString["JobID"], out jobId))
+                if (Request.QueryString["JobID"] != null && int.TryParse(Request.QueryString["JobID"], out int jobId))
                 {
+                    // Store JobID in ViewState for later use
+                    ViewState["JobID"] = jobId;
+
+                    // Load job details
+                    LoadJobDetails(jobId);
+
                     // Load matching candidates
                     LoadMatchingCandidates(jobId);
 
@@ -33,9 +38,62 @@ namespace OnlineJobPortal
             }
         }
 
+        private void LoadJobDetails(int jobId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT Title, Description, Location, Salary, JobType, JobCategory, RequiredYearsOfExperience, ApplicationDeadline
+                                 FROM JobPosting
+                                 WHERE JobID = @JobID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@JobID", jobId);
+                    try
+                    {
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                lblJobTitle.Text = reader["Title"].ToString();
+                                lblJobDescription.Text = reader["Description"].ToString();
+                                lblJobLocation.Text = reader["Location"].ToString();
+                                lblJobSalary.Text = Convert.ToDecimal(reader["Salary"]).ToString("N2");
+                                lblJobType.Text = reader["JobType"].ToString();
+                                lblJobCategory.Text = reader["JobCategory"].ToString();
+                                lblJobExperience.Text = reader["RequiredYearsOfExperience"].ToString();
+                                lblJobDeadline.Text = Convert.ToDateTime(reader["ApplicationDeadline"]).ToString("MMMM dd, yyyy");
+                            }
+                            else
+                            {
+                                lblError.Text = "Job details not found.";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the exception
+                        // For demonstration, display the error message
+                        lblError.Text = "An error occurred while loading job details: " + ex.Message;
+                    }
+                }
+            }
+        }
+
+        private int GetCurrentJobId()
+        {
+            if (ViewState["JobID"] != null && int.TryParse(ViewState["JobID"].ToString(), out int jobId))
+            {
+                return jobId;
+            }
+            throw new InvalidOperationException("Job ID is not available.");
+        }
+
         private void LoadMatchingCandidates(int jobId)
         {
-            // List to hold matching candidates
+            // Existing implementation remains unchanged
+            // ...
             List<MatchingCandidate> matchingCandidates = new List<MatchingCandidate>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -46,7 +104,7 @@ namespace OnlineJobPortal
                 JobRequirements jobRequirements = GetJobRequirements(conn, jobId);
 
                 // Step 2: Get all candidates
-                List<Candidate> candidates = GetAllCandidates(conn);
+                List<Candidate> candidates = GetAllCandidates(conn, jobId); // Pass jobId to filter applications
 
                 // Step 3: For each candidate, compute matching percentage
                 foreach (var candidate in candidates)
@@ -55,10 +113,14 @@ namespace OnlineJobPortal
 
                     if (matchingPercentage >= 40)
                     {
+                        // Get application status
+                        string status = GetApplicationStatus(conn, jobId, candidate.JobSeekerID);
+
                         matchingCandidates.Add(new MatchingCandidate
                         {
                             Candidate = candidate,
-                            MatchingPercentage = matchingPercentage
+                            MatchingPercentage = matchingPercentage,
+                            ApplicationStatus = status
                         });
                     }
                 }
@@ -69,6 +131,37 @@ namespace OnlineJobPortal
                 // Step 5: Bind to GridView
                 gvMatchingCandidates.DataSource = matchingCandidates;
                 gvMatchingCandidates.DataBind();
+            }
+        }
+
+        private string GetApplicationStatus(SqlConnection conn, int jobId, int jobSeekerID)
+        {
+            try
+            {
+                string status = "Applied"; // Default status
+
+                string query = @"SELECT Status FROM JobApplication 
+                                 WHERE JobID = @JobID AND JobSeekerID = @JobSeekerID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@JobID", jobId);
+                    cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        status = result.ToString();
+                    }
+                }
+
+                return status;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (e.g., to a file, event log, etc.)
+                // For demonstration, we'll set the status to "Error" and log to Debug
+                System.Diagnostics.Debug.WriteLine($"Error retrieving application status: {ex.Message}");
+                return "Error";
             }
         }
 
@@ -115,30 +208,42 @@ namespace OnlineJobPortal
             using (SqlCommand cmd = new SqlCommand(queryExperience, conn))
             {
                 cmd.Parameters.AddWithValue("@JobID", jobId);
-                jobReq.RequiredExperience = Convert.ToInt32(cmd.ExecuteScalar());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    jobReq.RequiredExperience = Convert.ToInt32(result);
+                }
+                else
+                {
+                    jobReq.RequiredExperience = 0; // Default to 0 if not found
+                }
             }
 
             return jobReq;
         }
 
-        private List<Candidate> GetAllCandidates(SqlConnection conn)
+        private List<Candidate> GetAllCandidates(SqlConnection conn, int jobId)
         {
             List<Candidate> candidates = new List<Candidate>();
 
             // Get JobSeekerID and YearsOfExperience from JobSeeker
-            string queryCandidates = @"SELECT JobSeekerID, FirstName, LastName, YearsOfExperience, ResumePath FROM JobSeeker";
+            string queryCandidates = @"SELECT JS.JobSeekerID, JS.FirstName, JS.LastName, JS.YearsOfExperience, JS.ResumePath
+                                       FROM JobSeeker JS
+                                       INNER JOIN JobApplication JA ON JS.JobSeekerID = JA.JobSeekerID
+                                       WHERE JA.JobID = @JobID AND JA.Status != 'Rejected'"; // Optionally exclude rejected applications
             using (SqlCommand cmd = new SqlCommand(queryCandidates, conn))
             {
+                cmd.Parameters.AddWithValue("@JobID", jobId);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Candidate candidate = new Candidate();
                         candidate.JobSeekerID = reader.GetInt32(reader.GetOrdinal("JobSeekerID"));
-                        candidate.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-                        candidate.LastName = reader.GetString(reader.GetOrdinal("LastName"));
+                        candidate.FirstName = reader["FirstName"].ToString();
+                        candidate.LastName = reader["LastName"].ToString();
                         candidate.YearsOfExperience = reader.IsDBNull(reader.GetOrdinal("YearsOfExperience")) ? 0 : reader.GetInt32(reader.GetOrdinal("YearsOfExperience"));
-                        candidate.ResumePath = reader.IsDBNull(reader.GetOrdinal("ResumePath")) ? "" : reader.GetString(reader.GetOrdinal("ResumePath"));
+                        candidate.ResumePath = reader.IsDBNull(reader.GetOrdinal("ResumePath")) ? "" : reader["ResumePath"].ToString();
 
                         candidates.Add(candidate);
                     }
@@ -263,11 +368,28 @@ namespace OnlineJobPortal
 
                 if (!string.IsNullOrEmpty(resumePath))
                 {
-                    // Start file download
-                    Response.ContentType = "application/octet-stream";
-                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + System.IO.Path.GetFileName(resumePath));
-                    Response.TransmitFile(Server.MapPath(resumePath));
-                    Response.End();
+                    try
+                    {
+                        // Ensure the file exists
+                        string fullPath = Server.MapPath(resumePath);
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            // Start file download
+                            Response.ContentType = "application/octet-stream";
+                            Response.AppendHeader("Content-Disposition", "attachment; filename=" + System.IO.Path.GetFileName(resumePath));
+                            Response.TransmitFile(fullPath);
+                            Response.End();
+                        }
+                        else
+                        {
+                            lblError.Text = "Resume file does not exist.";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "An error occurred while downloading the resume: " + ex.Message;
+                        // Log error
+                    }
                 }
                 else
                 {
@@ -283,12 +405,22 @@ namespace OnlineJobPortal
             else if (e.CommandName == "SelectCandidate")
             {
                 int jobSeekerID = Convert.ToInt32(e.CommandArgument);
+                int jobId = GetCurrentJobId(); // Retrieve JobID from ViewState
 
-                // Send email to candidate
-                SendEmailToCandidate(jobSeekerID);
+                // Update application status to 'Shortlisted'
+                bool updateSuccess = UpdateCandidateStatus(jobSeekerID, jobId, "Shortlisted");
 
-                // Provide feedback
-                lblSuccessMessage.Text = "Email sent to candidate.";
+                if (updateSuccess)
+                {
+                    lblSuccessMessage.Text = "Candidate shortlisted successfully.";
+
+                    // Rebind the GridView to reflect changes
+                    LoadMatchingCandidates(jobId);
+                }
+                else
+                {
+                    lblError.Text = "An error occurred while shortlisting the candidate.";
+                }
             }
         }
 
@@ -302,64 +434,42 @@ namespace OnlineJobPortal
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-                    resumePath = cmd.ExecuteScalar() as string;
+                    object result = cmd.ExecuteScalar();
+                    resumePath = result as string;
                 }
             }
             return resumePath;
         }
 
-        private void SendEmailToCandidate(int jobSeekerID)
+        private bool UpdateCandidateStatus(int jobSeekerID, int jobId, string newStatus)
         {
-            string candidateEmail = GetCandidateEmail(jobSeekerID);
-
-            if (!string.IsNullOrEmpty(candidateEmail))
-            {
-                try
-                {
-                    System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                    mail.To.Add(candidateEmail);
-                    mail.From = new System.Net.Mail.MailAddress("yourcompany@example.com");
-                    mail.Subject = "Job Selection";
-                    mail.Body = "Congratulations! You have been selected for the job. Please contact us for further details.";
-
-                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient();
-                    smtp.Host = "smtp.example.com"; // Your SMTP server
-                    smtp.Port = 25; // Your SMTP port
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new System.Net.NetworkCredential("username", "password"); // Your SMTP credentials
-                    smtp.EnableSsl = true;
-
-                    smtp.Send(mail);
-
-                    lblMessage.Text = "Email sent successfully to " + candidateEmail;
-                }
-                catch (Exception ex)
-                {
-                    lblError.Text = "Error sending email: " + ex.Message;
-                }
-            }
-            else
-            {
-                lblError.Text = "Candidate email not found.";
-            }
-        }
-
-        private string GetCandidateEmail(int jobSeekerID)
-        {
-            string email = "";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                string query = @"SELECT u.Email FROM [User] u
-                                 INNER JOIN JobSeeker js ON u.UserID = js.UserID
-                                 WHERE js.JobSeekerID = @JobSeekerID";
+                string query = @"UPDATE JobApplication 
+                                 SET Status = @Status 
+                                 WHERE JobID = @JobID AND JobSeekerID = @JobSeekerID";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
+                    cmd.Parameters.AddWithValue("@Status", newStatus);
+                    cmd.Parameters.AddWithValue("@JobID", jobId);
                     cmd.Parameters.AddWithValue("@JobSeekerID", jobSeekerID);
-                    email = cmd.ExecuteScalar() as string;
+
+                    try
+                    {
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the exception (not shown here for brevity)
+                        System.Diagnostics.Debug.WriteLine($"Error updating candidate status: {ex.Message}");
+                        lblError.Text = "An error occurred while shortlisting the candidate: " + ex.Message;
+                        return false;
+                    }
                 }
             }
-            return email;
         }
 
         /// <summary>
@@ -456,12 +566,20 @@ namespace OnlineJobPortal
                     }
                     catch (Exception ex)
                     {
-                        lblMessage.Text = "An error occurred while sending the message.";
+                        lblMessage.Text = "An error occurred while sending the message: " + ex.Message;
                         lblMessage.CssClass = "mt-2 text-danger";
                         // Log error
+                        System.Diagnostics.Debug.WriteLine($"Error sending message: {ex.Message}");
                     }
                 }
             }
+        }
+
+        // Back Button Click Event Handler
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            // Redirect back to ManageJobsActive.aspx
+            Response.Redirect("ManageJobsActive.aspx");
         }
 
         // Helper Classes
@@ -487,6 +605,7 @@ namespace OnlineJobPortal
         {
             public Candidate Candidate { get; set; }
             public double MatchingPercentage { get; set; }
+            public string ApplicationStatus { get; set; } // New Property
         }
 
         protected void lnkViewProfile_Click(object sender, EventArgs e)
@@ -496,13 +615,40 @@ namespace OnlineJobPortal
 
         protected void lnkInbox_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EmployerInbox.aspx");
+            Response.Redirect("ChangeEmployerPassword.aspx");
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
             Response.Redirect("EmployerLogin.aspx");
+        }
+
+        protected void gvMatchingCandidates_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // Retrieve the current data item
+                var dataItem = (MatchingCandidate)e.Row.DataItem;
+
+                // Find the PlaceHolders
+                PlaceHolder phSelect = (PlaceHolder)e.Row.FindControl("phSelect");
+                PlaceHolder phSelected = (PlaceHolder)e.Row.FindControl("phSelected");
+
+                if (dataItem != null)
+                {
+                    if (dataItem.ApplicationStatus == "Shortlisted")
+                    {
+                        phSelect.Visible = false;
+                        phSelected.Visible = true;
+                    }
+                    else
+                    {
+                        phSelect.Visible = true;
+                        phSelected.Visible = false;
+                    }
+                }
+            }
         }
     }
 }

@@ -20,7 +20,7 @@
         <div id="Div1" class="show">
             <div class="nav-header">
                 <a href="AdminDashboard.aspx" class="brand-logo">
-                    <img src="xhtml/images/Logo_purp.png" alt="Logo" class="nav_logo"/>
+                    <img src="xhtml/images/newme3.png" alt="Logo" class="nav_logo"/>
                 </a>
             </div>
 
@@ -40,7 +40,10 @@
                                         </div>
                                         <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
-                                    <div class="dropdown-menu ">
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkViewProfile_Click">
+                                            <span class="ms-2">Profile</span>
+                                        </asp:LinkButton>
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkLogout_Click">
                                             <span class="ms-2">Logout</span>
                                         </asp:LinkButton>
@@ -72,6 +75,7 @@
             <div class="content-body">
                 <div class="container-fluid">
                     <h2 class="mt-5">Employer Management</h2>
+                    <asp:Label ID="lblError" runat="server" CssClass="text-danger mt-2" Text=""></asp:Label>
                     <asp:GridView ID="GridViewEmployers" runat="server" AutoGenerateColumns="False" 
                         OnRowDeleting="GridViewEmployers_RowDeleting" 
                         CssClass="table table-bordered mt-4" DataKeyNames="EmployerID">
@@ -90,7 +94,10 @@
         </div>
     </form>
 
-    <script src="xhtml/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="xhtml/vendor/global/global.min.js"></script>
+    <script src="xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="xhtml/js/custom.min.js"></script>
+    <script src="xhtml/js/deznav-init.js"></script>
+
 </body>
 </html>

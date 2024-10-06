@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Web.UI;
 
@@ -12,11 +13,23 @@ namespace OnlineJobPortal
         // Connection string from Web.config
         string connectionString = ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString;
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                BindJobs();
+                LoadJobSeekers(); // Load job seekers for chat functionality
+            }
+        }
+
+        /// <summary>
+        /// Binds the GridView with active jobs of the logged-in employer.
+        /// </summary>
         private void BindJobs()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                int employerId = GetEmployerID(); // Implement this method to retrieve EmployerID from Session or other means
+                int employerId = GetEmployerID(); // Retrieve EmployerID from Session
 
                 string query = @"
                     SELECT 
@@ -25,7 +38,7 @@ namespace OnlineJobPortal
                     FROM 
                         JobPosting 
                     WHERE 
-                        EmployerID = @EmployerID AND Status = 'Active'";
+                        EmployerID = @EmployerID AND Status = 'Active'"; // Only active jobs
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -41,18 +54,27 @@ namespace OnlineJobPortal
             }
         }
 
+        /// <summary>
+        /// Handles the RowEditing event to enable edit mode for the selected row.
+        /// </summary>
         protected void gvJobs_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gvJobs.EditIndex = e.NewEditIndex;
             BindJobs();
         }
 
+        /// <summary>
+        /// Handles the RowCancelingEdit event to cancel edit mode.
+        /// </summary>
         protected void gvJobs_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvJobs.EditIndex = -1;
             BindJobs();
         }
 
+        /// <summary>
+        /// Handles the RowUpdating event to update job details in the database.
+        /// </summary>
         protected void gvJobs_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int jobId = Convert.ToInt32(gvJobs.DataKeys[e.RowIndex].Value);
@@ -139,6 +161,7 @@ namespace OnlineJobPortal
                 }
 
                 lblError.Text = ""; // Clear any previous errors
+                lblSuccess.Text = "Job updated successfully.";
                 gvJobs.EditIndex = -1;
                 BindJobs();
             }
@@ -152,24 +175,50 @@ namespace OnlineJobPortal
             }
         }
 
+        /// <summary>
+        /// Handles the RowCommand event for custom button commands.
+        /// </summary>
         protected void gvJobs_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "ProfileMatch")
+            if (e.CommandName == "ProfileMatch" ||
+                e.CommandName == "Shortlisted" ||
+                e.CommandName == "Interviewed" ||
+                e.CommandName == "Accepted" ||
+                e.CommandName == "Rejected")
             {
                 int jobId = Convert.ToInt32(e.CommandArgument);
-                // Redirect to MatchingCandidates.aspx with JobID as query parameter
-                Response.Redirect($"MatchingCandidates.aspx?JobID={jobId}");
-            }
-            else if (e.CommandName == "Shortlisted" || e.CommandName == "Interviewed" || e.CommandName == "Accepted" || e.CommandName == "Rejected")
-            {
-                int jobId = Convert.ToInt32(e.CommandArgument);
-                string status = e.CommandName;
 
-                // Redirect to CandidateList.aspx with JobID and Status as query parameters
-                Response.Redirect($"CandidateList.aspx?JobID={jobId}&Status={status}");
+                string redirectUrl = "";
+
+                switch (e.CommandName)
+                {
+                    case "ProfileMatch":
+                        redirectUrl = $"MatchingCandidates.aspx?JobID={jobId}";
+                        break;
+                    case "Shortlisted":
+                        redirectUrl = $"ShortlistedCandidates.aspx?JobID={jobId}";
+                        break;
+                    case "Interviewed":
+                        redirectUrl = $"InterviewedCandidates.aspx?JobID={jobId}";
+                        break;
+                    case "Accepted":
+                        redirectUrl = $"AcceptedCandidates.aspx?JobID={jobId}";
+                        break;
+                    case "Rejected":
+                        redirectUrl = $"RejectedCandidates.aspx?JobID={jobId}";
+                        break;
+                }
+
+                if (!string.IsNullOrEmpty(redirectUrl))
+                {
+                    Response.Redirect(redirectUrl);
+                }
             }
         }
 
+        /// <summary>
+        /// Handles the RowDataBound event to set selected values in dropdowns during edit mode.
+        /// </summary>
         protected void gvJobs_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             // Ensure this is a data row
@@ -193,48 +242,95 @@ namespace OnlineJobPortal
             }
         }
 
-        // Event handler for Profile Match button
-        // Already handled via RowCommand
-
-        // Event handlers for user profile dropdown
-        protected void lnkViewProfile_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Retrieves the EmployerID from the session.
+        /// </summary>
+        /// <returns>EmployerID as integer</returns>
+        private int GetEmployerID()
         {
-            Response.Redirect("EmployerProfile.aspx");
+            if (Session["EmployerID"] != null)
+            {
+                return Convert.ToInt32(Session["EmployerID"]);
+            }
+            else
+            {
+                // Redirect to login or handle accordingly
+                Response.Redirect("EmployerLogin.aspx");
+                return 0; // This line will not be reached due to redirection
+            }
         }
 
-        protected void lnkInbox_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Loads job seekers into the dropdown for chat functionality.
+        /// </summary>
+        private void LoadJobSeekers()
         {
-            Response.Redirect("Inbox.aspx");
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT JobSeekerID, FirstName, LastName FROM JobSeeker ORDER BY FirstName, LastName";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        ddlJobSeekers.Items.Clear();
+                        ddlJobSeekers.Items.Add(new ListItem("-- Select Job Seeker --", ""));
+                        while (reader.Read())
+                        {
+                            string jobSeekerName = $"{reader["FirstName"]} {reader["LastName"]}";
+                            ddlJobSeekers.Items.Add(new ListItem(jobSeekerName, reader["JobSeekerID"].ToString()));
+                        }
+                        reader.Close();
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        System.Diagnostics.Trace.TraceError($"SQL Error in LoadJobSeekers: {sqlEx.Message}");
+                        lblMessage.Text = "A database error occurred while loading job seekers.";
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.TraceError($"Error in LoadJobSeekers: {ex.Message}");
+                        lblMessage.Text = "An unexpected error occurred while loading job seekers.";
+                    }
+                }
+            }
         }
 
-        protected void lnkLogout_Click(object sender, EventArgs e)
-        {
-            // Clear session and redirect to Login page
-            Session.Clear();
-            Response.Redirect("Login.aspx");
-        }
+        /// <summary>
+        /// Handles the Send Message button click event in the chatbox.
+        /// </summary>
         protected void btnSendMessage_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(Session["EmployerID"].ToString(), out int employerID))
+            lblMessage.Text = "";
+            if (Session["EmployerID"] == null)
             {
-                lblMessage.Text = "Invalid session data. Please log in again.";
+                lblMessage.Text = "Session expired. Please log in again.";
                 Response.Redirect("EmployerLogin.aspx");
                 return;
             }
 
-            if (!int.TryParse(ddlJobSeekers.SelectedValue, out int jobSeekerID) || jobSeekerID == 0)
+            if (!int.TryParse(Session["EmployerID"].ToString(), out int employerID))
             {
-                lblMessage.Text = "Please select a job seeker to send a message.";
+                lblMessage.Text = "Invalid session data.";
+                Response.Redirect("EmployerLogin.aspx");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(ddlJobSeekers.SelectedValue) || string.IsNullOrEmpty(txtChatMessage.Text.Trim()))
+            {
+                lblMessage.Text = "Please select a job seeker and enter a message.";
+                return;
+            }
+
+            if (!int.TryParse(ddlJobSeekers.SelectedValue, out int jobSeekerID))
+            {
+                lblMessage.Text = "Invalid job seeker selection.";
                 return;
             }
 
             string messageContent = txtChatMessage.Text.Trim();
-
-            if (string.IsNullOrEmpty(messageContent))
-            {
-                lblMessage.Text = "Please enter a message.";
-                return;
-            }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -271,8 +367,19 @@ namespace OnlineJobPortal
                 }
             }
         }
+
+        /// <summary>
+        /// Loads chat messages from the database for the logged-in employer.
+        /// </summary>
         private void LoadChatMessages()
         {
+            if (Session["EmployerID"] == null)
+            {
+                lblMessage.Text = "User session expired. Please log in again.";
+                Response.Redirect("EmployerLogin.aspx");
+                return;
+            }
+
             if (!int.TryParse(Session["EmployerID"].ToString(), out int employerID))
             {
                 lblMessage.Text = "Invalid session data. Please log in again.";
@@ -316,54 +423,28 @@ namespace OnlineJobPortal
                 }
             }
         }
-        private void LoadJobSeekers()
+
+        // Event handlers for user profile dropdown
+        protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
-            if (Session["EmployerID"] == null)
-            {
-                lblMessage.Text = "User session expired. Please log in again.";
-                Response.Redirect("EmployerLogin.aspx");
-                return;
-            }
+            Response.Redirect("EmployerProfile.aspx");
+        }
 
-            // Safely parse EmployerID from session
-            if (!int.TryParse(Session["EmployerID"].ToString(), out int currentEmployerID))
-            {
-                lblMessage.Text = "Invalid session data. Please log in again.";
-                Response.Redirect("EmployerLogin.aspx");
-                return;
-            }
+        protected void lnkInbox_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Inbox.aspx");
+        }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = "SELECT JobSeekerID, FirstName, LastName FROM JobSeeker ORDER BY FirstName, LastName";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    try
-                    {
-                        conn.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            // Clear session and redirect to Login page
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
 
-                        ddlJobSeekers.Items.Clear();
-                        ddlJobSeekers.Items.Add(new ListItem("-- Select Job Seeker --", ""));
-                        while (reader.Read())
-                        {
-                            string jobSeekerName = $"{reader["FirstName"]} {reader["LastName"]}";
-                            ddlJobSeekers.Items.Add(new ListItem(jobSeekerName, reader["JobSeekerID"].ToString()));
-                        }
-                        reader.Close();
-                    }
-                    catch (SqlException sqlEx)
-                    {
-                        System.Diagnostics.Trace.TraceError($"SQL Error in LoadJobSeekers: {sqlEx.Message}");
-                        lblMessage.Text = "A database error occurred while loading job seekers.";
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Trace.TraceError($"Error in LoadJobSeekers: {ex.Message}");
-                        lblMessage.Text = "An unexpected error occurred while loading job seekers.";
-                    }
-                }
-            }
+        protected void gvJobs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
