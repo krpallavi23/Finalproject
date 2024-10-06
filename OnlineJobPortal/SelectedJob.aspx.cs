@@ -75,7 +75,7 @@ namespace OnlineJobPortal
             else
             {
                 // Handle the case when the user is not logged in
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Home.aspx");
                 return 0;
             }
         }
@@ -173,7 +173,7 @@ namespace OnlineJobPortal
         {
             // Implement your logout logic here
             Session.Clear();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Home.aspx");
         }
 
         /// <summary>

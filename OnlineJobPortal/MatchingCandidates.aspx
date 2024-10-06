@@ -16,9 +16,13 @@
     <link rel="stylesheet" href="xhtml/vendor/chartist/css/chartist.min.css" />
     <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="xhtml/css/style.css" rel="stylesheet" />
-
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet" />
+
+    <!-- jQuery CDN (Ensure this is loaded before other scripts) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJ+Y7mPQ+IvUEN8F8JxVZ58bwrX0c4X8e+AKM="
+            crossorigin="anonymous"></script>
 
     <!-- Custom Styles -->
     <style>
@@ -69,11 +73,6 @@
             padding: 0 10px;
         }
 
-        .chatbox-footer {
-            padding: 10px;
-            border-top: 1px solid #ddd;
-        }
-
         .msg_container {
             margin-bottom: 10px;
         }
@@ -98,6 +97,14 @@
             font-size: 0.8em;
             color: #888;
             margin-top: 5px;
+        }
+
+        /* Select2 Custom Dropdown */
+        .select2-dropdown.custom-dropdown {
+            max-height: 200px !important; /* Set the maximum height as needed */
+            overflow-y: auto !important;  /* Enable vertical scrolling */
+            width: auto !important;
+            min-width: 100% !important;
         }
     </style>
 </head>
@@ -165,7 +172,7 @@
                                 </li>
 
                                 <!-- User Profile Dropdown -->
-                                 <li class="nav-item dropdown header-profile">
+                                <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
                                         <div class="header-info">
                                             <span class="text-black"><strong><asp:Label ID="lblEmployerName" runat="server" Text="Company Name"></asp:Label></strong></span>
@@ -182,11 +189,11 @@
                                             </svg>
                                             <span class="ms-2">Profile</span>
                                         </asp:LinkButton>
-                                        <!-- Inbox -->
+                                        <!-- Change Password -->
                                         <asp:LinkButton ID="lnkInbox" runat="server" CssClass="dropdown-item ai-icon" OnClick="lnkInbox_Click">
                                             <!-- SVG Icon -->
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path d="M21 8V7l-3 2-2-1-3 2-2-1-3 2v1l3-2 2 1 3-2 2 1 3-2zM3 8V7l3 2 2-1 3 2 2-1 3 2v1l-3-2-2 1-3-2-2 1-3-2z" fill="#000"/>
+                                                <path d="M21 8V7l3 2 2-1 3 2v1l-3-2-2 1-3-2-2 1-3-2zM3 8V7l-3 2-2-1-3 2v1l3-2 2 1 3-2 2 1 3-2z" fill="#000"/>
                                             </svg>
                                             <span class="ms-2">Change Password</span>
                                         </asp:LinkButton>
@@ -214,7 +221,7 @@
                         <li>
                             <a href="SearchJobSeekers.aspx" class="ai-icon">
                                 <i class="flaticon-381-search"></i>
-                                <span class="nav-text">Find JobSeekers</span>
+                                <span class="nav-text">Search JobSeekers</span>
                             </a>
                         </li>
                         <li>
@@ -239,223 +246,236 @@
                 </div>
             </div>
             <!-- Sidebar end -->
+
             <!-- Main Content Start -->
             <div class="content-body">
                 <div class="container-fluid">
                     <!-- Matching Candidates Content -->
                     <asp:UpdatePanel ID="UpdatePanelMatchingProfiles" runat="server">
-                   <ContentTemplate>
-                    <!-- Job Details Section -->
-                    <div class="row job-details">
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Job Details</h3>
-                                </div>
-                                <div class="card-body">
-                                    <asp:Label ID="lblJobTitle" runat="server" Font-Bold="True" Font-Size="Large"></asp:Label>
-                                    <p><strong>Description:</strong> <asp:Label ID="lblJobDescription" runat="server"></asp:Label></p>
-                                    <p><strong>Location:</strong> <asp:Label ID="lblJobLocation" runat="server"></asp:Label></p>
-                                    <p><strong>Salary:</strong> $<asp:Label ID="lblJobSalary" runat="server"></asp:Label></p>
-                                    <p><strong>Job Type:</strong> <asp:Label ID="lblJobType" runat="server"></asp:Label></p>
-                                    <p><strong>Category:</strong> <asp:Label ID="lblJobCategory" runat="server"></asp:Label></p>
-                                    <p><strong>Required Experience:</strong> <asp:Label ID="lblJobExperience" runat="server"></asp:Label> years</p>
-                                    <p><strong>Application Deadline:</strong> <asp:Label ID="lblJobDeadline" runat="server"></asp:Label></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                       <!-- Back Button -->
-                       <div class="row back-button">
-                           <div class="col-xl-12">
-                               <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary"
-                                   OnClick="btnBack_Click" />
-                           </div>
-                       </div>
-
-
-                       <!-- Candidates Listing Table -->
-                       <div class="table-responsive">
-                           <asp:GridView
-                               ID="gvMatchingCandidates"
-                               runat="server"
-                               CssClass="table table-striped table-bordered"
-                               AutoGenerateColumns="False"
-                               OnRowCommand="gvMatchingCandidates_RowCommand"
-                               OnRowDataBound="gvMatchingCandidates_RowDataBound">
-                               <Columns>
-                                   <asp:BoundField DataField="Candidate.JobSeekerID" HeaderText="Job Seeker ID" />
-                                   <asp:BoundField DataField="Candidate.FirstName" HeaderText="First Name" />
-                                   <asp:BoundField DataField="Candidate.LastName" HeaderText="Last Name" />
-                                   <asp:BoundField DataField="MatchingPercentage" HeaderText="Matching Percentage" DataFormatString="{0:F2}%" />
-
-                                   <asp:TemplateField HeaderText="Actions">
-                                       <ItemTemplate>
-                                           <asp:Button
-                                               ID="btnDownloadResume"
-                                               runat="server"
-                                               Text="Download Resume"
-                                               CommandName="DownloadResume"
-                                               CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
-                                               CssClass="btn btn-secondary btn-sm" />
-                                           <asp:Button
-                                               ID="btnViewProfile"
-                                               runat="server"
-                                               Text="Full Profile"
-                                               CommandName="ViewProfile"
-                                               CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
-                                               CssClass="btn btn-info btn-sm" />
-                                           <asp:PlaceHolder ID="phSelect" runat="server">
-                                               <asp:Button
-                                                   ID="btnSelectCandidate"
-                                                   runat="server"
-                                                   Text="Select"
-                                                   CommandName="SelectCandidate"
-                                                   CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
-                                                   CssClass="btn btn-success btn-sm" />
-                                           </asp:PlaceHolder>
-                                           <asp:PlaceHolder ID="phSelected" runat="server" Visible='<%# Eval("ApplicationStatus").ToString() == "Shortlisted" %>'>
-                                               <span class="badge bg-success">Selected</span>
-                                           </asp:PlaceHolder>
-                                       </ItemTemplate>
-                                   </asp:TemplateField>
-                               </Columns>
-                           </asp:GridView>
-                           <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
-                           <asp:Label ID="lblSuccessMessage" runat="server" ForeColor="Green" CssClass="mt-2"></asp:Label>
-                       </div>
-                       </div>
+                        <ContentTemplate>
+                            <!-- Job Details Section -->
+                            <div class="row job-details mb-3">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3>Job Details</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <p><strong>Job Title:</strong> <asp:Label ID="lblJobTitle" runat="server"></asp:Label></p>
+                                            <p><strong>Description:</strong> <asp:Label ID="lblJobDescription" runat="server"></asp:Label></p>
+                                            <p><strong>Location:</strong> <asp:Label ID="lblJobLocation" runat="server"></asp:Label></p>
+                                            <p><strong>Salary:</strong> $<asp:Label ID="lblJobSalary" runat="server"></asp:Label></p>
+                                            <p><strong>Job Type:</strong> <asp:Label ID="lblJobType" runat="server"></asp:Label></p>
+                                            <p><strong>Category:</strong> <asp:Label ID="lblJobCategory" runat="server"></asp:Label></p>
+                                            <p><strong>Required Experience:</strong> <asp:Label ID="lblJobExperience" runat="server"></asp:Label> years</p>
+                                            <p><strong>Application Deadline:</strong> <asp:Label ID="lblJobDeadline" runat="server"></asp:Label></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                   </ContentTemplate>
+
+                            <!-- Back Button -->
+                            <div class="row mb-3">
+                                <div class="col-xl-12 text-end">
+                                    <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary"
+                                        OnClick="btnBack_Click" />
+                                </div>
+                            </div>
+
+                            <!-- Candidates Listing Table -->
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Matching Candidates</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <asp:GridView
+                                                    ID="gvMatchingCandidates"
+                                                    runat="server"
+                                                    CssClass="table table-striped table-bordered"
+                                                    AutoGenerateColumns="False"
+                                                    OnRowCommand="gvMatchingCandidates_RowCommand"
+                                                    OnRowDataBound="gvMatchingCandidates_RowDataBound">
+                                                    <Columns>
+                                                        <asp:BoundField DataField="Candidate.JobSeekerID" HeaderText="Job Seeker ID" />
+                                                        <asp:BoundField DataField="Candidate.FirstName" HeaderText="First Name" />
+                                                        <asp:BoundField DataField="Candidate.LastName" HeaderText="Last Name" />
+                                                        <asp:BoundField DataField="MatchingPercentage" HeaderText="Matching Percentage" DataFormatString="{0:F2}%" />
+
+                                                        <asp:TemplateField HeaderText="Actions">
+                                                            <ItemTemplate>
+                                                                <asp:Button
+                                                                    ID="btnDownloadResume"
+                                                                    runat="server"
+                                                                    Text="Download Resume"
+                                                                    CommandName="DownloadResume"
+                                                                    CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
+                                                                    CssClass="btn btn-secondary btn-sm me-1" />
+                                                                <asp:Button
+                                                                    ID="btnViewProfile"
+                                                                    runat="server"
+                                                                    Text="Full Profile"
+                                                                    CommandName="ViewProfile"
+                                                                    CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
+                                                                    CssClass="btn btn-info btn-sm me-1" />
+                                                                <asp:PlaceHolder ID="phSelect" runat="server">
+                                                                    <asp:Button
+                                                                        ID="btnSelectCandidate"
+                                                                        runat="server"
+                                                                        Text="Select"
+                                                                        CommandName="SelectCandidate"
+                                                                        CommandArgument='<%# Eval("Candidate.JobSeekerID") %>'
+                                                                        CssClass="btn btn-success btn-sm" />
+                                                                </asp:PlaceHolder>
+                                                                <asp:PlaceHolder ID="phSelected" runat="server" Visible='<%# Eval("ApplicationStatus").ToString() == "Shortlisted" %>'>
+                                                                    <span class="badge bg-success">Selected</span>
+                                                                </asp:PlaceHolder>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:Label ID="lblError" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
+                                                <asp:Label ID="lblSuccessMessage" runat="server" ForeColor="Green" CssClass="mt-2"></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="btnBack" EventName="Click" />
+                        </Triggers>
                     </asp:UpdatePanel>
                 </div>
             </div>
             <!-- Main Content End -->
+
             <!-- Chat Box Start -->
-            <asp:UpdatePanel ID="UpdatePanelChat" runat="server">
-                <ContentTemplate>
-                    <div class="chatbox hidden">
-                        <!-- Chat Box Header -->
-                        <div class="chatbox-header" id="ChatBoxHeader" runat="server">
-                            <span>Chat</span>
-                            <!-- Minimize Icon -->
-                            <span>&#x25BC;</span>
+            <div class="chatbox hidden">
+                <!-- Chat Box Header -->
+                <div class="chatbox-header" id="ChatBoxHeader" runat="server">
+                    <span>Chat</span>
+                    <!-- Minimize Icon -->
+                    <span>&#x25BC;</span>
+                </div>
+                <!-- Chat Box Body -->
+                <div class="chatbox-body" id="ChatBoxBody" runat="server">
+                    <!-- Send a Message Section -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Send a Message</h5>
                         </div>
-                        <!-- Chat Box Body -->
-                        <div class="chatbox-body" id="ChatBoxBody" runat="server">
-                            <!-- Send a Message Section -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Send a Message</h5>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Job Seeker Selection Dropdown -->
-                                    <div class="mb-3">
-                                        <label for="ddlJobSeekers" class="form-label">Select Job Seeker</label>
-                                        <asp:DropDownList ID="ddlJobSeekers" runat="server" CssClass="form-select">
-                                        </asp:DropDownList>
-                                    </div>
-
-                                    <!-- Chat Message TextBox -->
-                                    <div class="mb-3">
-                                        <label for="txtChatMessage" class="form-label">Your Message</label>
-                                        <asp:TextBox ID="txtChatMessage" runat="server" TextMode="MultiLine" Rows="4"
-                                            CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                    <!-- Send Button -->
-                                    <asp:Button ID="btnSendMessage" runat="server" Text="Send" CssClass="btn btn-primary"
-                                        OnClick="btnSendMessage_Click" />
-                                    <!-- Message Label -->
-                                    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
-                                </div>
+                        <div class="card-body">
+                            <!-- Job Seeker Selection Dropdown -->
+                            <div class="mb-3">
+                                <label for="ddlJobSeekers" class="form-label">Select Job Seeker</label>
+                                <asp:DropDownList ID="ddlJobSeekers" runat="server" CssClass="form-select">
+                                    <asp:ListItem Value="">-- Select Job Seeker --</asp:ListItem>
+                                </asp:DropDownList>
                             </div>
-                            <!-- End of Send a Message Section -->
 
-                            <!-- Chat Messages Section -->
-                            <div class="card mt-4">
-                                <div class="card-header">
-                                    <h5>Your Messages</h5>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Repeater for Chat Messages -->
-                                    <asp:Repeater ID="rptChatMessages" runat="server">
-                                        <ItemTemplate>
-                                            <div class="d-flex justify-content-start mb-4">
-                                                <div class="img_cont_msg">
-                                                    <img src='<%# ResolveUrl(Eval("ProfilePicturePath", "~/xhtml/images/profile/{0}")) %>'
-                                                        class="rounded-circle user_img_msg" alt='<%# Eval("FirstName") %>' />
-                                                </div>
-                                                <div class="msg_cotainer">
-                                                    <%# Eval("Message") %>
-                                                    <span class="msg_time"><%# Eval("MessageTime", "{0:MM/dd/yyyy HH:mm}") %></span>
-                                                </div>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </div>
+                            <!-- Chat Message TextBox -->
+                            <div class="mb-3">
+                                <label for="txtChatMessage" class="form-label">Your Message</label>
+                                <asp:TextBox ID="txtChatMessage" runat="server" TextMode="MultiLine" Rows="4"
+                                    CssClass="form-control"></asp:TextBox>
                             </div>
-                            <!-- End of Chat Messages Section -->
+                            <!-- Send Button -->
+                            <asp:Button ID="btnSendMessage" runat="server" Text="Send" CssClass="btn btn-primary"
+                                OnClick="btnSendMessage_Click" />
+                            <!-- Message Label -->
+                            <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
                         </div>
                     </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
+                    <!-- End of Send a Message Section -->
+
+                    <!-- Chat Messages Section -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5>Your Messages</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Repeater for Chat Messages -->
+                            <asp:Repeater ID="rptChatMessages" runat="server">
+                                <ItemTemplate>
+                                    <div class="d-flex justify-content-start mb-4">
+                                        <div class="img_cont_msg">
+                                            <img src='<%# ResolveUrl(Eval("ProfilePicturePath", "~/xhtml/images/profile/{0}")) %>'
+                                                class="rounded-circle user_img_msg" alt='<%# Eval("FirstName") %>' />
+                                        </div>
+                                        <div class="msg_cotainer">
+                                            <%# Eval("Message") %>
+                                            <span class="msg_time"><%# Eval("MessageTime", "{0:MM/dd/yyyy HH:mm}") %></span>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                    </div>
+                    <!-- End of Chat Messages Section -->
+                </div>
+            </div>
             <!-- Chat Box End -->
-        </div>
+        </form>
         <!-- Main wrapper end -->
 
         <!-- JavaScript for Chatbox Functionality -->
-        <script>
+        <script type="text/javascript">
             // Initialize chatbox behavior after the DOM is fully loaded
             document.addEventListener('DOMContentLoaded', function () {
                 // Get references to chatbox elements using ClientID
                 var chatBox = document.querySelector('.chatbox');
                 var chatHeader = document.getElementById('<%= ChatBoxHeader.ClientID %>');
-                var chatBody = document.getElementById('<%= ChatBoxBody.ClientID %>');
                 var messagesDropdown = document.getElementById('messagesDropdown');
 
-                // Function to toggle chatbox visibility
-                function toggleChatBox() {
-                    chatBox.classList.toggle('hidden');
+                if (chatHeader) {
+                    // Function to toggle chatbox visibility
+                    function toggleChatBox() {
+                        chatBox.classList.toggle('hidden');
+                    }
+
+                    // Toggle chatbox visibility when clicking on the header
+                    chatHeader.addEventListener('click', function (event) {
+                        toggleChatBox();
+                        event.stopPropagation(); // Prevent event from bubbling up
+                    });
                 }
 
-                // Toggle chatbox visibility when clicking on the header
-                chatHeader.addEventListener('click', function (event) {
-                    toggleChatBox();
-                    event.stopPropagation(); // Prevent event from bubbling up
-                });
-
-                // Toggle chatbox visibility when clicking on the Messages dropdown
                 if (messagesDropdown) { // Added null check
+                    // Toggle chatbox visibility when clicking on the Messages dropdown
                     messagesDropdown.addEventListener('click', function (event) {
-                        toggleChatBox();
+                        chatBox.classList.toggle('hidden');
                         event.stopPropagation(); // Prevent event from bubbling up
                     });
                 }
 
                 // Hide chatbox when clicking outside of it
                 document.addEventListener('click', function (event) {
-                    if (!chatBox.contains(event.target) && event.target !== messagesDropdown) {
+                    if (chatBox && !chatBox.contains(event.target) && event.target !== messagesDropdown) {
                         chatBox.classList.add('hidden');
                     }
                 });
 
                 // Prevent the chatbox from closing when clicking inside it
-                chatBox.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                });
+                if (chatBox) {
+                    chatBox.addEventListener('click', function (event) {
+                        event.stopPropagation();
+                    });
+                }
             });
         </script>
+
+       
 
         <!-- Scripts -->
         <script src="xhtml/vendor/global/global.min.js"></script>
         <script src="xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="xhtml/vendor/chart-js/chart.bundle.min.js"></script>
+        <script src="xhtml/vendor/select2/js/select2.min.js"></script> <!-- Ensure Select2 is included -->
         <script src="xhtml/js/custom.min.js"></script>
         <script src="xhtml/js/deznav-init.js"></script>
         <script src="xhtml/js/demo.js"></script>
-    </form>
-</body>
+    </body>
 </html>

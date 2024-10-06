@@ -204,7 +204,7 @@ namespace OnlineJobPortal
             else
             {
                 // Redirect to login or handle accordingly
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Home.aspx");
                 return 0;
             }
         }
@@ -227,7 +227,7 @@ namespace OnlineJobPortal
         {
             // Clear session and redirect to Login page
             Session.Clear();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Home.aspx");
         }
 
         protected void btnSendMessage_Click(object sender, EventArgs e)

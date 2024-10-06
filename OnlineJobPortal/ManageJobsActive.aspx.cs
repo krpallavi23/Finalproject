@@ -439,7 +439,7 @@ namespace OnlineJobPortal
         {
             // Clear session and redirect to Login page
             Session.Clear();
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Home.aspx");
         }
 
         protected void gvJobs_SelectedIndexChanged(object sender, EventArgs e)

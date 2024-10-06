@@ -64,7 +64,7 @@ namespace OnlineJobPortal
             else
             {
                 // Redirect to login page if EmployerID is not found in session
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Home.aspx");
             }
         }
 
@@ -142,7 +142,7 @@ namespace OnlineJobPortal
             else
             {
                 // Redirect to login page if EmployerID is not found in session
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Home.aspx");
             }
         }
         /// </summary>

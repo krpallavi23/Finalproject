@@ -92,8 +92,6 @@ namespace OnlineJobPortal
 
         private void LoadMatchingCandidates(int jobId)
         {
-            // Existing implementation remains unchanged
-            // ...
             List<MatchingCandidate> matchingCandidates = new List<MatchingCandidate>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -111,7 +109,7 @@ namespace OnlineJobPortal
                 {
                     double matchingPercentage = ComputeMatchingPercentage(jobRequirements, candidate);
 
-                    if (matchingPercentage >0)
+                    if (matchingPercentage >=0)
                     {
                         // Get application status
                         string status = GetApplicationStatus(conn, jobId, candidate.JobSeekerID);
@@ -361,65 +359,82 @@ namespace OnlineJobPortal
 
             if (e.CommandName == "DownloadResume")
             {
-                int jobSeekerID = Convert.ToInt32(e.CommandArgument);
-
-                // Get the resume path from database
-                string resumePath = GetResumePath(jobSeekerID);
-
-                if (!string.IsNullOrEmpty(resumePath))
+                if (int.TryParse(e.CommandArgument.ToString(), out int jobSeekerID))
                 {
-                    try
+                    // Get the resume path from database
+                    string resumePath = GetResumePath(jobSeekerID);
+
+                    if (!string.IsNullOrEmpty(resumePath))
                     {
-                        // Ensure the file exists
-                        string fullPath = Server.MapPath(resumePath);
-                        if (System.IO.File.Exists(fullPath))
+                        try
                         {
-                            // Start file download
-                            Response.ContentType = "application/octet-stream";
-                            Response.AppendHeader("Content-Disposition", "attachment; filename=" + System.IO.Path.GetFileName(resumePath));
-                            Response.TransmitFile(fullPath);
-                            Response.End();
+                            // Ensure the file exists
+                            string fullPath = Server.MapPath(resumePath);
+                            if (System.IO.File.Exists(fullPath))
+                            {
+                                // Start file download
+                                Response.ContentType = "application/octet-stream";
+                                Response.AppendHeader("Content-Disposition", "attachment; filename=" + System.IO.Path.GetFileName(resumePath));
+                                Response.TransmitFile(fullPath);
+                                Response.End();
+                            }
+                            else
+                            {
+                                lblError.Text = "Resume file does not exist.";
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            lblError.Text = "Resume file does not exist.";
+                            lblError.Text = "An error occurred while downloading the resume: " + ex.Message;
+                            // Log error
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        lblError.Text = "An error occurred while downloading the resume: " + ex.Message;
-                        // Log error
+                        lblError.Text = "Resume not available.";
                     }
                 }
                 else
                 {
-                    lblError.Text = "Resume not available.";
+                    lblError.Text = "Invalid Job Seeker ID.";
                 }
             }
             else if (e.CommandName == "ViewProfile")
             {
-                int jobSeekerID = Convert.ToInt32(e.CommandArgument);
-                // Redirect to FullProfile.aspx with JobSeekerID
-                Response.Redirect("FullProfile.aspx?JobSeekerID=" + jobSeekerID);
-            }
-            else if (e.CommandName == "SelectCandidate")
-            {
-                int jobSeekerID = Convert.ToInt32(e.CommandArgument);
-                int jobId = GetCurrentJobId(); // Retrieve JobID from ViewState
-
-                // Update application status to 'Shortlisted'
-                bool updateSuccess = UpdateCandidateStatus(jobSeekerID, jobId, "Shortlisted");
-
-                if (updateSuccess)
+                if (int.TryParse(e.CommandArgument.ToString(), out int jobSeekerID))
                 {
-                    lblSuccessMessage.Text = "Candidate shortlisted successfully.";
-
-                    // Rebind the GridView to reflect changes
-                    LoadMatchingCandidates(jobId);
+                    // Redirect to FullProfile.aspx with JobSeekerID
+                    Response.Redirect("FullProfile.aspx?JobSeekerID=" + jobSeekerID);
                 }
                 else
                 {
-                    lblError.Text = "An error occurred while shortlisting the candidate.";
+                    lblError.Text = "Invalid Job Seeker ID.";
+                }
+            }
+            else if (e.CommandName == "SelectCandidate")
+            {
+                if (int.TryParse(e.CommandArgument.ToString(), out int jobSeekerID))
+                {
+                    int jobId = GetCurrentJobId(); // Retrieve JobID from ViewState
+
+                    // Update application status to 'Shortlisted'
+                    bool updateSuccess = UpdateCandidateStatus(jobSeekerID, jobId, "Shortlisted");
+
+                    if (updateSuccess)
+                    {
+                        lblSuccessMessage.Text = "Candidate shortlisted successfully.";
+
+                        // Rebind the GridView to reflect changes
+                        LoadMatchingCandidates(jobId);
+                    }
+                    else
+                    {
+                        lblError.Text = "An error occurred while shortlisting the candidate.";
+                    }
+                }
+                else
+                {
+                    lblError.Text = "Invalid Job Seeker ID.";
                 }
             }
         }
