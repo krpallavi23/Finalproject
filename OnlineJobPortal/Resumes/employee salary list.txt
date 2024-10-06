@@ -1,0 +1,215 @@
+Here are a couple of example programs that demonstrate how you might create an Angular application to manage and display a list of employee salaries.
+Example 1: Basic Employee Salary List
+
+This example shows a simple Angular application where you can list employees with their corresponding salaries.
+Step 1: Set Up the Angular Project
+
+Create a new Angular project using the Angular CLI:
+
+bash
+
+ng new employee-salary-list  --routing --style=css --no-standalone --ssr=false
+cd employee-salary-list
+ng serve
+
+Step 2: Create a Tree Component
+
+Create a new component that will represent your tree:
+
+bash
+
+ng generate component employee
+
+
+Step 2: Create the Employee Interface
+
+Define an Employee interface in a new file employee.ts in the src/app directory:
+
+typescript
+
+export interface Employee {
+  id: number;
+  name: string;
+  salary: number;
+}
+
+Step 3: Create an Employee Service
+
+ng generate service employee
+
+Create an employee.service.ts file to manage the list of employees:
+
+typescript
+
+import { Injectable } from '@angular/core';
+import { Employee } from './employee/employee.component';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class EmployeeService {
+  private employees: Employee[] = [
+    { id: 1, name: 'Alice', salary: 50000 },
+    { id: 2, name: 'Bob', salary: 60000 },
+    { id: 3, name: 'Charlie', salary: 70000 },
+  ];
+
+  getEmployees(): Employee[] {
+    return this.employees;
+  }
+}
+
+What is the use of service in Angular?
+
+* Angular services provide a way for you to separate Angular app data and functions that can be used by multiple components in your app. 
+
+* To be used by multiple components, a service must be made injectable. 
+
+* Services that are injectable and used by a component become dependencies of that component.
+
+Step 4: Create an Employee Component
+
+Create a component to display the list of employees. Generate it using the Angular CLI:
+
+bash
+
+ng generate component employee-list
+
+Update employee-list.component.ts to fetch and display the employee data:
+
+typescript
+
+import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../employee.service';
+import { Employee } from '../employee/employee.component';
+
+@Component({
+  selector: 'app-employee-list',
+  templateUrl: './employee-list.component.html',
+  styleUrls: ['./employee-list.component.css']
+})
+export class EmployeeListComponent implements OnInit {
+  employees: Employee[] = [];
+
+  constructor(private employeeService: EmployeeService) {}
+
+  ngOnInit(): void {
+    this.employees = this.employeeService.getEmployees();
+  }
+}
+
+Step 5: Update the Template
+
+Update the employee-list.component.html to display the list of employees:
+
+html
+
+<h2>Employee Salary List</h2>
+<ul>
+  <li *ngFor="let employee of employees">
+    {{ employee.name }} - ${{ employee.salary }}
+  </li>
+</ul>
+
+Step 6: Add the Employee List to the App Component
+
+Update the app.component.html to include the employee list component:
+
+html
+
+<app-employee-list></app-employee-list>
+
+Step 7: Run the Application
+
+Run the application with the following command:
+
+bash
+
+ng serve
+
+You should now see a simple list of employees with their corresponding salaries.
+Example 2: Employee Salary List with Editable Salaries
+
+This example builds on the previous one by adding the ability to edit employee salaries.
+Step 1: Update the Employee Component Template
+
+Modify the employee-list.component.html to allow editing of salaries:
+
+html
+
+<h2>Employee Salary List</h2>
+<ul>
+  <li *ngFor="let employee of employees">
+    {{ employee.name }} - 
+    <input [(ngModel)]="employee.salary" type="number" /> 
+    <button (click)="updateSalary(employee)">Update</button>
+  </li>
+</ul>
+
+Step 2: Update the Employee Component Logic
+
+In employee-list.component.ts, add a method to handle the salary update:
+
+typescript
+
+import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../employee.service';
+import { Employee } from '../employee';
+
+@Component({
+  selector: 'app-employee-list',
+  templateUrl: './employee-list.component.html',
+  styleUrls: ['./employee-list.component.css']
+})
+export class EmployeeListComponent implements OnInit {
+  employees: Employee[] = [];
+
+  constructor(private employeeService: EmployeeService) {}
+
+  ngOnInit(): void {
+    this.employees = this.employeeService.getEmployees();
+  }
+
+  updateSalary(employee: Employee): void {
+    alert(`${employee.name}'s salary updated to $${employee.salary}`);
+  }
+}
+
+Step 3: Import FormsModule
+
+Ensure that the FormsModule is imported in your app.module.ts to use ngModel for two-way data binding:
+
+typescript
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';  // <-- Add this line
+
+import { AppComponent } from './app.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    EmployeeListComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule  // <-- Add this line
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+Step 4: Run the Application
+
+Run the application:
+
+bash
+
+ng serve
+
+Now, you should be able to edit the salaries of the employees directly in the UI.
+
+These examples demonstrate how to create, display, and edit a list of employee salaries using Angular. You can expand on this by adding more features such as filtering, sorting, or persisting the data to a backend service.

@@ -111,7 +111,7 @@ namespace OnlineJobPortal
                 {
                     double matchingPercentage = ComputeMatchingPercentage(jobRequirements, candidate);
 
-                    if (matchingPercentage >= 40)
+                    if (matchingPercentage >0)
                     {
                         // Get application status
                         string status = GetApplicationStatus(conn, jobId, candidate.JobSeekerID);

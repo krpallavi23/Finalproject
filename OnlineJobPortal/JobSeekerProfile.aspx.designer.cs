@@ -96,22 +96,13 @@ namespace OnlineJobPortal
         protected global::System.Web.UI.WebControls.LinkButton lnkInbox;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lnkLogout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
-
-        /// <summary>
-        /// formJobSeekerProfile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm formJobSeekerProfile;
+        protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
 
         /// <summary>
         /// lblMessage control.
@@ -402,12 +393,12 @@ namespace OnlineJobPortal
         protected global::System.Web.UI.WebControls.LinkButton lnkViewDashboard;
 
         /// <summary>
-        /// lnkLogout control.
+        /// LinkButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
     }
 }

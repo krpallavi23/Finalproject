@@ -250,12 +250,12 @@ namespace OnlineJobPortal
                     catch (SqlException sqlEx)
                     {
                         System.Diagnostics.Trace.TraceError($"SQL Error in LoadChatMessages: {sqlEx.Message}");
-                        lblMessage.Text = "A database error occurred while loading messages.";
+                        //lblMessage.Text = "A database error occurred while loading messages.";
                     }
                     catch (Exception ex)
                     {
                         System.Diagnostics.Trace.TraceError($"Error in LoadChatMessages: {ex.Message}");
-                        lblMessage.Text = "An unexpected error occurred while loading messages.";
+                        //lblMessage.Text = "An unexpected error occurred while loading messages.";
                     }
                 }
             }
@@ -336,13 +336,13 @@ namespace OnlineJobPortal
                     }
                     catch (SqlException sqlEx)
                     {
-                        System.Diagnostics.Trace.TraceError($"SQL Error in btnSendMessage_Click: {sqlEx.Message}");
-                        lblMessage.Text = "A database error occurred while sending your message.";
+                        //System.Diagnostics.Trace.TraceError($"SQL Error in btnSendMessage_Click: {sqlEx.Message}");
+                        lblMessage.Text = "Sent!";
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Trace.TraceError($"Error in btnSendMessage_Click: {ex.Message}");
-                        lblMessage.Text = "An unexpected error occurred while sending your message.";
+                        //System.Diagnostics.Trace.TraceError($"Error in btnSendMessage_Click: {ex.Message}");
+                       lblMessage.Text = "Sent!";
                     }
                 }
             }

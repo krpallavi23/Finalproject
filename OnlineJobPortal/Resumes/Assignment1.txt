@@ -1,0 +1,6 @@
+Assignment : 
+
+1.To create employee salary list (ename,empno,sal,hra,ma,ta,pf,gp,np)
+2.To create product list (pname,pid,qty,rate,amount)
+3.To create Bank Transaction Details list(cname,accno,ttype,tdate,amount)
+4.To create Dept list(Deptno,dname,loc)

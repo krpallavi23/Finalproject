@@ -245,7 +245,7 @@
                         <li>
                             <a href="SearchJobSeekers.aspx" class="ai-icon">
                                 <i class="flaticon-381-search"></i>
-                                <span class="nav-text">Search JobSeekers</span>
+                                <span class="nav-text">Find JobSeekers</span>
                             </a>
                         </li>
                         <li>
@@ -424,7 +424,7 @@
             <!-- Footer start -->
             <div class="footer">
                 <div class="copyright">
-                    <p>© 2024 Qerza. All Rights Reserved.</p>
+                    <p>Made by Ayushi & Pallavi.</p>
                 </div>
             </div>
             <!-- Footer end -->

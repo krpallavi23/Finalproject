@@ -298,7 +298,7 @@
             <!-- Footer start -->
             <div class="footer">
                 <div class="copyright">
-                    <p>© 2024 Qerza. All Rights Reserved.</p>
+                    <p>Made by Ayushi & Pallavi.</p>
                 </div>
             </div>
             <!-- Footer end -->

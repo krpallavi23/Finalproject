@@ -82,7 +82,7 @@
                                 <span class="nav-text">Job Application</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="JobApplication.aspx?status=All">All</a></li>
+                                <li><a href="AllJobApplications.aspx?status=All">All</a></li>
                                 <li><a href="AppliedJob.aspx?status=Applied">Applied</a></li>
                                 <li><a href="ShortlistedJob.aspx?status=Shortlisted">Shortlisted</a></li>
                                 <li><a href="SelectedJob.aspx?status=Selected">Selected</a></li>

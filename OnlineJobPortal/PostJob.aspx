@@ -12,13 +12,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- CSS Files -->
+    <a href="PostJob.aspx">PostJob.aspx</a>
     <link href="xhtml/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="xhtml/vendor/chartist/css/chartist.min.css" />
     <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link href="xhtml/css/style.css" rel="stylesheet" />
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet" />
-
+   
 
     <!-- Custom Styles for Chatbox -->
     <style>
@@ -207,38 +209,39 @@
                 </div>
             </div>
             <!-- Header end -->
-            <!-- Sidebar start -->
-            <div class="deznav">
-                <div class="deznav-scroll">
-                    <ul class="metismenu" id="menu">
-                        <li>
-                            <a href="SearchJobSeekers.aspx" class="ai-icon">
-                                <i class="flaticon-381-search"></i>
-                                <span class="nav-text">Search JobSeekers</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="PostJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-briefcase"></i>
-                                <span class="nav-text">Post Job</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
-                                <i class="flaticon-381-settings-2"></i>
-                                <span class="nav-text">Manage Jobs</span>
-                            </a>
-                            <ul aria-expanded="false">
-                                <li><a href="ManageJobsAll.aspx?status=All">All</a></li>
-                                <li><a href="ManageJobsActive.aspx?status=Active">Active</a></li>
-                                <li><a href="ManageJobsInactive.aspx?status=Inactive">Inactive</a></li>
-                            </ul>
-                        </li>
-                        <!-- Add other menu items as needed -->
-                    </ul>
-                </div>
-            </div>
-            <!-- Sidebar end -->
+             <!-- Sidebar start -->
+ <div class="deznav">
+     <div class="deznav-scroll">
+         <ul class="metismenu" id="menu">
+             <li>
+                 <a href="SearchJobSeekers.aspx" class="ai-icon">
+                     <i class="flaticon-381-search"></i>
+                     <span class="nav-text">Find JobSeekers</span>
+                 </a>
+             </li>
+             <li>
+                 <a href="PostJob.aspx" class="ai-icon">
+                     <i class="flaticon-381-briefcase"></i>
+                     <span class="nav-text">Post Job</span>
+                 </a>
+             </li>
+             <li>
+                 <a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
+                     <i class="flaticon-381-settings-2"></i>
+                     <span class="nav-text">Manage Jobs</span>
+                 </a>
+                 <ul aria-expanded="false">
+                     <li><a href="ManageJobsAll.aspx?status=All">All</a></li>
+                     <li><a href="ManageJobsActive.aspx?status=Active">Active</a></li>
+                     <li><a href="ManageJobsInactive.aspx?status=Inactive">Inactive</a></li>
+                 </ul>
+             </li>
+             <!-- Add other menu items as needed -->
+         </ul>
+     </div>
+ </div>
+ <!-- Sidebar end -->
+           
              <!-- Main content start -->
         <div class="content-body">
             <div class="container-fluid">
@@ -523,84 +526,8 @@
         <!-- Main wrapper end -->
 
         <!-- JavaScript for Chatbox Functionality -->
-        <script>
-            // Initialize chatbox behavior after the DOM is fully loaded
-            document.addEventListener('DOMContentLoaded', function () {
-                // Get references to chatbox elements using client-side ID
-                var chatBox = document.querySelector('.chatbox');
-                var chatHeader = document.getElementById('<%= ChatBoxHeader.ClientID %>');
-                var chatBody = document.getElementById('<%= ChatBoxBody.ClientID %>');
-                var messagesDropdown = document.getElementById('messagesDropdown'); // Correct client-side ID reference
-
-                // Function to toggle chatbox visibility
-                function toggleChatBox() {
-                    chatBox.classList.toggle('hidden');
-                }
-
-                // Toggle chatbox visibility when clicking on the header
-                chatHeader.addEventListener('click', function (event) {
-                    toggleChatBox();
-                    event.stopPropagation(); // Prevent event from bubbling up
-                });
-
-                // Toggle chatbox visibility when clicking on the Messages dropdown
-                if (messagesDropdown) { // Added null check
-                    messagesDropdown.addEventListener('click', function (event) {
-                        toggleChatBox();
-                        event.stopPropagation(); // Prevent event from bubbling up
-                    });
-                }
-
-                // Hide chatbox when clicking outside of it
-                document.addEventListener('click', function (event) {
-                    if (!chatBox.contains(event.target) && event.target !== messagesDropdown) {
-                        chatBox.classList.add('hidden');
-                    }
-                });
-
-                // Prevent the chatbox from closing when clicking inside it
-                chatBox.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                });
-            });
-        </script>
-          <!-- Initialize Select2 -->
-        <script type="text/javascript">
-            function initializeSelect2() {
-                // Destroy existing Select2 instances to prevent duplication
-                $('.degree-dropdown').select2('destroy');
-                $('.skill-dropdown').select2('destroy');
-
-                // Initialize Select2 for degree dropdowns
-                $('.degree-dropdown').select2({
-                    placeholder: 'Select Degree',
-                    allowClear: true,
-                    dropdownCssClass: 'custom-dropdown' // Add custom CSS class
-                });
-
-                // Initialize Select2 for skill dropdowns
-                $('.skill-dropdown').select2({
-                    placeholder: 'Select Skill',
-                    allowClear: true,
-                    dropdownCssClass: 'custom-dropdown' // Add custom CSS class
-                });
-            }
-
-            // Initialize on document ready
-            $(document).ready(function () {
-                initializeSelect2();
-            });
-
-            // Re-initialize after each partial postback
-            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                initializeSelect2();
-            });
-          </script>
-
-        
-         
-       
-        <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="xhtml/vendor/global/global.min.js"></script>
         <script src="xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="xhtml/vendor/chart-js/chart.bundle.min.js"></script>

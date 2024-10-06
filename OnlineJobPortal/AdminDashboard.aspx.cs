@@ -60,6 +60,10 @@ namespace OnlineJobPortal
             // Redirect to profile page
             Response.Redirect("AdminProfile.aspx");
         }
+        protected void lnkInbox_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ChangeAdminPassword.aspx");
+        }
 
         protected void lnkLogout_Click(object sender, EventArgs e)
         {

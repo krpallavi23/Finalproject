@@ -31,7 +31,6 @@
     <link href="xhtml/css/style.css" rel="stylesheet" />
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet" />
-
 </head>
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1"
     data-headerbg="color_1" data-sidebar-style="mini" data-sidebarbg="color_1" data-sidebar-position="fixed"
@@ -50,7 +49,6 @@
             <!-- Nav header start -->
             <div class="nav-header">
                 <a href="JobSeekerDashboard.aspx" class="brand-logo">
-
                     <!-- Add your logo here -->
                     <img src="xhtml/images/newme3.png" alt="Logo" />
                 </a>
@@ -79,7 +77,6 @@
                                 </asp:DropDownList>
                             </div>
 
-
                             <!-- Chat Message TextBox -->
                             <div class="mb-3">
                                 <label for="txtChatMessage" class="form-label">Your Message</label>
@@ -88,12 +85,11 @@
                             </div>
                             <!-- Send Button -->
                             <asp:Button ID="btnSendMessage" runat="server" Text="Send" CssClass="btn btn-primary"
-                                OnClick="btnSendMessage_Click" />
+                                 />
                             <!-- Message Label -->
                             <asp:Label ID="Label1" runat="server" ForeColor="Red" CssClass="mt-2"></asp:Label>
                         </div>
                     </div>
-
 
                     <!-- End of Send a Message Section -->
 
@@ -113,7 +109,6 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-
                         </div>
                     </div>
                     <!-- End of Chat Messages Section -->
@@ -162,13 +157,13 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item" OnClick="lnkViewProfile_Click">
-    <i class="fas fa-user"></i><span class="ms-2">Profile</span>
+                                            <i class="fas fa-user"></i><span class="ms-2">Profile</span>
                                         </asp:LinkButton>
                                         <asp:LinkButton ID="lnkInbox" runat="server" CssClass="dropdown-item" OnClick="lnkInbox_Click">
-    <i class="fas fa-envelope"></i><span class="ms-2">Change Password</span>
+                                            <i class="fas fa-envelope"></i><span class="ms-2">Change Password</span>
                                         </asp:LinkButton>
-                                        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">
-    <i class="fas fa-sign-out-alt"></i><span class="ms-2">Logout</span>
+                                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">
+                                            <i class="fas fa-sign-out-alt"></i><span class="ms-2">Logout</span>
                                         </asp:LinkButton>
                                     </div>
                                 </li>
@@ -202,108 +197,117 @@
                                 <li><a href="RejectedJobs.aspx?status=Rejected">Rejected</a></li>
                             </ul>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
             <!-- Sidebar end -->
+            <!-- Main Content Start -->
+            <div class="content-body">
+                <div class="container-fluid">
+                    <h2 class="text-center mb-3">Job Seeker Profile</h2>
+                    <asp:Label ID="lblMessage" runat="server" CssClass="text-danger text-center mb-3" Visible="false"></asp:Label>
 
-            <form id="formJobSeekerProfile" runat="server">
-                <div class="container mt-5">
-                    <h2>Job Seeker Profile</h2>
-                    <asp:Label ID="lblMessage" runat="server" Visible="false"></asp:Label>
-
-                    <!-- Personal Details Section -->
-                    <div class="card mb-4">
+                    <!-- Job Seeker Profile Panel -->
+                    <div class="card mb-3">
                         <div class="card-header">
-                            Personal Details
-               
+                            <h5 class="card-title mb-0">Personal Details</h5>
                         </div>
                         <div class="card-body">
-                            <div class="row g-3">
+                            <div class="row g-2">
+                                <!-- First Name -->
                                 <div class="col-md-6">
                                     <label class="form-label">First Name</label>
                                     <asp:Label ID="lblFirstName" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- Last Name -->
                                 <div class="col-md-6">
                                     <label class="form-label">Last Name</label>
                                     <asp:Label ID="lblLastName" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- Date of Birth -->
                                 <div class="col-md-6">
                                     <label class="form-label">Date of Birth</label>
                                     <asp:Label ID="lblDateOfBirth" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtDateOfBirth" runat="server" CssClass="form-control hidden" type="date"></asp:TextBox>
+                                    <asp:TextBox ID="txtDateOfBirth" runat="server" CssClass="form-control d-none" type="date"></asp:TextBox>
                                 </div>
+                                <!-- Gender -->
                                 <div class="col-md-6">
                                     <label class="form-label">Gender</label>
                                     <asp:Label ID="lblGender" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-select hidden">
+                                    <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-select d-none">
                                         <asp:ListItem Value="">-- Select Gender --</asp:ListItem>
                                         <asp:ListItem Value="Male">Male</asp:ListItem>
                                         <asp:ListItem Value="Female">Female</asp:ListItem>
                                         <asp:ListItem Value="Other">Other</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
+                                <!-- Years of Experience -->
                                 <div class="col-md-6">
                                     <label class="form-label">Years of Experience</label>
                                     <asp:Label ID="lblExperience" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtExperience" runat="server" CssClass="form-control hidden" type="number" min="0"></asp:TextBox>
+                                    <asp:TextBox ID="txtExperience" runat="server" CssClass="form-control d-none" type="number" min="0"></asp:TextBox>
                                 </div>
+                                <!-- Address Line 1 -->
                                 <div class="col-md-6">
                                     <label class="form-label">Address Line 1</label>
                                     <asp:Label ID="lblAddressLine1" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtAddressLine1" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtAddressLine1" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- Address Line 2 -->
                                 <div class="col-md-6">
                                     <label class="form-label">Address Line 2</label>
                                     <asp:Label ID="lblAddressLine2" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtAddressLine2" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtAddressLine2" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- City -->
                                 <div class="col-md-4">
                                     <label class="form-label">City</label>
                                     <asp:Label ID="lblCity" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtCity" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtCity" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- State -->
                                 <div class="col-md-4">
                                     <label class="form-label">State</label>
                                     <asp:Label ID="lblState" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtState" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtState" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- Country -->
                                 <div class="col-md-4">
                                     <label class="form-label">Country</label>
                                     <asp:Label ID="lblCountry" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
+                                <!-- Postal Code -->
                                 <div class="col-md-6">
                                     <label class="form-label">Postal Code</label>
                                     <asp:Label ID="lblPostalCode" runat="server" CssClass="form-control-plaintext"></asp:Label>
-                                    <asp:TextBox ID="txtPostalCode" runat="server" CssClass="form-control hidden"></asp:TextBox>
+                                    <asp:TextBox ID="txtPostalCode" runat="server" CssClass="form-control d-none"></asp:TextBox>
                                 </div>
                                 <!-- Add more job seeker detail fields as necessary -->
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary" OnClick="btnEdit_Click" />
-                            <asp:Button ID="btnUpdateProfile" runat="server" Text="Update" CssClass="btn btn-success hidden" OnClick="btnUpdateProfile_Click" />
-                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary hidden" OnClick="btnCancel_Click" />
+                        <div class="card-footer p-2">
+                            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="btn btn-primary btn-sm me-2" OnClick="btnEdit_Click" />
+                            <asp:Button ID="btnUpdateProfile" runat="server" Text="Update" CssClass="btn btn-success btn-sm d-none me-2" OnClick="btnUpdateProfile_Click" />
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary btn-sm d-none" OnClick="btnCancel_Click" />
                         </div>
                     </div>
 
                     <!-- Academic Details Section -->
-                    <div class="card mb-4">
+                    <div class="card mb-3">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <span>Academic Details</span>
+                            <span class="fw-bold">Academic Details</span>
                             <asp:Button ID="btnAddDegree" runat="server" Text="Add Degree" CssClass="btn btn-secondary btn-sm" OnClick="btnAddDegree_Click" />
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-2">
                             <asp:Repeater ID="rptAcademicDetails" runat="server" OnItemDataBound="rptAcademicDetails_ItemDataBound" OnItemCommand="rptAcademicDetails_ItemCommand">
                                 <ItemTemplate>
-                                    <div class="academic-entry row g-3 mb-2">
+                                    <div class="academic-entry row g-2 mb-2">
                                         <div class="col-md-3">
                                             <asp:DropDownList ID="ddlDegree" runat="server" CssClass="form-select degree-dropdown">
+                                                <asp:ListItem Value="">-- Select Degree --</asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                         <div class="col-md-3">
@@ -312,7 +316,7 @@
                                                 <asp:ListItem Value="10th">10th</asp:ListItem>
                                                 <asp:ListItem Value="12th">12th</asp:ListItem>
                                                 <asp:ListItem Value="Graduation">Graduation</asp:ListItem>
-                                                <asp:ListItem Value="Post-Graduation">Graduation</asp:ListItem>
+                                                <asp:ListItem Value="Post-Graduation">Post-Graduation</asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                         <div class="col-md-2">
@@ -333,15 +337,16 @@
                         </div>
                     </div>
 
-                    <div class="card mb-4">
+                    <!-- Skill Requirements Section -->
+                    <div class="card mb-3">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <span>Skill Requirements</span>
+                            <span class="fw-bold">Skill Requirements</span>
                             <asp:Button ID="btnAddSkill" runat="server" Text="Add Skill" CssClass="btn btn-secondary btn-sm" OnClick="btnAddSkill_Click" />
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-2">
                             <asp:Repeater ID="rptSkills" runat="server" OnItemDataBound="rptSkills_ItemDataBound" OnItemCommand="rptSkills_ItemCommand">
                                 <ItemTemplate>
-                                    <div class="skill-entry row g-3 mb-2">
+                                    <div class="skill-entry row g-2 mb-2">
                                         <div class="col-md-6">
                                             <asp:DropDownList ID="ddlSkill" runat="server" CssClass="form-select skill-dropdown">
                                                 <asp:ListItem Value="">-- Select Skill --</asp:ListItem>
@@ -367,22 +372,32 @@
                     </div>
 
                     <!-- Save Academic and Skill Requirements -->
-                    <div class="mb-4">
-                        <asp:Button ID="btnSaveRequirements" runat="server" Text="Save Academic and Skill Requirements" CssClass="btn btn-primary" OnClick="btnSaveRequirements_Click" />
+                    <div class="mb-3">
+                        <asp:Button ID="btnSaveRequirements" runat="server" Text="Save Academic and Skill Requirements" CssClass="btn btn-primary btn-sm" OnClick="btnSaveRequirements_Click" />
                     </div>
 
                     <!-- Dashboard and Logout Links -->
-                    <div class="mb-4">
-                        <asp:LinkButton ID="lnkViewDashboard" runat="server" CssClass="btn btn-info me-2" OnClick="lnkViewDashboard_Click">View Dashboard</asp:LinkButton>
-                        <asp:LinkButton ID="lnkLogout" runat="server" CssClass="btn btn-warning" OnClick="lnkLogout_Click">Logout</asp:LinkButton>
+                    <div class="mb-3">
+                        <asp:LinkButton ID="lnkViewDashboard" runat="server" CssClass="btn btn-info btn-sm me-2" OnClick="lnkViewDashboard_Click">View Dashboard</asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-warning btn-sm" OnClick="lnkLogout_Click">Logout</asp:LinkButton>
                     </div>
                 </div>
-            </form>
-            <script src="xhtml/vendor/global/global.min.js"></script>
-            <script src="xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-            <script src="xhtml/vendor/chart-js/chart.bundle.min.js"></script>
-            <script src="xhtml/js/custom.min.js"></script>
-            <script src="xhtml/js/deznav-init.js"></script>
-            <script src="xhtml/js/demo.js"></script>
+            </div>
+            <!-- Main Content End -->
+
+
+
+        </div>
+    </form>
+    <!-- Main wrapper end -->
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="xhtml/vendor/global/global.min.js"></script>
+    <script src="xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="xhtml/vendor/chart-js/chart.bundle.min.js"></script>
+    <script src="xhtml/js/custom.min.js"></script>
+    <script src="xhtml/js/deznav-init.js"></script>
+    <script src="xhtml/js/demo.js"></script>
 </body>
 </html>

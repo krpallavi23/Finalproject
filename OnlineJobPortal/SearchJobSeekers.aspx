@@ -205,7 +205,7 @@
                         <li>
                             <a href="SearchJobSeekers.aspx" class="ai-icon">
                                 <i class="flaticon-381-search"></i>
-                                <span class="nav-text">Search JobSeekers</span>
+                                <span class="nav-text">Find JobSeekers</span>
                             </a>
                         </li>
                         <li>
@@ -309,7 +309,6 @@
                                                         <asp:TemplateField HeaderText="Actions">
                                                             <ItemTemplate>
                                                                 <a href='JobSeekerDetails.aspx?JobSeekerID=<%# Eval("JobSeekerID") %>' class="btn btn-primary btn-sm me-2">View Details</a>
-                                                                <asp:Button ID="btnMessage" runat="server" Text="Message" CommandArgument='<%# Eval("JobSeekerID") %>' OnClick="btnMessage_Click" CssClass="btn btn-success btn-sm" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>

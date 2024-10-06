@@ -119,7 +119,7 @@ namespace OnlineJobPortal
         // Redirect to the inbox page
         protected void lnkInbox_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Inbox.aspx"); // Update with your inbox page URL
+            Response.Redirect("ChangeJobSeekerPassword.aspx"); // Update with your inbox page URL
         }
 
         // Clear session and redirect to login page

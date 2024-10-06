@@ -54,7 +54,7 @@
                                             <i class="fas fa-user"></i><span class="ms-2">Profile</span>
                                         </asp:LinkButton>
                                         <asp:LinkButton ID="lnkInbox" runat="server" CssClass="dropdown-item" OnClick="lnkInbox_Click">
-                                            <i class="fas fa-envelope"></i><span class="ms-2">Inbox</span>
+                                            <i class="fas fa-envelope"></i><span class="ms-2">Change Password</span>
                                         </asp:LinkButton>
                                         <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">
                                             <i class="fas fa-sign-out-alt"></i><span class="ms-2">Logout</span>
@@ -82,7 +82,7 @@
                                 <span class="nav-text">Job Application</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="JobApplication.aspx?status=All">All</a></li>
+                                <li><a href="AllJobApplications.aspx?status=All">All</a></li>
                                 <li><a href="AppliedJob.aspx?status=Applied">Applied</a></li>
                                 <li><a href="ShortlistedJob.aspx?status=Shortlisted">Shortlisted</a></li>
                                 <li><a href="SelectedJob.aspx?status=Selected">Selected</a></li>

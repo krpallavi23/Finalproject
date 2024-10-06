@@ -222,7 +222,7 @@
                         <li>
                             <a href="SearchJobSeekers.aspx" class="ai-icon">
                                 <i class="flaticon-381-search"></i>
-                                <span class="nav-text">Search JobSeekers</span>
+                                <span class="nav-text">Find JobSeekers</span>
                             </a>
                         </li>
                         <li>

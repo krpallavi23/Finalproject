@@ -48,7 +48,7 @@
     </div>
   </div>
 </header>
-    </header>
+ </header>
 
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
         <div class="container">

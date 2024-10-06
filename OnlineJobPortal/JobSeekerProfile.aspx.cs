@@ -643,33 +643,34 @@ namespace OnlineJobPortal
                     lblMessage.Visible = true;
                 }
             }
+
         }
-
-        // Handle Dashboard link click
-
-
+       
         protected void lnkViewProfile_Click(object sender, EventArgs e)
         {
             Response.Redirect("JobSeekerProfile.aspx");
         }
 
-        /// <summary>
-        /// Handles the click event for accessing the inbox.
-        /// </summary>
+
+        // Handle Dashboard link click
+        protected void lnkViewDashboard_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("JobSeekerDashboard.aspx");
+        }
+       
+
+        // Handle Inbox link click
         protected void lnkInbox_Click(object sender, EventArgs e)
         {
             Response.Redirect("ChangeJobSeekerPassword.aspx");
         }
 
-        /// <summary>
-        /// Handles the click event for logging out the job seeker.
-        /// </summary>
+        // Handle Logout link click
         protected void lnkLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
             Response.Redirect("JobSeekerLogin.aspx");
         }
-
     }
 
     // Helper classes to represent Academic Detail and Skill

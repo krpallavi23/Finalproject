@@ -190,7 +190,7 @@
                                 <span class="nav-text">Job Application</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="AllJobApplication.aspx">All</a></li>
+                                <li><a href="AllAllJobApplications.aspx">All</a></li>
                                 <li><a href="AppliedJob.aspx?status=Applied">Applied</a></li>
                                 <li><a href="ShortlistedJob.aspx?status=Shortlisted">Shortlisted</a></li>
                                 <li><a href="SelectedJob.aspx?status=Selected">Selected</a></li>
@@ -300,7 +300,7 @@
             <!-- (Your existing footer code remains unchanged) -->
             <div class="footer">
                 <div class="copyright">
-                    <p>© 2024 Qerza. All Rights Reserved.</p>
+                    <p>Made by Ayushi & Pallavi.</p>
                 </div>
             </div>
             <!-- Footer end -->
