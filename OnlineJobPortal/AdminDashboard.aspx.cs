@@ -1,11 +1,15 @@
-﻿
-using System;
+﻿using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.UI;
 
 namespace OnlineJobPortal
 {
     public partial class AdminDashboard : Page
     {
+        // Connection string from web.config
+        private string connectionString = ConfigurationManager.ConnectionStrings["OnlineJobPortalDB"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -18,8 +22,35 @@ namespace OnlineJobPortal
 
         private void LoadAdminName()
         {
-            // Assume you get the admin's name from session or database
-            lblAdminName.Text = "Admin"; // Replace with actual admin name retrieval
+            // Assuming the admin's UserID is stored in session after login
+            if (Session["AdminID"] != null)
+            {
+                int adminId = Convert.ToInt32(Session["AdminID"]);
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT Username FROM [User] WHERE UserID = @UserID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", adminId);
+                        conn.Open();
+
+                        // Execute the query and retrieve the username
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            lblAdminName.Text = result.ToString(); // Set the label to the admin's username
+                        }
+                        else
+                        {
+                            lblAdminName.Text = "Admin"; // Fallback if user not found
+                        }
+                    }
+                }
+            }
+            else
+            {
+                lblAdminName.Text = "Admin"; // Default display if no admin ID in session
+            }
         }
 
         private void LoadDashboardStats()
@@ -60,6 +91,7 @@ namespace OnlineJobPortal
             // Redirect to profile page
             Response.Redirect("AdminProfile.aspx");
         }
+
         protected void lnkInbox_Click(object sender, EventArgs e)
         {
             Response.Redirect("ChangeAdminPassword.aspx");
@@ -77,6 +109,5 @@ namespace OnlineJobPortal
             // Redirect to Manage Jobseeker page
             Response.Redirect("ManageJobseeker.aspx");
         }
-
     }
 }

@@ -197,7 +197,7 @@
                                             <span class="text-black"><strong><asp:Label ID="lblEmployerName" runat="server" Text="Company Name"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Employer</p>
                                         </div>
-                                        <img src="xhtml/images/profile/17.jpg" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <!-- View Profile -->

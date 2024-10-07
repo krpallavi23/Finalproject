@@ -178,10 +178,7 @@
                 <div class="deznav-scroll">
                     <ul class="metismenu" id="menu">
                         <li>
-                            <a href="SearchJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-search"></i>
-                                <span class="nav-text">Search Jobs</span>
-                            </a>
+                            
                         </li>
                         <li>
                             <a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
@@ -197,10 +194,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="LikeJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-heart"></i>
-                                <span class="nav-text">Like Job</span>
-                            </a>
+                            
                         </li>
                         <!-- Remove the '+' if it's unintended -->
                     </ul>

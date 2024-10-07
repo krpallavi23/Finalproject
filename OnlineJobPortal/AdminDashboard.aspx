@@ -1,9 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="OnlineJobPortal.AdminDashboard" %>
+﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="OnlineJobPortal.AdminDashboard" %>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head runat="server">
-    <title>Qerza - Job Portal Admin Dashboard | Bootstrap HTML Template</title>
+    <title>Admin Dashboard | Job Board</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="DexignZone" />
@@ -43,7 +43,7 @@
                                 <div class="dashboard_bar">Admin Dashboard</div>
                             </div>
                             <ul class="navbar-nav header-right">
-                                 <li class="nav-item dropdown header-profile">
+                                <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
                                         <div class="header-info">
                                             <span class="text-black"><strong><asp:Label ID="lblAdminName" runat="server" Text="Admin Name"></asp:Label></strong></span>

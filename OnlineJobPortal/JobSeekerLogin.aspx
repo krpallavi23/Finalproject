@@ -158,7 +158,7 @@
 
                     <div class="row text-center">
                         <div class="col-12">
-                            <p class="copyright"><small>&copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made by <a href="https://colorlib.com" target="_blank">Colorlib</a></small></p>
+                            <p class="copyright"><small>&copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made by Pallavi & Ayushi</small></p>
                         </div>
                     </div>
                 </div>

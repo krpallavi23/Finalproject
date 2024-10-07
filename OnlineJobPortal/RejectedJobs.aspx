@@ -196,10 +196,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="LikeJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-heart"></i>
-                                <span class="nav-text">Like Job</span>
-                            </a>
+                           
                         </li>
                         <!-- Remove the '+' if it's unintended -->
                     </ul>

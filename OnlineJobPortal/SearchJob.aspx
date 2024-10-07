@@ -90,10 +90,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="LikeJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-heart"></i>
-                                <span class="nav-text">Liked Jobs</span>
-                            </a>
+                            
                         </li>
                     </ul>
                 </div>

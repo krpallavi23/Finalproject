@@ -79,7 +79,7 @@ namespace OnlineJobPortal
             {
                 string applicationId = e.CommandArgument.ToString();
                 // Redirect to a details page with the ApplicationID as query parameter
-                Response.Redirect($"ApplicationDetails.aspx?ApplicationID={applicationId}");
+                Response.Redirect($"ViewDetails.aspx?ApplicationID={applicationId}");
             }
         }
 
@@ -319,6 +319,12 @@ namespace OnlineJobPortal
         {
             Response.Redirect("JobSeekerProfile.aspx");
         }
+
+        protected void tnViewDetails_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ViewDetails.aspx");
+        }
+
 
         /// <summary>
         /// Handles the logout process by clearing the session and redirecting to the login page.

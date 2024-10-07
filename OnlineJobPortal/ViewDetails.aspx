@@ -13,6 +13,7 @@
     <link href="xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="xhtml/css/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&display=swap" rel="stylesheet" />
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet" />
 </head>
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1"
       data-headerbg="color_1" data-sidebar-style="mini" data-sidebarbg="color_1" data-sidebar-position="fixed"
@@ -39,6 +40,7 @@
                             <div class="header-left">
                                 <div class="dashboard_bar">Job Details</div>
                             </div>
+
                             <ul class="navbar-nav header-right">
                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
@@ -47,7 +49,7 @@
                                                 <asp:Label ID="lblJobSeekerName" runat="server" Text="John Doe"></asp:Label></strong></span>
                                             <p class="fs-12 mb-0">Job Seeker</p>
                                         </div>
-                                        <img src="xhtml/images/profile/17.jpg" width="20" alt="Profile" />
+                                        <img src="xhtml/images/profile/pro_1.png" width="20" alt="Profile" />
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <asp:LinkButton ID="lnkViewProfile" runat="server" CssClass="dropdown-item" OnClick="lnkViewProfile_Click">
@@ -90,10 +92,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="LikeJob.aspx" class="ai-icon">
-                                <i class="flaticon-381-heart"></i>
-                                <span class="nav-text">Liked Jobs</span>
-                            </a>
+                           
                         </li>
                     </ul>
                 </div>

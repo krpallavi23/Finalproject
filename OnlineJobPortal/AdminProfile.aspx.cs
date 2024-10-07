@@ -18,6 +18,7 @@ namespace OnlineJobPortal
             if (!IsPostBack)
             {
                 LoadAdminData();  // Load admin data to GridView on first load
+                LoadAdminName();  // Load the admin's name
             }
         }
 
@@ -34,6 +35,33 @@ namespace OnlineJobPortal
                     da.Fill(dt);  // Fill DataTable with result from database
                     GridViewAdmins.DataSource = dt;  // Bind DataTable to GridView
                     GridViewAdmins.DataBind();  // Re-bind GridView
+                }
+            }
+        }
+
+        // Load the admin's name from the database
+        private void LoadAdminName()
+        {
+            // Assuming the admin's UserID is stored in session after login
+            if (Session["AdminID"] != null)
+            {
+                int adminId = Convert.ToInt32(Session["AdminID"]);
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    // Since FirstName and LastName do not exist, we will use Username
+                    string query = "SELECT Username FROM [User] WHERE UserID = @UserID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", adminId);
+                        conn.Open();
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            string username = reader["Username"].ToString();
+                            lblAdminName.Text = $"{username}"; // Display the admin's username
+                        }
+                    }
                 }
             }
         }
